@@ -2,39 +2,39 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\bin\x64\Debug\Game.exe</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Debug\Game.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\DebugPS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugPS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\DebugVS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugVS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\ImGuiPS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\ImGuiPS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\ImGuiVS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\ImGuiVS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\LambertPS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LambertPS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\LambertVS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LambertVS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\LinePS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LinePS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\LineVS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LineVS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\SpritePS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\SpritePS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\2240705\Desktop\2 Months Project\Shader\SpriteVS.cso</FullPath>
+      <FullPath>C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\SpriteVS.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
