@@ -5,6 +5,7 @@
 #include "Input/Input.h"
 #include "SceneGame.h"
 #include "Framework.h"
+#include "CameraControl.h"
 
 static SceneGame sceneGame;
 
@@ -31,6 +32,8 @@ void Framework::Update(float elapsedTime/*Elapsed seconds from last frame*/)
 {
 	// 入力更新処理
 	input.Update();
+
+	camera_controls::instance().Update(hWnd, elapsedTime);
 
 	// シーン更新処理
 	sceneGame.Update(elapsedTime);
@@ -149,6 +152,9 @@ LRESULT CALLBACK Framework::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LP
 		// WM_EXITSIZEMOVE is sent when the user releases the resize bars.
 		// Here we reset everything based on the new window dimensions.
 		timer.Start();
+		break;
+	case WM_MOUSEWHEEL:
+		camera_controls::instance().setWheel(GET_WHEEL_DELTA_WPARAM(wParam));
 		break;
 	default:
 		return DefWindowProc(hWnd, msg, wParam, lParam);
