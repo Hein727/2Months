@@ -7,9 +7,11 @@ void SceneGame::Initialize()
 {
 	stage = std::make_unique<Stage>();
 
-	player = new Army(5, false); // –¡•ûŒR
+	player = new Army(20, false); // –¡•ûŒR
 
-	enemy = new Army(3, true, {10.0f , 0.0f, 10.0f}); // “GŒR
+	enemy = new Army(3, true, { 40.0f , 0.0f, 40.0f }); // “GŒR
+
+	enemy->SetEnemyArmyMoveSpeed(0.5f);
 }
 
 // I—¹‰»
@@ -29,7 +31,7 @@ void SceneGame::Update(float elapsedTime)
 		enemy->EnemyFindPlayerArmy(player->centerPosition);
 	}
 
-	//enemy->Update(elapsedTime);
+	enemy->Update(elapsedTime);
 }
 
 // •`‰æˆ—

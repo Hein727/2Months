@@ -9,8 +9,19 @@
 class Army
 {
 public : 
+
+	void SetEnemyArmyMoveSpeed(const float speed)
+	{
+		moveSpeed = speed;
+	}
+
+
 	Army(const int size = 5, const bool enemy = false, const DirectX::XMFLOAT3 centerPosition = {0, 0, 0})
 	{
+		armyState = START;
+		right = DirectX::XMVectorSet(1, 0, 0, 0);
+		up = DirectX::XMVectorSet(0, 1, 0, 0);
+		forward = DirectX::XMVectorSet(0, 0, 1, 0);
 		this->size = size;
 		units.reserve(size);
 		EnemyType = enemy;
@@ -99,7 +110,7 @@ public :
 	{
 		return move;
 	}
-
+	
 	DirectX::XMFLOAT3 playerArmyPos = { 0,0,0 };
 	DirectX::XMFLOAT3 playerArmyDir = { 0,0,0 };
 protected:

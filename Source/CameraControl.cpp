@@ -24,6 +24,7 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 
 	float moveX = (cursor_position.x - old_cursor.x) * 0.5f * elapsedTime;
 	float moveY = (cursor_position.y - old_cursor.y) * 0.5f * elapsedTime;
+
 	if (::GetAsyncKeyState(VK_LMENU) & 0x8000)
 	{
 		if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
@@ -72,6 +73,8 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 			wheel = 0;
 		}
 	}
+
+
 	float sx = ::sinf(rotateX), cx = ::cosf(rotateX);
 	float sy = ::sinf(rotateY), cy = ::cosf(rotateY);
 	DirectX::XMVECTOR Focus = DirectX::XMLoadFloat3(&focus);

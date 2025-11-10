@@ -107,12 +107,17 @@ void Army::Update(float elapsedTime)
 #endif
 
 	static bool mouseIsDown = false;
-	static bool turning = false;
 	static bool isDown = false;
 
 	/////Player army logic/////
 	if (!EnemyType)
 	{
+		isDown = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+		if (isDown && !mouseIsDown)
+		{
+			GetTarget();
+		}
+
 		switch (armyState)
 		{
 		case START:
@@ -121,62 +126,51 @@ void Army::Update(float elapsedTime)
 			armyState = army_state::IDLE;
 			break;
 		case IDLE:
-			isDown = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
-			if (isDown && !mouseIsDown && !turning)
+			
+
+			if (isDown)
 			{
-				GetTarget();
-				turning = true;
+				armyState = army_state::MOVE;
 				for (auto& unit : units)
 				{
 					unit->SetState(Unit::state::MAIN_LOGIC);
 				}
-				armyState = army_state::ROTATE;
-			}
-
-			break;
-		case ROTATE:
-			if (turning)
-			{
-				XMVECTOR orientationVec = XMLoadFloat4(&orientation);
-				XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
-				XMFLOAT4X4 m4x4 = {};
-				XMStoreFloat4x4(&m4x4, m);
-				right = { m4x4._11, m4x4._12, m4x4._13 };
-				up = { m4x4._21, m4x4._22, m4x4._23 };
-				forward = { m4x4._31, m4x4._32, m4x4._33 };
-
-				XMVECTOR dir = XMLoadFloat3(&targetDir);
-
-				float angle;
-				angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
-				XMVECTOR cross = XMVector3Cross(forward, dir);
-				float sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
-				angle *= sign;
-
-				if (fabs(angle) > FLT_EPSILON)
-				{
-					XMVECTOR q = XMQuaternionRotationAxis(up, angle);
-
-					q = XMQuaternionMultiply(orientationVec, q);
-					orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
-					XMStoreFloat4(&orientation, orientationVec);
-				}
-				else
-				{
-					turning = false;
-					armyState = army_state::MOVE;
-				}
 			}
 			break;
 		case MOVE:
-			centerPosition.x += targetDir.x * moveSpeed * elapsedTime;
-			centerPosition.z += targetDir.z * moveSpeed * elapsedTime;
-			distance -= moveSpeed * elapsedTime;
-			if (distance <= 0.0f)
+
+			XMVECTOR orientationVec = XMLoadFloat4(&orientation);
+			XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
+			XMFLOAT4X4 m4x4 = {};
+			DirectX::XMStoreFloat4x4(&m4x4, m);
+			right = { m4x4._11, m4x4._12, m4x4._13 };
+			up = { m4x4._21, m4x4._22, m4x4._23 };
+			forward = { m4x4._31, m4x4._32, m4x4._33 };
+
+			XMVECTOR dir = XMLoadFloat3(&targetDir);
+
+			float angle;
+			angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
+			XMVECTOR cross = XMVector3Cross(forward, dir);
+			float sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
+			angle *= sign;
+
+			if (fabs(angle) > FLT_EPSILON)
 			{
-				armyState = army_state::IDLE;
+				XMVECTOR q = XMQuaternionRotationAxis(up, angle);
+
+				q = XMQuaternionMultiply(orientationVec, q);
+				orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
+				XMStoreFloat4(&orientation, orientationVec);
 			}
-			break;
+			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition))));
+			distance -= moveSpeed * elapsedTime;
+
+			if (distance > 0.0f)
+			{
+				centerPosition.x += targetDir.x * moveSpeed * elapsedTime;
+				centerPosition.z += targetDir.z * moveSpeed * elapsedTime;
+			}
 
 			mouseIsDown = isDown;
 		}
@@ -197,13 +191,17 @@ void Army::Update(float elapsedTime)
 			if (fabs(playerArmyDir.x) > 0.001f || fabs(playerArmyDir.z) > 0.001f)
 			{
 				armyState = army_state::ROTATE;
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::MAIN_LOGIC);
+				}
 			}
 			break;
 		case ROTATE:
 			XMVECTOR orientationVec = XMLoadFloat4(&orientation);
 			XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
 			XMFLOAT4X4 m4x4 = {};
-			XMStoreFloat4x4(&m4x4, m);
+			DirectX::XMStoreFloat4x4(&m4x4, m);
 			right = { m4x4._11, m4x4._12, m4x4._13 };
 			up = { m4x4._21, m4x4._22, m4x4._23 };
 			forward = { m4x4._31, m4x4._32, m4x4._33 };
@@ -224,25 +222,19 @@ void Army::Update(float elapsedTime)
 				orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
 				XMStoreFloat4(&orientation, orientationVec);
 			}
-			else
-			{
-				turning = false;
-				armyState = army_state::MOVE;
-			}
-			for (auto& unit : units)
-			{
-				unit->SetCenterPosition(centerPosition);
-				unit->SetDirections(forward, right);
-			}
-			break;
-		case MOVE:
 			centerPosition.x += playerArmyDir.x * moveSpeed * elapsedTime;
 			centerPosition.z += playerArmyDir.z * moveSpeed * elapsedTime;
+			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&playerArmyPos), XMLoadFloat3(&centerPosition))));
 			distance -= moveSpeed * elapsedTime;
 			if (distance <= 0.0f)
 			{
 				armyState = army_state::IDLE;
 				move = true;
+			}
+			for (auto& unit : units)
+			{
+				unit->SetCenterPosition(centerPosition);
+				unit->SetDirections(forward, right);
 			}
 			break;
 		}
@@ -354,6 +346,4 @@ void Army::GetTarget()
 		&targetDir,
 			DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition)))
 	);
-
-	distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition))));
 }

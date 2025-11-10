@@ -16,6 +16,7 @@ public:
 	DirectX::XMFLOAT4X4 get_view() const { return view; }
 	DirectX::XMFLOAT4X4 get_projection() const { return projection; }
 	POINT get_cursor_position() const { return cursor_position; }
+	void SetFocus(const DirectX::XMFLOAT3 new_focus) { focus = new_focus; }	
 
 private :
 	camera_controls();
@@ -30,6 +31,6 @@ private :
 	POINT cursor_position{ 0, 0 };
 	float rotateX{ 0.0f };
 	float rotateY{ DirectX::XMConvertToRadians(180.0f) };
-	float distance{ 10.0f };
+	float distance{ 40.0f };
 	float wheel{ 0.0f };
 };
