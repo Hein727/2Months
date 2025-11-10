@@ -1,5 +1,6 @@
 #pragma once
 #include "Stage.h"
+#include "Army.h"
 #include <memory>
 
 // ƒQ[ƒ€ƒV[ƒ“
@@ -24,4 +25,6 @@ public:
 protected:
 
 	std::unique_ptr<Stage> stage;
+	Army* player;
+	Army* enemy;
 };

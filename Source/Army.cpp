@@ -1,0 +1,359 @@
+#include "Army.h"
+#include "Units.h"
+#include <ctime>
+#include <cstdlib>
+#include "CameraControl.h"
+#include "Graphics/Graphics.h"
+#include "Miscellaneous.h"
+#include "Stage.h"
+
+void Army::FindOffsetFromCenter()
+{
+	for (auto& unit : units)
+	{
+		unit->offsetFromCenter =
+		{
+			unit->GetPositionInFormation().x - centerPosition.x,
+			0.0f,
+			unit->GetPositionInFormation().z - centerPosition.z
+		};
+	}
+}
+
+void Army::AddUnit(const int amount)
+{
+    int newUnits = rand() % 5 + 1;
+
+    int adjustedAmount = (amount <= 0) ? size : amount;
+
+    for (int i = 0; i < adjustedAmount; ++i)
+    {
+        auto unit = std::make_unique<Unit>();
+        unit->SetID(Id++);
+        units.push_back(std::move(unit));
+    }
+
+	size += amount;
+
+    SortFormation();
+}
+
+void Army::SortFormation(const DirectX::XMFLOAT3 pos)
+{
+	formationWidth = size > 10 ? 10 : size;                    // max 10 units per row
+	formationLength = size > 10 ? size / 10 : 1;
+
+	float halfWidth = formationWidth * spacing * 0.5f;
+	float halfLength = formationLength * spacing * 0.5f;
+
+	std::vector<XMFLOAT3> offsets;
+
+	for (int i = 0; i < size; ++i)
+	{
+		int row = i / formationWidth;
+		int col = i % static_cast<int>(formationWidth);
+
+		XMFLOAT3 offset;
+		offset.x = (col * spacing) - halfWidth;   // left/right from center
+		offset.y = 0.0f;
+		offset.z = (row * spacing) - halfLength;  // forward/back from center
+
+		offsets.push_back(offset);
+	}
+
+	XMMATRIX rotation = XMMatrixRotationQuaternion(XMLoadFloat4(&orientation));
+
+	for (int i = 0; i < size; ++i)
+	{
+		XMVECTOR offsetVec = XMLoadFloat3(&offsets[i]);
+		XMVECTOR rotatedOffset = XMVector3TransformCoord(offsetVec, rotation);
+
+		XMFLOAT3 finalOffset;
+		XMStoreFloat3(&finalOffset, rotatedOffset);
+
+		units[i]->SetPositionInFormation({
+			centerPosition.x + finalOffset.x,
+			centerPosition.y + finalOffset.y,
+			centerPosition.z + finalOffset.z
+		});
+	}
+
+	FindOffsetFromCenter();
+}
+
+void Army::FindCenter()
+{
+	XMFLOAT3 pos = units.empty() ? DirectX::XMFLOAT3{ 0.0f, 0.0f, 0.0f } : units[0]->GetPosition();
+
+	centerPosition.x = pos.x + (formationWidth / 2.0f) * spacing;
+	centerPosition.y = pos.y;
+	centerPosition.z = pos.z - (formationLength / 2.0f) * spacing;
+}
+
+void Army::Update(float elapsedTime)
+{
+	//Debug
+#if 1
+	if(GetAsyncKeyState('G') & 0x0001)
+	{
+		AddUnit(1);
+	}
+
+	if (GetAsyncKeyState('R') & 0x0001)
+	{
+		RemoveUnit();
+	}
+
+#endif
+
+	static bool mouseIsDown = false;
+	static bool turning = false;
+	static bool isDown = false;
+
+	/////Player army logic/////
+	if (!EnemyType)
+	{
+		switch (armyState)
+		{
+		case START:
+			AddUnit();
+			FindCenter();
+			armyState = army_state::IDLE;
+			break;
+		case IDLE:
+			isDown = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+			if (isDown && !mouseIsDown && !turning)
+			{
+				GetTarget();
+				turning = true;
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::MAIN_LOGIC);
+				}
+				armyState = army_state::ROTATE;
+			}
+
+			break;
+		case ROTATE:
+			if (turning)
+			{
+				XMVECTOR orientationVec = XMLoadFloat4(&orientation);
+				XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
+				XMFLOAT4X4 m4x4 = {};
+				XMStoreFloat4x4(&m4x4, m);
+				right = { m4x4._11, m4x4._12, m4x4._13 };
+				up = { m4x4._21, m4x4._22, m4x4._23 };
+				forward = { m4x4._31, m4x4._32, m4x4._33 };
+
+				XMVECTOR dir = XMLoadFloat3(&targetDir);
+
+				float angle;
+				angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
+				XMVECTOR cross = XMVector3Cross(forward, dir);
+				float sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
+				angle *= sign;
+
+				if (fabs(angle) > FLT_EPSILON)
+				{
+					XMVECTOR q = XMQuaternionRotationAxis(up, angle);
+
+					q = XMQuaternionMultiply(orientationVec, q);
+					orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
+					XMStoreFloat4(&orientation, orientationVec);
+				}
+				else
+				{
+					turning = false;
+					armyState = army_state::MOVE;
+				}
+			}
+			break;
+		case MOVE:
+			centerPosition.x += targetDir.x * moveSpeed * elapsedTime;
+			centerPosition.z += targetDir.z * moveSpeed * elapsedTime;
+			distance -= moveSpeed * elapsedTime;
+			if (distance <= 0.0f)
+			{
+				armyState = army_state::IDLE;
+			}
+			break;
+
+			mouseIsDown = isDown;
+		}
+	}
+
+
+	/////Enemy army logic/////
+	else
+	{
+		switch (armyState)
+		{
+		case START:
+			AddUnit();
+			FindCenter();
+			armyState = army_state::IDLE;
+			break;
+		case IDLE:
+			if (fabs(playerArmyDir.x) > 0.001f || fabs(playerArmyDir.z) > 0.001f)
+			{
+				armyState = army_state::ROTATE;
+			}
+			break;
+		case ROTATE:
+			XMVECTOR orientationVec = XMLoadFloat4(&orientation);
+			XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
+			XMFLOAT4X4 m4x4 = {};
+			XMStoreFloat4x4(&m4x4, m);
+			right = { m4x4._11, m4x4._12, m4x4._13 };
+			up = { m4x4._21, m4x4._22, m4x4._23 };
+			forward = { m4x4._31, m4x4._32, m4x4._33 };
+
+			XMVECTOR dir = XMLoadFloat3(&playerArmyDir);
+
+			float angle;
+			angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
+			if (fabs(angle) > FLT_EPSILON)
+			{
+				XMVECTOR cross = XMVector3Cross(forward, dir);
+				float sign = 0.0f;
+				sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
+				angle *= sign;
+				XMVECTOR q = XMQuaternionRotationAxis(up, angle);
+
+				q = XMQuaternionMultiply(orientationVec, q);
+				orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
+				XMStoreFloat4(&orientation, orientationVec);
+			}
+			else
+			{
+				turning = false;
+				armyState = army_state::MOVE;
+			}
+			for (auto& unit : units)
+			{
+				unit->SetCenterPosition(centerPosition);
+				unit->SetDirections(forward, right);
+			}
+			break;
+		case MOVE:
+			centerPosition.x += playerArmyDir.x * moveSpeed * elapsedTime;
+			centerPosition.z += playerArmyDir.z * moveSpeed * elapsedTime;
+			distance -= moveSpeed * elapsedTime;
+			if (distance <= 0.0f)
+			{
+				armyState = army_state::IDLE;
+				move = true;
+			}
+			break;
+		}
+	}
+	
+	
+	for (auto& unit : units)
+	{
+		unit->SetCenterPosition(centerPosition);
+		unit->SetDirections(forward, right);
+		unit->Update(elapsedTime);
+	}
+}
+
+void Army::Render(ID3D11DeviceContext* dc, Shader* shader)
+{
+	for(auto& unit : units)
+	{
+		unit->Render(dc, shader);
+	}
+}
+
+void Army::GetTarget()
+{
+	// マウスのスクリーン座標を取得
+	POINT target = camera_controls::instance().get_cursor_position();
+	float mouseX = static_cast<float>(target.x);
+	float mouseY = static_cast<float>(target.y);
+	float mouseZ = 0.0f;
+
+	DirectX::XMMATRIX proj = DirectX::XMLoadFloat4x4(&camera_controls::instance().get_projection());
+	DirectX::XMMATRIX view = DirectX::XMLoadFloat4x4(&camera_controls::instance().get_view());
+	DirectX::XMMATRIX world = DirectX::XMMatrixIdentity();
+
+	DirectX::XMVECTOR NDCPosition = DirectX::XMVectorSet(
+		2.0f * mouseX / Graphics::Instance().GetScreenWidth() - 1.0f,
+		1.0f - 2.0f * (mouseY / Graphics::Instance().GetScreenHeight()),
+		mouseZ / 1.0f, 1.0f
+	);
+
+	DirectX::XMMATRIX WVP = world * view * proj;
+	DirectX::XMMATRIX invWVP = DirectX::XMMatrixInverse(nullptr, WVP);
+	DirectX::XMVECTOR worldPos = DirectX::XMVector3TransformCoord(NDCPosition, invWVP);
+
+	DirectX::XMFLOAT3 rayStart;
+	DirectX::XMStoreFloat3(&rayStart, worldPos);
+
+	NDCPosition = DirectX::XMVectorSet(
+		2.0f * mouseX / Graphics::Instance().GetScreenWidth() - 1.0f,
+		1.0f - 2.0f * (mouseY / Graphics::Instance().GetScreenHeight()),
+		(mouseZ + 1.0f)/1.0f, 1.0f
+	);
+
+	WVP = world * view * proj;
+	invWVP = DirectX::XMMatrixInverse(nullptr, WVP);
+	worldPos = DirectX::XMVector3TransformCoord(NDCPosition, invWVP);
+
+	DirectX::XMFLOAT3 rayEnd;
+	DirectX::XMStoreFloat3(&rayEnd, worldPos);
+
+	DirectX::XMVECTOR rayOrigin = XMLoadFloat3(&rayStart);
+	DirectX::XMVECTOR rayEndVec = XMLoadFloat3(&rayEnd);
+	DirectX::XMVECTOR rayDir = DirectX::XMVector3Normalize(
+		DirectX::XMVectorSubtract(rayEndVec, rayOrigin)
+	);
+
+	float originY = DirectX::XMVectorGetY(rayOrigin);
+	float dirY = DirectX::XMVectorGetY(rayDir);
+
+	// Prevent divide by zero if the ray is parallel to the ground
+	if (fabsf(dirY) > 1e-6f)
+	{
+		float t = -originY / dirY; // how far along the ray we hit the ground
+		DirectX::XMVECTOR hitPos = DirectX::XMVectorAdd(rayOrigin, DirectX::XMVectorScale(rayDir, t));
+
+		DirectX::XMStoreFloat3(&targetPos, hitPos);
+	}
+	else
+	{
+		// If ray is parallel, just ignore or set a default
+		targetPos = { 0.0f, 0.0f, 0.0f };
+	}
+
+	targetPos.y = 0.0f;
+
+	Stage* stage = new Stage;
+ 
+    if (targetPos.x < stage->stageBoundaryX[0])
+    {
+        targetPos.x = stage->stageBoundaryX[0];
+    }
+    else if (targetPos.x > stage->stageBoundaryX[1])
+    {
+        targetPos.x = stage->stageBoundaryX[1];
+    }
+
+    if (targetPos.z < stage->stageBoundaryZ[0])
+    {
+        targetPos.z = stage->stageBoundaryZ[0];
+    }
+    else if (targetPos.z > stage->stageBoundaryZ[1])
+    {
+        targetPos.z = stage->stageBoundaryZ[1];
+    }
+
+	delete stage;
+
+	DirectX::XMStoreFloat3(
+		&targetDir,
+			DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition)))
+	);
+
+	distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition))));
+}

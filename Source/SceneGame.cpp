@@ -2,10 +2,14 @@
 #include "SceneGame.h"
 #include "CameraControl.h"
 
-// ‰Šú‰»
+// ‰Šú‰»  
 void SceneGame::Initialize()
 {
 	stage = std::make_unique<Stage>();
+
+	player = new Army(5, false); // –¡•ûŒR
+
+	enemy = new Army(3, true, {10.0f , 0.0f, 10.0f}); // “GŒR
 }
 
 // I—¹‰»
@@ -17,6 +21,15 @@ void SceneGame::Finalize()
 void SceneGame::Update(float elapsedTime)
 {
 	stage->Update(elapsedTime);
+
+	player->Update(elapsedTime);
+
+	if (enemy != nullptr)
+	{
+		enemy->EnemyFindPlayerArmy(player->centerPosition);
+	}
+
+	//enemy->Update(elapsedTime);
 }
 
 // •`‰æˆ—
@@ -45,6 +58,8 @@ void SceneGame::Render()
 		Shader* shader = graphics.GetShader();
 		shader->Begin(dc, rc);
 		stage->Render(dc, shader);
+		player->Render(dc, shader);
+		enemy->Render(dc, shader);
 		shader->End(dc);
 
 	}
@@ -65,6 +80,18 @@ void SceneGame::Render()
 
 	// 2DƒfƒoƒbƒOGUI•`‰æ
 	{
+		ImGui::Begin("Player");
+        ImGui::SliderFloat3("Target :", reinterpret_cast<float*>(&player->targetPos.x), -100.0f, 100.0f);
+        ImGui::SliderFloat3("TargetDir :", reinterpret_cast<float*>(&player->targetDir.x), -100.0f, 100.0f);
+        ImGui::SliderFloat3("CenterPos :", reinterpret_cast<float*>(&player->centerPosition.x), -100.0f, 100.0f);
+        ImGui::SliderFloat3("Forward :", reinterpret_cast<float*>(&player->forward), -100.0f, 100.0f);
+		ImGui::End();
 
+		ImGui::Begin("Enemy");
+		ImGui::SliderFloat3("Target :", reinterpret_cast<float*>(&enemy->playerArmyPos.x), -100.0f, 100.0f);
+		ImGui::SliderFloat3("TargetDir :", reinterpret_cast<float*>(&enemy->playerArmyDir.x), -100.0f, 100.0f);
+		ImGui::SliderFloat3("CenterPos :", reinterpret_cast<float*>(&enemy->centerPosition.x), -100.0f, 100.0f);
+		ImGui::SliderFloat3("Forward :", reinterpret_cast<float*>(&enemy->forward), -100.0f, 100.0f);
+		ImGui::End();
 	}
 }

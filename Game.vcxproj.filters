@@ -123,6 +123,15 @@
     <ClInclude Include="Source\CameraControl.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Units.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Army.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Miscellaneous.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -201,6 +210,12 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\CameraControl.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Units.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Army.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

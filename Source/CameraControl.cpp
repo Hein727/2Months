@@ -24,50 +24,53 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 
 	float moveX = (cursor_position.x - old_cursor.x) * 0.5f * elapsedTime;
 	float moveY = (cursor_position.y - old_cursor.y) * 0.5f * elapsedTime;
-	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+	if (::GetAsyncKeyState(VK_LMENU) & 0x8000)
 	{
-		rotateY += moveX * 0.5f;
-		if (rotateY > DirectX::XM_PI)
+		if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 		{
-			rotateY -= DirectX::XM_2PI;
+			rotateY += moveX * 0.5f;
+			if (rotateY > DirectX::XM_PI)
+			{
+				rotateY -= DirectX::XM_2PI;
+			}
+			else if (rotateY < -DirectX::XM_PI)
+			{
+				rotateY += DirectX::XM_2PI;
+			}
+
+			rotateX += moveY * 0.5f;
+			if (rotateX > DirectX::XMConvertToRadians(89.9f))
+			{
+				rotateX = DirectX::XMConvertToRadians(89.9f);
+			}
+			else if (rotateX < -DirectX::XMConvertToRadians(89.9f))
+			{
+				rotateX = -DirectX::XMConvertToRadians(89.9f);
+			}
 		}
-		else if (rotateY < -DirectX::XM_PI)
+		if (::GetAsyncKeyState(VK_MBUTTON) & 0x8000)
 		{
-			rotateY += DirectX::XM_2PI;
-		}
+			Update_transform();
 
-		rotateX += moveY * 0.5f;
-		if (rotateX > DirectX::XMConvertToRadians(89.9f))
+			DirectX::XMFLOAT4X4 W;
+			DirectX::XMStoreFloat4x4(&W, DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&view)));
+
+			float s = distance * 0.1f;
+			float x = moveX * s;
+			float y = moveY * s;
+			focus.x -= W._11 * x;
+			focus.y -= W._12 * x;
+			focus.z -= W._13 * x;
+
+			focus.x += W._21 * y;
+			focus.y += W._22 * y;
+			focus.z += W._23 * y;
+		}
+		if (wheel != 0)
 		{
-			rotateX = DirectX::XMConvertToRadians(89.9f);
+			distance -= static_cast<float>(wheel) * distance * 0.001f;
+			wheel = 0;
 		}
-		else if (rotateX < -DirectX::XMConvertToRadians(89.9f))
-		{
-			rotateX = -DirectX::XMConvertToRadians(89.9f);
-		}
-	}
-	if (::GetAsyncKeyState(VK_MBUTTON) & 0x8000)
-	{
-		Update_transform();
-
-		DirectX::XMFLOAT4X4 W;
-		DirectX::XMStoreFloat4x4(&W, DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&view)));
-
-		float s = distance * 0.1f;
-		float x = moveX * s;
-		float y = moveY * s;
-		focus.x -= W._11 * x;
-		focus.y -= W._12 * x;
-		focus.z -= W._13 * x;
-
-		focus.x += W._21 * y;
-		focus.y += W._22 * y;
-		focus.z += W._23 * y;
-	}
-	if (wheel != 0)
-	{
-		distance -= static_cast<float>(wheel) * distance * 0.001f;
-		wheel = 0;
 	}
 	float sx = ::sinf(rotateX), cx = ::cosf(rotateX);
 	float sy = ::sinf(rotateY), cy = ::cosf(rotateY);
@@ -85,7 +88,7 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 		UINT num_viewports{ 1 };
 		Graphics::Instance().GetDeviceContext()->RSGetViewports(&num_viewports, &viewport);
 		float aspect{ viewport.Width / viewport.Height };
-		P = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(30.0f), aspect, 0.1f, 100.0f);
+		P = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(30.0f), aspect, 0.1f, 1000.0f);
 		DirectX::XMStoreFloat4x4(&projection, P);
 	}
 }

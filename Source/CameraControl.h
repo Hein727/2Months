@@ -15,6 +15,7 @@ public:
 	void setWheel(float wheel) { this->wheel = wheel; }	
 	DirectX::XMFLOAT4X4 get_view() const { return view; }
 	DirectX::XMFLOAT4X4 get_projection() const { return projection; }
+	POINT get_cursor_position() const { return cursor_position; }
 
 private :
 	camera_controls();

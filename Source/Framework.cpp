@@ -33,6 +33,7 @@ void Framework::Update(float elapsedTime/*Elapsed seconds from last frame*/)
 	// 入力更新処理
 	input.Update();
 
+
 	camera_controls::instance().Update(hWnd, elapsedTime);
 
 	// シーン更新処理
