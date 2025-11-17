@@ -108,7 +108,7 @@ void Army::Update(float elapsedTime)
 
 	static bool mouseIsDown = false;
 	static bool isDown = false;
-
+	static float sign = 0.0f;
 	/////Player army logic/////
 	if (!EnemyType)
 	{
@@ -150,7 +150,7 @@ void Army::Update(float elapsedTime)
 			float angle;
 			angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
 			XMVECTOR cross = XMVector3Cross(forward, dir);
-			float sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
+			sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
 			angle *= sign;
 
 			if (fabs(angle) > FLT_EPSILON)
@@ -172,6 +172,7 @@ void Army::Update(float elapsedTime)
 
 			mouseIsDown = isDown;
 
+			break;
 		case ATTACK:
 			if (isDown)
 			{
@@ -189,7 +190,6 @@ void Army::Update(float elapsedTime)
 				{
 					unit->SetState(Unit::state::ATTACK);
 					unit->SetCenterPosition(centerPosition);
-					unit->SetAttackTargetPosition(targetArmy->centerPosition);
 				}
 				
 				UnitTargetting();
@@ -344,27 +344,27 @@ void Army::GetTarget()
 
 	targetPos.y = 0.0f;
 
-	Stage* stage = new Stage;
- 
-    if (targetPos.x < stage->stageBoundaryX[0])
-    {
-        targetPos.x = stage->stageBoundaryX[0];
-    }
-    else if (targetPos.x > stage->stageBoundaryX[1])
-    {
-        targetPos.x = stage->stageBoundaryX[1];
-    }
+	//Stage* stage = new Stage;
+ //
+ //   if (targetPos.x < stage->stageBoundaryX[0])
+ //   {
+ //       targetPos.x = stage->stageBoundaryX[0];
+ //   }
+ //   else if (targetPos.x > stage->stageBoundaryX[1])
+ //   {
+ //       targetPos.x = stage->stageBoundaryX[1];
+ //   }
 
-    if (targetPos.z < stage->stageBoundaryZ[0])
-    {
-        targetPos.z = stage->stageBoundaryZ[0];
-    }
-    else if (targetPos.z > stage->stageBoundaryZ[1])
-    {
-        targetPos.z = stage->stageBoundaryZ[1];
-    }
+ //   if (targetPos.z < stage->stageBoundaryZ[0])
+ //   {
+ //       targetPos.z = stage->stageBoundaryZ[0];
+ //   }
+ //   else if (targetPos.z > stage->stageBoundaryZ[1])
+ //   {
+ //       targetPos.z = stage->stageBoundaryZ[1];
+ //   }
 
-	delete stage;
+	//delete stage;
 
 	DirectX::XMStoreFloat3(
 		&targetDir,

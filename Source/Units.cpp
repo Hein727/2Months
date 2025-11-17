@@ -32,8 +32,9 @@ void Unit::Update(float elapsedTime)
 			)
 		);
 		DirectX::XMStoreFloat3(&position, worldPos);
-	case TARGETING:
-		
+	case ATTACK:
+		DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
+		DirectX::XMVECTOR targetPos = DirectX::XMLoadFloat3(&TargetUnit->position);
 		break;
 	}
 

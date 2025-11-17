@@ -30,6 +30,8 @@ void SceneGame::Update(float elapsedTime)
 
 	player->Update(elapsedTime);
 
+	camera_controls::instance().SetFocus(player->centerPosition);
+
 	if (enemy != nullptr)
 	{
 		enemy->EnemyFindPlayerArmy(player->centerPosition);

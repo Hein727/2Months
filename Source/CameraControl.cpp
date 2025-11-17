@@ -22,9 +22,9 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 	cursor_position.x = (LONG)(point.x / static_cast<float>(Graphics::Instance().GetScreenWidth()) * static_cast<float>(screenW));
 	cursor_position.y = (LONG)(point.y / static_cast<float>(Graphics::Instance().GetScreenHeight()) * static_cast<float>(screenH));
 
+#if _DEBUG
 	float moveX = (cursor_position.x - old_cursor.x) * 0.5f * elapsedTime;
 	float moveY = (cursor_position.y - old_cursor.y) * 0.5f * elapsedTime;
-
 	if (::GetAsyncKeyState(VK_LMENU) & 0x8000)
 	{
 		if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
@@ -74,7 +74,6 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 		}
 	}
 
-
 	float sx = ::sinf(rotateX), cx = ::cosf(rotateX);
 	float sy = ::sinf(rotateY), cy = ::cosf(rotateY);
 	DirectX::XMVECTOR Focus = DirectX::XMLoadFloat3(&focus);
@@ -83,7 +82,21 @@ void camera_controls::Update(HWND hwnd, float elapsedTime)
 	Front = DirectX::XMVectorMultiply(Front, Distance);
 	DirectX::XMVECTOR Eye = DirectX::XMVectorSubtract(Focus, Front);
 	DirectX::XMStoreFloat3(&position, Eye);
+
 	Update_transform();
+#else
+	
+	float tilt = DirectX::XMConvertToRadians(30.0f); // angle of tilt
+	float height = distance * sinf(tilt);            // upward offset
+	float back = distance * cosf(tilt);            // backward offset
+
+	// Camera position behind + above target (HADES STYLE)
+	position.x = focus.x;
+	position.y = focus.y + height;
+	position.z = focus.z + back;
+
+	Update_transform();  // look at focus
+#endif
 	
 	DirectX::XMMATRIX P;
 	{

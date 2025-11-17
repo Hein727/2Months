@@ -38,7 +38,10 @@ public :
 			cosf(angle / 2)
 		};
 	};
-	virtual ~Army() {};
+	virtual ~Army() 
+	{
+		enemyUnits.clear();
+	};
 	void FindCenter();
 	void Update(float deltaTime);
 	void SortFormation(const DirectX::XMFLOAT3 pos = {0.0f, 0.0f, 0.0f});
@@ -154,9 +157,15 @@ public :
 		}
 	}
 
-	std::vector<std::unique_ptr<Unit>> GetUnits() const
+	std::vector<Unit*> GetUnits() const
 	{
-		return units;
+		std::vector<Unit*> unitPtrs;
+		unitPtrs.clear();
+		for (const auto& unit : units)
+		{
+			unitPtrs.push_back(unit.get());
+		}
+		return unitPtrs;
 	}
 
 	bool targetSet = false;
@@ -167,11 +176,25 @@ private :
 	{
 		if (targetArmy == nullptr) return;
 
-		
+		enemyUnits = targetArmy->GetUnits();
+
+		int targetIndex = 0;
+
+		int numEnemyUnits = static_cast<int>(enemyUnits.size());
+
+		for (auto& unit : units)
+		{
+			unit->SetTargetUnit(enemyUnits[targetIndex]);
+			targetIndex++;
+			if(targetIndex >= numEnemyUnits)
+				targetIndex = 0;
+		}
 	}
 
 protected:
 	Army* targetArmy = nullptr;
+
+	std::vector<Unit*> enemyUnits;
 
 	bool inCombat = false;
 };
