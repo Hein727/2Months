@@ -24,6 +24,10 @@ void SceneGame::Update(float elapsedTime)
 {
 	stage->Update(elapsedTime);
 
+	player->FindTargetArmy(enemy);
+
+	enemy->FindTargetArmy(player);
+
 	player->Update(elapsedTime);
 
 	if (enemy != nullptr)
@@ -87,6 +91,7 @@ void SceneGame::Render()
         ImGui::SliderFloat3("TargetDir :", reinterpret_cast<float*>(&player->targetDir.x), -100.0f, 100.0f);
         ImGui::SliderFloat3("CenterPos :", reinterpret_cast<float*>(&player->centerPosition.x), -100.0f, 100.0f);
         ImGui::SliderFloat3("Forward :", reinterpret_cast<float*>(&player->forward), -100.0f, 100.0f);
+		ImGui::Text("TargetSet :%s", player->targetSet ? "true" : "false");
 		ImGui::End();
 
 		ImGui::Begin("Enemy");
@@ -94,6 +99,7 @@ void SceneGame::Render()
 		ImGui::SliderFloat3("TargetDir :", reinterpret_cast<float*>(&enemy->playerArmyDir.x), -100.0f, 100.0f);
 		ImGui::SliderFloat3("CenterPos :", reinterpret_cast<float*>(&enemy->centerPosition.x), -100.0f, 100.0f);
 		ImGui::SliderFloat3("Forward :", reinterpret_cast<float*>(&enemy->forward), -100.0f, 100.0f);
+		ImGui::Text("TargetSet :%s", enemy->targetSet ? "true" : "false");
 		ImGui::End();
 	}
 }

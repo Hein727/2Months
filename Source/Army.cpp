@@ -126,8 +126,6 @@ void Army::Update(float elapsedTime)
 			armyState = army_state::IDLE;
 			break;
 		case IDLE:
-			
-
 			if (isDown)
 			{
 				armyState = army_state::MOVE;
@@ -173,6 +171,32 @@ void Army::Update(float elapsedTime)
 			}
 
 			mouseIsDown = isDown;
+
+		case ATTACK:
+			if (isDown)
+			{
+				armyState = army_state::MOVE;
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::MAIN_LOGIC);
+				}
+			}
+			else
+			{
+				if (inCombat) break; // to prevent looping too much
+
+				for(auto& unit : units)
+				{
+					unit->SetState(Unit::state::ATTACK);
+					unit->SetCenterPosition(centerPosition);
+					unit->SetAttackTargetPosition(targetArmy->centerPosition);
+				}
+				
+				UnitTargetting();
+
+				inCombat = true;
+			}
+			break;
 		}
 	}
 

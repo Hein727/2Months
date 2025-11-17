@@ -59,6 +59,12 @@ public :
 	DirectX::XMFLOAT3 centerPosition = { 0, 0, 0 };
 
 	DirectX::XMVECTOR forward, up, right;
+
+	void SetDetectionRange(const float range) // might be useful for different army types
+	{
+		armyDetectionRange = range;
+	}
+
 private:
 	void AddUnit(const int amount = 0);
 
@@ -81,6 +87,7 @@ protected :
 	float formationWidth = 0.0f; // amount of units in a row 
 	float formationLength = 1.0f; // amount of rows 
 	float turnSpeed = 3.0f; // will be used to get smooth turning with slerp 
+	float armyDetectionRange = 10.0f; // range at which the army will detect enemies
 
 	DirectX::XMFLOAT4 orientation ={};
 	float distance = 0.0f;
@@ -111,10 +118,61 @@ public :
 		return move;
 	}
 	
+	
 	DirectX::XMFLOAT3 playerArmyPos = { 0,0,0 };
 	DirectX::XMFLOAT3 playerArmyDir = { 0,0,0 };
 protected:
 
 	bool move = false;
+
+public :
+	///////Targeting functions///////
+	void FindTargetArmy(const Army* army)
+	{
+		float distBetweenArmies = 0.0f;
+		DirectX::XMVECTOR Enemy = DirectX::XMLoadFloat3(&army->centerPosition);
+		DirectX::XMVECTOR Player = DirectX::XMLoadFloat3(&centerPosition);
+
+		distBetweenArmies = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(DirectX::XMVectorSubtract(Enemy, Player)));
+		float detectionRangeSq = armyDetectionRange * armyDetectionRange;
+		if (distBetweenArmies < detectionRangeSq)
+		{
+			if (!targetSet)
+			{
+				targetArmy = const_cast<Army*>(army);
+				targetSet = true;
+			}
+			else
+			{
+				return;
+			}
+		}
+		else
+		{
+			targetArmy = nullptr;
+			targetSet = false;
+		}
+	}
+
+	std::vector<std::unique_ptr<Unit>> GetUnits() const
+	{
+		return units;
+	}
+
+	bool targetSet = false;
+
+private :
+
+	void UnitTargetting()
+	{
+		if (targetArmy == nullptr) return;
+
+		
+	}
+
+protected:
+	Army* targetArmy = nullptr;
+
+	bool inCombat = false;
 };
 

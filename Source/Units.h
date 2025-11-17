@@ -21,6 +21,7 @@ enum state
 	IDLE,
 	MAIN_LOGIC,
 	REGROUP,
+	TARGETING,
 	ATTACK,
 	DIE
 };
@@ -39,6 +40,8 @@ enum state
 	uint16_t GetID() const { return id; }	
 
 	void SetID(int newID) { this->id = newID; }
+
+	float GetDetectionRadius() const { return detectionRadius; }
 
 	void SetPositionInFormation(const DirectX::XMFLOAT3& pos) 
 	{ 
@@ -71,6 +74,13 @@ enum state
 		this->centerPosition = centerPos; 
 	}
 
+	void SetTargetUnit(Unit* target) { this->TargetUnit = target; }
+
+	void SetAttackTargetPosition(const DirectX::XMFLOAT3& targetPos) 
+	{ 
+		this->attackTargetPosition = targetPos; 
+	}
+
 	int unitState;
 
 	DirectX::XMFLOAT3 offsetFromCenter;
@@ -83,4 +93,10 @@ protected:
 	DirectX::XMVECTOR forward;
 
 	DirectX::XMVECTOR right;
+
+	Unit* TargetUnit = nullptr;
+
+	float detectionRadius = 3.0f;
+
+	DirectX::XMFLOAT3 attackTargetPosition = { 0.0f, 0.0f, 0.0f };
 };

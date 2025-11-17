@@ -22,7 +22,6 @@ void Unit::Update(float elapsedTime)
 	{
 	case IDLE:
 		position = position_in_formation;
-		/*unitState = Army::GetInstance().armyState == Army::GetInstance().IDLE ? MAIN_LOGIC : IDLE;*/
 		break;
 	case MAIN_LOGIC:
 		DirectX::XMVECTOR worldPos = DirectX::XMVectorAdd(
@@ -33,7 +32,8 @@ void Unit::Update(float elapsedTime)
 			)
 		);
 		DirectX::XMStoreFloat3(&position, worldPos);
-
+	case TARGETING:
+		
 		break;
 	}
 
