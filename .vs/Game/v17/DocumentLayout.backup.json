@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\CameraControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\CameraControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Units.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\CameraControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Units.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Units.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\CameraControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Stage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -46,31 +46,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Army.cpp",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
-              "RelativeDocumentMoniker": "Source\\Army.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
-              "RelativeToolTip": "Source\\Army.cpp",
-              "ViewState": "AgIAAOwAAAAAAAAAAAArwLUAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-03T07:03:40.223Z",
+              "DocumentIndex": 5,
+              "Title": "Units.h",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h",
+              "RelativeDocumentMoniker": "Source\\Units.h",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h",
+              "RelativeToolTip": "Source\\Units.h",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAE0AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-17T05:28:50.849Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "Units.cpp",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp",
+              "RelativeDocumentMoniker": "Source\\Units.cpp",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp",
+              "RelativeToolTip": "Source\\Units.cpp",
+              "ViewState": "AgIAAA4AAAAAAAAAAAArwCIAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-04T02:24:34.314Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Army.h",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
               "RelativeDocumentMoniker": "Source\\Army.h",
               "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
               "RelativeToolTip": "Source\\Army.h",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAAAJ0AAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAAAIgAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-04T03:28:32.31Z",
               "IsPinned": true,
@@ -78,15 +92,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Units.cpp",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp",
-              "RelativeDocumentMoniker": "Source\\Units.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp",
-              "RelativeToolTip": "Source\\Units.cpp",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAjAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Army.cpp",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
+              "RelativeDocumentMoniker": "Source\\Army.cpp",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
+              "RelativeToolTip": "Source\\Army.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-04T02:24:34.314Z",
+              "WhenOpened": "2025-11-03T07:03:40.223Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -96,52 +110,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Units.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h",
-              "RelativeDocumentMoniker": "Source\\Units.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h",
-              "RelativeToolTip": "Source\\Units.h",
-              "ViewState": "AgIAADQAAAAAAAAAAAArwEsAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-17T05:28:50.849Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CameraControl.h",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.h",
               "RelativeDocumentMoniker": "Source\\CameraControl.h",
               "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.h",
               "RelativeToolTip": "Source\\CameraControl.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-17T06:27:52.035Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "CameraControl.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.cpp",
               "RelativeDocumentMoniker": "Source\\CameraControl.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.cpp*",
-              "RelativeToolTip": "Source\\CameraControl.cpp*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\CameraControl.cpp",
+              "RelativeToolTip": "Source\\CameraControl.cpp",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-17T06:27:01.012Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SceneGame.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp",
               "RelativeDocumentMoniker": "Source\\SceneGame.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp",
-              "RelativeToolTip": "Source\\SceneGame.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACAAAAArAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp*",
+              "RelativeToolTip": "Source\\SceneGame.cpp*",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAqwCQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-10T02:09:41.029Z",
               "EditorCaption": ""

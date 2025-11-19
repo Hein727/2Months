@@ -7,7 +7,7 @@ Unit::Unit()
 	model = std::make_unique<Model>("Data/Model/WhitePawn.mdl");
 
     hp = 100;
-    attack = 10;
+    attack = 50;
     id = 0;
     alive = true;
 	unitState = IDLE;
@@ -17,6 +17,11 @@ Unit::Unit()
 
 void Unit::Update(float elapsedTime)
 {
+	if(hp <= 0)
+	{
+		alive = false;
+	}
+
 	////ユニットのロジック更新
 	switch (unitState)
 	{
@@ -32,9 +37,23 @@ void Unit::Update(float elapsedTime)
 			)
 		);
 		DirectX::XMStoreFloat3(&position, worldPos);
+		break;
 	case ATTACK:
 		DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
 		DirectX::XMVECTOR targetPos = DirectX::XMLoadFloat3(&TargetUnit->position);
+		DirectX::XMVECTOR direction = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(targetPos, pos));
+		float distance = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(DirectX::XMVectorSubtract(targetPos, pos)));
+		float sqRadius = pawnRadius * pawnRadius;
+		if (distance < sqRadius)
+		{
+			TargetUnit->TakeDamage(attack);
+		}
+		else
+		{
+			DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
+			DirectX::XMVECTOR newPos = DirectX::XMVectorAdd(pos, DirectX::XMVectorScale(direction, 4.0f * elapsedTime));
+			DirectX::XMStoreFloat3(&position, newPos);
+		}
 		break;
 	}
 

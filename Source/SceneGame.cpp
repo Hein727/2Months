@@ -24,20 +24,29 @@ void SceneGame::Update(float elapsedTime)
 {
 	stage->Update(elapsedTime);
 
-	player->FindTargetArmy(enemy);
-
-	enemy->FindTargetArmy(player);
-
 	player->Update(elapsedTime);
 
+#if !_DEBUG
 	camera_controls::instance().SetFocus(player->centerPosition);
-
+#endif
 	if (enemy != nullptr)
 	{
 		enemy->EnemyFindPlayerArmy(player->centerPosition);
 	}
+	
+	static float timer = 3.0f;
+
+	if (timer <= 0.01f)
+	{
+		player->FindTargetArmy(enemy);
+
+		enemy->FindTargetArmy(player);
+
+	}
 
 	enemy->Update(elapsedTime);
+
+	timer -= elapsedTime;
 }
 
 // •`‰æˆ—

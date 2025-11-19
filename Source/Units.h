@@ -13,7 +13,8 @@ private:
 	std::unique_ptr<Model> model;
 	bool in_formation = false;
 	void Initialize();
-
+	
+	float pawnRadius = 50.4f;
 
 public:
 enum state
@@ -21,8 +22,7 @@ enum state
 	IDLE,
 	MAIN_LOGIC,
 	REGROUP,
-	ATTACK,
-	DIE
+	ATTACK
 };
 	Unit();
 	virtual ~Unit() {};

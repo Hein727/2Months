@@ -16,16 +16,20 @@ public :
 	}
 
 
-	Army(const int size = 5, const bool enemy = false, const DirectX::XMFLOAT3 centerPosition = {0, 0, 0})
+	Army(const int size = 5, const bool enemy = false, const DirectX::XMFLOAT3 position = { 0, 0, 0})
 	{
+
 		armyState = START;
+
 		right = DirectX::XMVectorSet(1, 0, 0, 0);
 		up = DirectX::XMVectorSet(0, 1, 0, 0);
 		forward = DirectX::XMVectorSet(0, 0, 1, 0);
+
 		this->size = size;
 		units.reserve(size);
 		EnemyType = enemy;
-		this->centerPosition = centerPosition;
+		this->spawnPosition = position;
+
 		srand((unsigned int)time(NULL));
 
 		DirectX::XMFLOAT3 n(0, 1, 0);
@@ -44,7 +48,7 @@ public :
 	};
 	void FindCenter();
 	void Update(float deltaTime);
-	void SortFormation(const DirectX::XMFLOAT3 pos = {0.0f, 0.0f, 0.0f});
+	void SortFormation(bool initial = false);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
 	void RemoveUnit()
 	{
@@ -91,6 +95,7 @@ protected :
 	float formationLength = 1.0f; // amount of rows 
 	float turnSpeed = 3.0f; // will be used to get smooth turning with slerp 
 	float armyDetectionRange = 10.0f; // range at which the army will detect enemies
+	DirectX::XMFLOAT3 spawnPosition = { 0,0,0 };
 
 	DirectX::XMFLOAT4 orientation ={};
 	float distance = 0.0f;
@@ -144,10 +149,7 @@ public :
 			{
 				targetArmy = const_cast<Army*>(army);
 				targetSet = true;
-			}
-			else
-			{
-				return;
+				armyState = ATTACK;
 			}
 		}
 		else

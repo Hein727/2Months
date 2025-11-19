@@ -7,6 +7,8 @@
 #include "Miscellaneous.h"
 #include "Stage.h"
 
+using namespace DirectX;
+
 void Army::FindOffsetFromCenter()
 {
 	for (auto& unit : units)
@@ -22,7 +24,7 @@ void Army::FindOffsetFromCenter()
 
 void Army::AddUnit(const int amount)
 {
-    int newUnits = rand() % 5 + 1;
+	bool isSeeded = units.empty() ? true : false;
 
     int adjustedAmount = (amount <= 0) ? size : amount;
 
@@ -35,10 +37,9 @@ void Army::AddUnit(const int amount)
 
 	size += amount;
 
-    SortFormation();
+    SortFormation(isSeeded);
 }
-
-void Army::SortFormation(const DirectX::XMFLOAT3 pos)
+void Army::SortFormation(bool initial)
 {
 	formationWidth = size > 10 ? 10 : size;                    // max 10 units per row
 	formationLength = size > 10 ? size / 10 : 1;
@@ -54,11 +55,19 @@ void Army::SortFormation(const DirectX::XMFLOAT3 pos)
 		int col = i % static_cast<int>(formationWidth);
 
 		XMFLOAT3 offset;
+
 		offset.x = (col * spacing) - halfWidth;   // left/right from center
 		offset.y = 0.0f;
 		offset.z = (row * spacing) - halfLength;  // forward/back from center
 
 		offsets.push_back(offset);
+	}
+
+	FindCenter();
+
+	if (initial)
+	{
+		centerPosition = spawnPosition;
 	}
 
 	XMMATRIX rotation = XMMatrixRotationQuaternion(XMLoadFloat4(&orientation));
@@ -83,22 +92,17 @@ void Army::SortFormation(const DirectX::XMFLOAT3 pos)
 
 void Army::FindCenter()
 {
-	XMFLOAT3 pos = units.empty() ? DirectX::XMFLOAT3{ 0.0f, 0.0f, 0.0f } : units[0]->GetPosition();
+	XMFLOAT3 centering = units.empty() ? spawnPosition : units[0]->GetPosition();
 
-	centerPosition.x = pos.x + (formationWidth / 2.0f) * spacing;
-	centerPosition.y = pos.y;
-	centerPosition.z = pos.z - (formationLength / 2.0f) * spacing;
+	centerPosition.x = centering.x + (formationWidth / 2.0f) * spacing;
+	centerPosition.y = centering.y;
+	centerPosition.z = centering.z - (formationLength / 2.0f) * spacing;
 }
 
 void Army::Update(float elapsedTime)
 {
 	//Debug
 #if 1
-	if(GetAsyncKeyState('G') & 0x0001)
-	{
-		AddUnit(1);
-	}
-
 	if (GetAsyncKeyState('R') & 0x0001)
 	{
 		RemoveUnit();
@@ -122,7 +126,6 @@ void Army::Update(float elapsedTime)
 		{
 		case START:
 			AddUnit();
-			FindCenter();
 			armyState = army_state::IDLE;
 			break;
 		case IDLE:
@@ -208,7 +211,6 @@ void Army::Update(float elapsedTime)
 		{
 		case START:
 			AddUnit();
-			FindCenter();
 			armyState = army_state::IDLE;
 			break;
 		case IDLE:
@@ -234,36 +236,39 @@ void Army::Update(float elapsedTime)
 
 			float angle;
 			angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
+			XMVECTOR cross = XMVector3Cross(forward, dir);
+			sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
+			angle *= sign;
+
 			if (fabs(angle) > FLT_EPSILON)
 			{
-				XMVECTOR cross = XMVector3Cross(forward, dir);
-				float sign = 0.0f;
-				sign = XMVectorGetY(cross) >= 0.0f ? 1.0f : -1.0f; // Y = up axis
-				angle *= sign;
 				XMVECTOR q = XMQuaternionRotationAxis(up, angle);
 
 				q = XMQuaternionMultiply(orientationVec, q);
 				orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
 				XMStoreFloat4(&orientation, orientationVec);
 			}
-			centerPosition.x += playerArmyDir.x * moveSpeed * elapsedTime;
-			centerPosition.z += playerArmyDir.z * moveSpeed * elapsedTime;
-			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&playerArmyPos), XMLoadFloat3(&centerPosition))));
+			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition))));
 			distance -= moveSpeed * elapsedTime;
+
+			if (distance > 0.0f)
+			{
+				centerPosition.x += playerArmyDir.x * moveSpeed * elapsedTime;
+				centerPosition.z += playerArmyDir.x * moveSpeed * elapsedTime;
+			}
 			if (distance <= 0.0f)
 			{
 				armyState = army_state::IDLE;
 				move = true;
 			}
-			for (auto& unit : units)
+			/*for (auto& unit : units)
 			{
 				unit->SetCenterPosition(centerPosition);
 				unit->SetDirections(forward, right);
-			}
+			}*/
 			break;
 		}
 	}
-	
 	
 	for (auto& unit : units)
 	{
@@ -271,6 +276,12 @@ void Army::Update(float elapsedTime)
 		unit->SetDirections(forward, right);
 		unit->Update(elapsedTime);
 	}
+
+	units.erase(
+		std::remove_if(units.begin(), units.end(),
+			[](const std::unique_ptr<Unit>& unit) { return !unit->IsAlive(); }),
+		units.end()
+	);
 }
 
 void Army::Render(ID3D11DeviceContext* dc, Shader* shader)
