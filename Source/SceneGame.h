@@ -21,6 +21,8 @@ public:
 
 	// •`‰æˆ—
 	void Render();
+	
+	void EnemyDefeated();
 
 protected:
 

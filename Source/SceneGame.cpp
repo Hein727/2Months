@@ -9,7 +9,7 @@ void SceneGame::Initialize()
 
 	player = new Army(20, false); // –¡•ûŒR
 
-	enemy = new Army(3, true, { 40.0f , 0.0f, 40.0f }); // “GŒR
+	enemy = new Army(3, true, { 30.0f , 0.0f, 30.0f }); // “GŒR
 
 	enemy->SetEnemyArmyMoveSpeed(0.5f);
 }
@@ -113,4 +113,10 @@ void SceneGame::Render()
 		ImGui::Text("TargetSet :%s", enemy->targetSet ? "true" : "false");
 		ImGui::End();
 	}
+}
+
+void SceneGame::EnemyDefeated()
+{
+	delete enemy;
+	enemy = nullptr;
 }

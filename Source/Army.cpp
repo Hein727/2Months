@@ -110,36 +110,24 @@ void Army::Update(float elapsedTime)
 
 #endif
 
-	static bool mouseIsDown = false;
-	static bool isDown = false;
 	static float sign = 0.0f;
 	/////Player army logic/////
 	if (!EnemyType)
 	{
-		isDown = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
-		if (isDown && !mouseIsDown)
-		{
-			GetTarget();
-		}
 
 		switch (armyState)
 		{
 		case START:
 			AddUnit();
 			armyState = army_state::IDLE;
+			regroupped = true;
 			break;
+		
 		case IDLE:
-			if (isDown)
-			{
-				armyState = army_state::MOVE;
-				for (auto& unit : units)
-				{
-					unit->SetState(Unit::state::MAIN_LOGIC);
-				}
-			}
 			break;
-		case MOVE:
 
+		case MOVE:
+		{
 			XMVECTOR orientationVec = XMLoadFloat4(&orientation);
 			XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
 			XMFLOAT4X4 m4x4 = {};
@@ -172,35 +160,57 @@ void Army::Update(float elapsedTime)
 				centerPosition.x += targetDir.x * moveSpeed * elapsedTime;
 				centerPosition.z += targetDir.z * moveSpeed * elapsedTime;
 			}
-
-			mouseIsDown = isDown;
-
+		}
 			break;
+
 		case ATTACK:
-			if (isDown)
+			if (!inCombat)
 			{
-				armyState = army_state::MOVE;
+				UnitTargetting();
+				inCombat = !enemyUnits.empty();
+			}
+
+			if (inCombat)
+			{
+				for (auto& unit : units)
+					unit->SetState(Unit::state::ATTACK);
+
+				armyState = army_state::WAIT;
+			}
+			break;
+		case WAIT:
+		{
+			if (targetArmy == nullptr)
+			{
+				inCombat = false;
 				for (auto& unit : units)
 				{
-					unit->SetState(Unit::state::MAIN_LOGIC);
+					unit->SetState(Unit::state::REGROUP);
 				}
+				armyState = army_state::REGROUP;
 			}
-			else
-			{
-				if (inCombat) break; // to prevent looping too much
-
-				for(auto& unit : units)
-				{
-					unit->SetState(Unit::state::ATTACK);
-					unit->SetCenterPosition(centerPosition);
-				}
-				
-				UnitTargetting();
-
-				inCombat = true;
-			}
-			break;
 		}
+		break;
+
+		case REGROUP:
+		{
+			static int units_not_in_formation = size;
+			for(auto& unit : units)
+			{
+				units_not_in_formation = unit->IsInFormation() ? --units_not_in_formation : units_not_in_formation;
+			}
+
+			if(units_not_in_formation == 0)
+			{
+				units_not_in_formation = size;
+				armyState = army_state::IDLE;
+				regroupped = true;
+			}
+		}
+		break;
+		}
+
+		ArmyMove();
 	}
 
 
@@ -261,27 +271,26 @@ void Army::Update(float elapsedTime)
 				armyState = army_state::IDLE;
 				move = true;
 			}
-			/*for (auto& unit : units)
-			{
-				unit->SetCenterPosition(centerPosition);
-				unit->SetDirections(forward, right);
-			}*/
 			break;
 		}
+	}
+
+
+
+	/////check for enemy army/////
+	if (targetArmy != nullptr && targetArmy->defeated)
+	{
+		targetArmy = nullptr;
 	}
 	
 	for (auto& unit : units)
 	{
 		unit->SetCenterPosition(centerPosition);
-		unit->SetDirections(forward, right);
+		unit->SetDirections(orientation);
 		unit->Update(elapsedTime);
 	}
 
-	units.erase(
-		std::remove_if(units.begin(), units.end(),
-			[](const std::unique_ptr<Unit>& unit) { return !unit->IsAlive(); }),
-		units.end()
-	);
+	RemoveDeadUnits();
 }
 
 void Army::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -355,27 +364,7 @@ void Army::GetTarget()
 
 	targetPos.y = 0.0f;
 
-	//Stage* stage = new Stage;
- //
- //   if (targetPos.x < stage->stageBoundaryX[0])
- //   {
- //       targetPos.x = stage->stageBoundaryX[0];
- //   }
- //   else if (targetPos.x > stage->stageBoundaryX[1])
- //   {
- //       targetPos.x = stage->stageBoundaryX[1];
- //   }
-
- //   if (targetPos.z < stage->stageBoundaryZ[0])
- //   {
- //       targetPos.z = stage->stageBoundaryZ[0];
- //   }
- //   else if (targetPos.z > stage->stageBoundaryZ[1])
- //   {
- //       targetPos.z = stage->stageBoundaryZ[1];
- //   }
-
-	//delete stage;
+	// Make boundary for the stage //
 
 	DirectX::XMStoreFloat3(
 		&targetDir,

@@ -77,6 +77,40 @@ private:
 
 	void FindOffsetFromCenter();
 
+	void ArmyMove()
+	{
+		static bool mouseIsDown = false;
+		static bool isDown = false;
+
+		isDown = (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+		if (isDown && !mouseIsDown)
+		{
+			GetTarget();
+		}
+
+		if (isDown)
+		{
+			armyState = army_state::MOVE;
+			if (!regroupped)
+			{
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::REGROUP);
+				}
+			}
+			else
+			{
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::MAIN_LOGIC);
+				}
+			}
+		}
+
+		mouseIsDown = isDown;
+	}
+
+
 	enum army_state
 	{
 		START,
@@ -84,6 +118,8 @@ private:
 		ROTATE,
 		MOVE,
 		ATTACK,
+		REGROUP,
+		WAIT,
 	}armyState;
 
 protected :
@@ -161,13 +197,16 @@ public :
 
 	std::vector<Unit*> GetUnits() const
 	{
-		std::vector<Unit*> unitPtrs;
-		unitPtrs.clear();
-		for (const auto& unit : units)
+		if (units.size() > 0)
 		{
-			unitPtrs.push_back(unit.get());
+			std::vector<Unit*> unitPtrs;
+			unitPtrs.clear();
+			for (const auto& unit : units)
+			{
+				unitPtrs.push_back(unit.get());
+			}
+			return unitPtrs;
 		}
-		return unitPtrs;
 	}
 
 	bool targetSet = false;
@@ -179,6 +218,11 @@ private :
 		if (targetArmy == nullptr) return;
 
 		enemyUnits = targetArmy->GetUnits();
+
+		if (enemyUnits.empty())
+		{
+			targetArmy = nullptr;
+		}
 
 		int targetIndex = 0;
 
@@ -193,11 +237,29 @@ private :
 		}
 	}
 
+	void RemoveDeadUnits()
+	{
+		units.erase(
+			std::remove_if(units.begin(), units.end(),
+				[](const std::unique_ptr<Unit>& unit) { return !unit->IsAlive(); }),
+			units.end()
+		);
+
+		size = static_cast<int>(units.size());
+
+		if(size <= 0)
+			defeated = true;	
+	}
+
 protected:
 	Army* targetArmy = nullptr;
 
 	std::vector<Unit*> enemyUnits;
 
 	bool inCombat = false;
+
+	bool defeated = false;
+
+	bool regroupped = false;
 };
 

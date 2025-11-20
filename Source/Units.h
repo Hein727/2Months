@@ -14,7 +14,7 @@ private:
 	bool in_formation = false;
 	void Initialize();
 	
-	float pawnRadius = 50.4f;
+	float pawnRadius = 50.4f * 0.01f;
 
 public:
 enum state
@@ -22,7 +22,8 @@ enum state
 	IDLE,
 	MAIN_LOGIC,
 	REGROUP,
-	ATTACK
+	ATTACK,
+	MAIN_LOGIC_REGROUPING
 };
 	Unit();
 	virtual ~Unit() {};
@@ -60,10 +61,16 @@ enum state
 
 	void SetState(const state newState) { unitState = newState; }
 
-	void SetDirections(const DirectX::XMVECTOR& forward, const DirectX::XMVECTOR& right) 
-	{ 
-		this->forward = forward; 
-		this->right = right; 
+	void SetDirections(const DirectX::XMFLOAT4& orientation)
+	{
+		DirectX::XMVECTOR orientVec = DirectX::XMLoadFloat4(&orientation);
+		DirectX::XMMATRIX rotationMatrix = DirectX::XMMatrixRotationQuaternion(orientVec);
+		DirectX::XMFLOAT4X4 oteint4x4;
+		DirectX::XMStoreFloat4x4(&oteint4x4, rotationMatrix);
+
+		forward = DirectX::XMFLOAT4(oteint4x4._31, oteint4x4._32, oteint4x4._33, 0.0f);
+		right = DirectX::XMFLOAT4(oteint4x4._11, oteint4x4._12, oteint4x4._13, 0.0f);
+		up = DirectX::XMFLOAT4(oteint4x4._21, oteint4x4._22, oteint4x4._23, 0.0f);
 	}
 
 	void SetCenterPosition(const DirectX::XMFLOAT3& centerPos) 
@@ -72,6 +79,8 @@ enum state
 	}
 
 	void SetTargetUnit(Unit* target) { this->TargetUnit = target; }
+
+	bool IsInFormation() const { return in_formation; }
 
 	int unitState;
 
@@ -82,9 +91,13 @@ protected:
 
 	DirectX::XMFLOAT3 centerPosition;
 
-	DirectX::XMVECTOR forward;
+	DirectX::XMFLOAT4 forward;
 
-	DirectX::XMVECTOR right;
+	DirectX::XMFLOAT4 right;
+
+	DirectX::XMFLOAT4 up;
 
 	Unit* TargetUnit = nullptr;
+
+	bool in_formation_check = false;
 };

@@ -27,18 +27,22 @@ void Unit::Update(float elapsedTime)
 	{
 	case IDLE:
 		position = position_in_formation;
+		in_formation_check = true;
 		break;
 	case MAIN_LOGIC:
+	{
 		DirectX::XMVECTOR worldPos = DirectX::XMVectorAdd(
 			DirectX::XMLoadFloat3(&centerPosition),
 			DirectX::XMVectorAdd(
-				DirectX::XMVectorScale(right, offsetFromCenter.x),
-				DirectX::XMVectorScale(forward, offsetFromCenter.z)
+				DirectX::XMVectorScale(DirectX::XMLoadFloat4(&right), offsetFromCenter.x),
+				DirectX::XMVectorScale(DirectX::XMLoadFloat4(&forward), offsetFromCenter.z)
 			)
 		);
 		DirectX::XMStoreFloat3(&position, worldPos);
 		break;
+	}
 	case ATTACK:
+	{	
 		DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
 		DirectX::XMVECTOR targetPos = DirectX::XMLoadFloat3(&TargetUnit->position);
 		DirectX::XMVECTOR direction = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(targetPos, pos));
@@ -56,7 +60,51 @@ void Unit::Update(float elapsedTime)
 		}
 		break;
 	}
+	case REGROUP:
+	{
+		DirectX::XMVECTOR dir = DirectX::XMVectorSubtract(
+			DirectX::XMLoadFloat3(&position_in_formation),
+			DirectX::XMLoadFloat3(&position)
+		);
+		float distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(dir));
+		if (distance < 1.0f)
+		{
+			unitState = IDLE;
+		}
+		else
+		{
+			dir = DirectX::XMVector3Normalize(dir);
+			DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
+			DirectX::XMVECTOR newPos = DirectX::XMVectorAdd(pos, DirectX::XMVectorScale(dir, 4.0f * elapsedTime));
+			DirectX::XMStoreFloat3(&position, newPos);
+		}
+	}
+		break;
+	}
 
+	if (hp <= 0)
+	{
+		alive = false;
+	}
+	
+	DirectX::XMVECTOR centerVec = DirectX::XMLoadFloat3(&centerPosition);
+	DirectX::XMVECTOR rightVec = DirectX::XMLoadFloat4(&right);
+	DirectX::XMVECTOR upVec = DirectX::XMLoadFloat4(&up);
+	DirectX::XMVECTOR forwardVec = DirectX::XMLoadFloat4(&forward);
+	DirectX::XMVECTOR worldPos;
+	float localX = offsetFromCenter.x;
+	float localY = offsetFromCenter.y;
+	float localZ = offsetFromCenter.z;
+	{
+		using namespace DirectX;
+		XMVECTOR worldOffset = XMVectorScale(rightVec, localX) +
+			XMVectorScale(upVec, localY) +
+			XMVectorScale(forwardVec, localZ);
+
+		worldPos = centerVec + worldOffset;
+	}
+	DirectX::XMStoreFloat3(&position_in_formation, worldPos);
+	
 	//ƒ‚ƒfƒ‹‚ÌXV
 	UpdateTransform();
 	model->UpdateTransform(transform);
