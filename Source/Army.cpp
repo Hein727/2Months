@@ -189,6 +189,7 @@ void Army::Update(float elapsedTime)
 				}
 				armyState = army_state::REGROUP;
 			}
+			regroupped = false;
 		}
 		break;
 

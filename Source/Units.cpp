@@ -67,7 +67,7 @@ void Unit::Update(float elapsedTime)
 			DirectX::XMLoadFloat3(&position)
 		);
 		float distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(dir));
-		if (distance < 1.0f)
+		if (distance < FLT_EPSILON)
 		{
 			unitState = IDLE;
 		}

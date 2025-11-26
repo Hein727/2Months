@@ -86,10 +86,7 @@ private:
 		if (isDown && !mouseIsDown)
 		{
 			GetTarget();
-		}
 
-		if (isDown)
-		{
 			armyState = army_state::MOVE;
 			if (!regroupped)
 			{
@@ -106,7 +103,6 @@ private:
 				}
 			}
 		}
-
 		mouseIsDown = isDown;
 	}
 
