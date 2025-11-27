@@ -181,7 +181,6 @@ public :
 			{
 				targetArmy = const_cast<Army*>(army);
 				targetSet = true;
-				armyState = ATTACK;
 			}
 		}
 		else

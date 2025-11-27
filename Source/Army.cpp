@@ -160,6 +160,13 @@ void Army::Update(float elapsedTime)
 				centerPosition.x += targetDir.x * moveSpeed * elapsedTime;
 				centerPosition.z += targetDir.z * moveSpeed * elapsedTime;
 			}
+			else
+			{
+				if(targetArmy != nullptr)
+					armyState = army_state::ATTACK;
+				else
+					armyState = army_state::IDLE;
+			}
 		}
 			break;
 
@@ -187,26 +194,9 @@ void Army::Update(float elapsedTime)
 				{
 					unit->SetState(Unit::state::REGROUP);
 				}
-				armyState = army_state::REGROUP;
+				armyState = army_state::IDLE;
 			}
 			regroupped = false;
-		}
-		break;
-
-		case REGROUP:
-		{
-			static int units_not_in_formation = size;
-			for(auto& unit : units)
-			{
-				units_not_in_formation = unit->IsInFormation() ? --units_not_in_formation : units_not_in_formation;
-			}
-
-			if(units_not_in_formation == 0)
-			{
-				units_not_in_formation = size;
-				armyState = army_state::IDLE;
-				regroupped = true;
-			}
 		}
 		break;
 		}
@@ -222,6 +212,7 @@ void Army::Update(float elapsedTime)
 		{
 		case START:
 			AddUnit();
+			regroupped = true;
 			armyState = army_state::IDLE;
 			break;
 		case IDLE:
@@ -269,13 +260,34 @@ void Army::Update(float elapsedTime)
 			}
 			if (distance <= 0.0f)
 			{
-				armyState = army_state::IDLE;
-				move = true;
+				if (targetArmy != nullptr)
+					armyState = army_state::ATTACK;
+				else
+				{
+					armyState = army_state::IDLE;
+					move = true;
+				}
 			}
 			break;
 		}
 	}
 
+
+	if (!regroupped)
+	{
+		static int units_not_in_formation = size;
+		for (auto& unit : units)
+		{
+			units_not_in_formation = unit->IsInFormation() ? units_not_in_formation - 1: units_not_in_formation;
+		}
+
+		if (units_not_in_formation == 0)
+		{
+			units_not_in_formation = size;
+			armyState = army_state::IDLE;
+			regroupped = true;
+		}
+	}
 
 
 	/////check for enemy army/////

@@ -27,7 +27,7 @@ void Unit::Update(float elapsedTime)
 	{
 	case IDLE:
 		position = position_in_formation;
-		in_formation_check = true;
+		in_formation = true;
 		break;
 	case MAIN_LOGIC:
 	{
@@ -58,6 +58,7 @@ void Unit::Update(float elapsedTime)
 			DirectX::XMVECTOR newPos = DirectX::XMVectorAdd(pos, DirectX::XMVectorScale(direction, 4.0f * elapsedTime));
 			DirectX::XMStoreFloat3(&position, newPos);
 		}
+		in_formation = false;
 		break;
 	}
 	case REGROUP:
@@ -66,10 +67,11 @@ void Unit::Update(float elapsedTime)
 			DirectX::XMLoadFloat3(&position_in_formation),
 			DirectX::XMLoadFloat3(&position)
 		);
-		float distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(dir));
+		float distance = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(dir));
 		if (distance < FLT_EPSILON)
 		{
 			unitState = IDLE;
+			in_formation = true;
 		}
 		else
 		{
