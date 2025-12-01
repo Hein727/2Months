@@ -1,7 +1,7 @@
-﻿  CameraControl.cpp
+﻿  SceneGame.cpp
      ライブラリ bin\x64\Release\Game.lib とオブジェクト bin\x64\Release\Game.exp を作成中
   コード生成しています。
-  4 of 4230 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  8 of 4263 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     28 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。

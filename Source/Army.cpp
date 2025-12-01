@@ -114,7 +114,6 @@ void Army::Update(float elapsedTime)
 	/////Player army logic/////
 	if (!EnemyType)
 	{
-
 		switch (armyState)
 		{
 		case START:
@@ -256,7 +255,7 @@ void Army::Update(float elapsedTime)
 			if (distance > 0.0f)
 			{
 				centerPosition.x += playerArmyDir.x * moveSpeed * elapsedTime;
-				centerPosition.z += playerArmyDir.x * moveSpeed * elapsedTime;
+				centerPosition.z += playerArmyDir.z * moveSpeed * elapsedTime;
 			}
 			if (distance <= 0.0f)
 			{
@@ -265,9 +264,37 @@ void Army::Update(float elapsedTime)
 				else
 				{
 					armyState = army_state::IDLE;
-					move = true;
+					//move = true;
 				}
 			}
+		case ATTACK:
+			if (!inCombat)
+			{
+				UnitTargetting();
+				inCombat = !enemyUnits.empty();
+			}
+
+			if (inCombat)
+			{
+				for (auto& unit : units)
+					unit->SetState(Unit::state::ATTACK);
+
+				armyState = army_state::WAIT;
+			}
+			break;
+		case WAIT:
+		{
+			if (targetArmy == nullptr)
+			{
+				inCombat = false;
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::REGROUP);
+				}
+				armyState = army_state::IDLE;
+			}
+			regroupped = false;
+		}
 			break;
 		}
 	}
@@ -378,6 +405,7 @@ void Army::GetTarget()
 	targetPos.y = 0.0f;
 
 	// Make boundary for the stage //
+
 
 	DirectX::XMStoreFloat3(
 		&targetDir,

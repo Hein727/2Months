@@ -9,9 +9,7 @@ void SceneGame::Initialize()
 
 	player = new Army(20, false); // –¡•ûŒR
 
-	enemy = new Army(3, true, { 30.0f , 0.0f, 30.0f }); // “GŒR
-
-	enemy->SetEnemyArmyMoveSpeed(0.5f);
+	enemy = new Army(player->getArmySize(), true, player->centerPosition); // “GŒR
 }
 
 // I—¹‰»
@@ -24,29 +22,28 @@ void SceneGame::Update(float elapsedTime)
 {
 	stage->Update(elapsedTime);
 
-	player->Update(elapsedTime);
+	if (player->getArmySize() > 0)
+	{
+		player->Update(elapsedTime);
 
+		SpawnEnemy(elapsedTime);
 #if !_DEBUG
-	camera_controls::instance().SetFocus(player->centerPosition);
+		camera_controls::instance().SetFocus(player->centerPosition);
 #endif
-	if (enemy != nullptr)
-	{
-		enemy->EnemyFindPlayerArmy(player->centerPosition);
+		if (enemies.size() > 0)
+		{
+			for (auto& enemy : enemies)
+			{
+				enemy->EnemyFindPlayerArmy(player->centerPosition);
+				enemy->EnemyFindTargetArmy(player);
+				enemy->Update(elapsedTime);
+			}
+		}
+
+		player->PlayerFindTargetArmy(enemies);
+
+		EnemyDefeated();
 	}
-	
-	static float timer = 3.0f;
-
-	if (timer <= 0.01f)
-	{
-		player->FindTargetArmy(enemy);
-
-		enemy->FindTargetArmy(player);
-
-	}
-
-	enemy->Update(elapsedTime);
-
-	timer -= elapsedTime;
 }
 
 // •`‰æˆ—
@@ -75,8 +72,12 @@ void SceneGame::Render()
 		Shader* shader = graphics.GetShader();
 		shader->Begin(dc, rc);
 		stage->Render(dc, shader);
+		for(auto& enemy : enemies)
+		{
+			enemy->Render(dc, shader);
+		}
+		//enemy->Render(dc, shader);
 		player->Render(dc, shader);
-		enemy->Render(dc, shader);
 		shader->End(dc);
 
 	}
@@ -104,19 +105,5 @@ void SceneGame::Render()
         ImGui::SliderFloat3("Forward :", reinterpret_cast<float*>(&player->forward), -100.0f, 100.0f);
 		ImGui::Text("TargetSet :%s", player->targetSet ? "true" : "false");
 		ImGui::End();
-
-		ImGui::Begin("Enemy");
-		ImGui::SliderFloat3("Target :", reinterpret_cast<float*>(&enemy->playerArmyPos.x), -100.0f, 100.0f);
-		ImGui::SliderFloat3("TargetDir :", reinterpret_cast<float*>(&enemy->playerArmyDir.x), -100.0f, 100.0f);
-		ImGui::SliderFloat3("CenterPos :", reinterpret_cast<float*>(&enemy->centerPosition.x), -100.0f, 100.0f);
-		ImGui::SliderFloat3("Forward :", reinterpret_cast<float*>(&enemy->forward), -100.0f, 100.0f);
-		ImGui::Text("TargetSet :%s", enemy->targetSet ? "true" : "false");
-		ImGui::End();
 	}
-}
-
-void SceneGame::EnemyDefeated()
-{
-	delete enemy;
-	enemy = nullptr;
 }

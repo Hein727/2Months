@@ -2,6 +2,7 @@
 #include "Stage.h"
 #include "Army.h"
 #include <memory>
+#include <vector>
 
 // ƒQ[ƒ€ƒV[ƒ“
 class SceneGame
@@ -22,11 +23,44 @@ public:
 	// •`‰æˆ—
 	void Render();
 	
-	void EnemyDefeated();
+	void EnemyDefeated()
+	{
+		if (enemies.empty()) return;
+
+		enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Army* enemy) {
+			if (enemy->getDeafeated())
+			{
+				delete enemy;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			}), enemies.end());
+	}
+
+	void SpawnEnemy(float elapsedTime)
+	{
+		static float spawnTimer = 0.0f;
+		spawnTimer += elapsedTime;
+		if (spawnTimer < 5.0f)
+		{
+			return;
+		}
+		if (enemies.size() < enemyLimit)
+		{
+			Army* enemy = new Army(player->getArmySize(), true, player->centerPosition);
+			enemies.push_back(std::move(enemy));
+			spawnTimer = 0.0f;
+		}
+	}
 
 protected:
 
 	std::unique_ptr<Stage> stage;
 	Army* player;
 	Army* enemy;
+	std::vector<Army*> enemies;
+	int enemyLimit = 5;
 };

@@ -18,6 +18,7 @@ public :
 
 	Army(const int size = 5, const bool enemy = false, const DirectX::XMFLOAT3 position = { 0, 0, 0})
 	{
+		srand((unsigned int)time(NULL));
 
 		armyState = START;
 
@@ -25,12 +26,38 @@ public :
 		up = DirectX::XMVectorSet(0, 1, 0, 0);
 		forward = DirectX::XMVectorSet(0, 0, 1, 0);
 
-		this->size = size;
-		units.reserve(size);
 		EnemyType = enemy;
-		this->spawnPosition = position;
+		if (!enemy)
+		{
+			this->size = size;
+			units.reserve(size);
+			spawnPosition = position;
+		}
 
-		srand((unsigned int)time(NULL));
+		else
+		{
+			int rng = rand() % 3;
+			int randomSize = 0;
+			int sign = rand() % 2;
+
+			switch (sign)
+			{
+			case 0: randomSize = (rand() % size + rng); break;
+			case 1: randomSize = (rand() % size - rng); break;
+			}
+
+			float dirX = (rand() % 2 == 0) ? -1.0f : 1.0f;
+			float dirZ = (rand() % 2 == 0) ? -1.0f : 1.0f;
+
+			float distance = static_cast<float>((rand() % 20) + 20);
+			spawnPosition = position;
+			spawnPosition.x += dirX * distance;
+			spawnPosition.z += dirZ * distance;
+			spawnPosition.y = 0.0f;
+
+			this->size = randomSize;
+
+		}
 
 		DirectX::XMFLOAT3 n(0, 1, 0);
 		float angle = 0 * 0.017452f;
@@ -41,6 +68,7 @@ public :
 			sinf(angle / 2) * n.z,
 			cosf(angle / 2)
 		};
+
 	};
 	virtual ~Army() 
 	{
@@ -70,6 +98,11 @@ public :
 	void SetDetectionRange(const float range) // might be useful for different army types
 	{
 		armyDetectionRange = range;
+	}
+
+	int getArmySize() const
+	{
+		return size;
 	}
 
 private:
@@ -153,22 +186,25 @@ public :
 		DirectX::XMVECTOR dirVec = DirectX::XMVectorSubtract(PlayerPosVec, CenterPosVec);
 		DirectX::XMStoreFloat3(&playerArmyDir, DirectX::XMVector3Normalize(dirVec));
 	}
-	bool GetEnemyArmyMove()
-	{
-		return move;
-	}
+	//bool GetEnemyArmyMove()
+	//{
+	//	return move;
+	//}
 	
 	
 	DirectX::XMFLOAT3 playerArmyPos = { 0,0,0 };
 	DirectX::XMFLOAT3 playerArmyDir = { 0,0,0 };
 protected:
 
-	bool move = false;
+	//bool move = false;
 
 public :
 	///////Targeting functions///////
-	void FindTargetArmy(const Army* army)
+	void EnemyFindTargetArmy(const Army* army)
 	{
+		targetArmy = nullptr;
+		targetSet = false;
+
 		float distBetweenArmies = 0.0f;
 		DirectX::XMVECTOR Enemy = DirectX::XMLoadFloat3(&army->centerPosition);
 		DirectX::XMVECTOR Player = DirectX::XMLoadFloat3(&centerPosition);
@@ -177,16 +213,37 @@ public :
 		float detectionRangeSq = armyDetectionRange * armyDetectionRange;
 		if (distBetweenArmies < detectionRangeSq)
 		{
-			if (!targetSet)
-			{
-				targetArmy = const_cast<Army*>(army);
-				targetSet = true;
-			}
+			targetArmy = const_cast<Army*>(army);
+			targetSet = true;
+		}
+	}
+
+	void PlayerFindTargetArmy(const std::vector<Army*> enemies)
+	{
+		if (targetArmy != nullptr && !targetArmy->defeated)
+		{
+			return;
 		}
 		else
 		{
 			targetArmy = nullptr;
 			targetSet = false;
+		}
+
+		for (auto& enemy : enemies)
+		{
+			if (enemy->defeated) continue;
+			float distBetweenArmies = 0.0f;
+			DirectX::XMVECTOR Enemy = DirectX::XMLoadFloat3(&enemy->centerPosition);
+			DirectX::XMVECTOR Player = DirectX::XMLoadFloat3(&centerPosition);
+
+			distBetweenArmies = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(DirectX::XMVectorSubtract(Enemy, Player)));
+			float detectionRangeSq = armyDetectionRange * armyDetectionRange;
+			if (distBetweenArmies < detectionRangeSq)
+			{
+				targetArmy = const_cast<Army*>(enemy);
+				targetSet = true;
+			}
 		}
 	}
 
@@ -202,6 +259,11 @@ public :
 			}
 			return unitPtrs;
 		}
+	}
+
+	bool getDeafeated() const
+	{
+		return defeated;
 	}
 
 	bool targetSet = false;
