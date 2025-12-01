@@ -21,4 +21,8 @@ public:
 	void Render() override;
 private:
 	std::unique_ptr<Sprite> sprite;
+	std::unique_ptr<Sprite> start;
+	std::unique_ptr<Sprite> tutorial;
+	POINT cursorPos;
+
 };

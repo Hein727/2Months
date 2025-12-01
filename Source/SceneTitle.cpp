@@ -2,15 +2,41 @@
 #include "SceneGame.h"
 #include "Graphics/Graphics.h"
 #include "SceneManager.h"
+#include <imgui.h>
 
 void SceneTitle::Initialize()
 {
 	sprite = std::make_unique<Sprite>("Data/Sprite/title_sprite.png");
+	start = std::make_unique<Sprite>("Data/Sprite/start.png");
+	tutorial = std::make_unique<Sprite>("Data/Sprite/tutorial.png");
 }
 
 void SceneTitle::Update(float elapsedTime)
 {
+	::GetCursorPos(&cursorPos);
+	HWND hwnd = GetForegroundWindow();
+	ScreenToClient(hwnd, &cursorPos);
 
+	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+	{
+		//START
+		if (cursorPos.x >= 230 && cursorPos.x <= 600)
+		{
+			if (cursorPos.y >= 520 && cursorPos.y <= 680)
+			{
+				SceneManager::Instance().ChangeScene(new SceneGame);
+			}
+		}
+		//TUTORIAL
+		if (cursorPos.x >= 690 && cursorPos.x <= 1150)
+		{
+			if (cursorPos.y >= 520 && cursorPos.y <= 680)
+			{
+				SceneManager::Instance().ChangeScene(new SceneGame);
+			}
+		}
+
+	}
 }
 
 void SceneTitle::Render()
@@ -33,10 +59,24 @@ void SceneTitle::Render()
 			0, 0, sprite->GetTextureWidth(), sprite->GetTextureHeight(),
 			0, 
 			1, 1, 1, 1);
+		tutorial->Render(
+			dc,
+			590, 350, 750, 500,
+			0, 0, tutorial->GetTextureWidth(), tutorial->GetTextureHeight(),
+			0,
+			1, 1, 1, 1);
+		start->Render(
+			dc,
+			50, 350, 750, 500,
+			0, 0, start->GetTextureWidth(), start->GetTextureHeight(),
+			0,
+			1, 1, 1, 1);
+		
 	}
 
-	if(::GetAsyncKeyState(VK_RETURN) & 0x0001)
-	SceneManager::Instance().ChangeScene(new SceneGame);
+	
+
+	
 }
 
 void SceneTitle::Finalize()

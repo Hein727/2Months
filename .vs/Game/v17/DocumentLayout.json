@@ -1,38 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\",
+  "WorkspaceRootPath": "C:\\Users\\2240162\\Desktop\\2Months\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneTitle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneTitle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Framework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\Framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneTitle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneTitle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\Framework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Framework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240162\\Desktop\\2Months\\Source\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,58 +50,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SceneGame.cpp",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp",
-              "RelativeDocumentMoniker": "Source\\SceneGame.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp",
-              "RelativeToolTip": "Source\\SceneGame.cpp",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAB8AAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-01T04:37:29.632Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Army.cpp",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
-              "RelativeDocumentMoniker": "Source\\Army.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
-              "RelativeToolTip": "Source\\Army.cpp",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAAAHIAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-01T03:01:02.672Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Army.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
-              "RelativeDocumentMoniker": "Source\\Army.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
-              "RelativeToolTip": "Source\\Army.h",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAIwJsAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-01T03:00:27.824Z",
+              "Title": "SceneTitle.cpp",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneTitle.cpp",
+              "RelativeDocumentMoniker": "Source\\SceneTitle.cpp",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneTitle.cpp",
+              "RelativeToolTip": "Source\\SceneTitle.cpp",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAcwB0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-01T05:11:27.918Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Scene.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Scene.h",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Scene.h",
               "RelativeDocumentMoniker": "Source\\Scene.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Scene.h",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Scene.h",
               "RelativeToolTip": "Source\\Scene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -101,62 +79,104 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "SceneGame.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.h",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneGame.h",
               "RelativeDocumentMoniker": "Source\\SceneGame.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.h",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneGame.h",
               "RelativeToolTip": "Source\\SceneGame.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-20T02:07:38.109Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Framework.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.h",
-              "RelativeDocumentMoniker": "Source\\Framework.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.h",
-              "RelativeToolTip": "Source\\Framework.h",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAkwCAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-01T02:01:47.089Z"
+              "WhenOpened": "2025-11-20T02:07:38.109Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Framework.cpp",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.cpp",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Framework.cpp",
               "RelativeDocumentMoniker": "Source\\Framework.cpp",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.cpp",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Framework.cpp",
               "RelativeToolTip": "Source\\Framework.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-01T01:43:12.667Z"
+              "WhenOpened": "2025-12-01T01:43:12.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Framework.h",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Framework.h",
+              "RelativeDocumentMoniker": "Source\\Framework.h",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Framework.h",
+              "RelativeToolTip": "Source\\Framework.h",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAkwCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-01T02:01:47.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SceneManager.h",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneManager.h",
+              "RelativeDocumentMoniker": "Source\\SceneManager.h",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneManager.h",
+              "RelativeToolTip": "Source\\SceneManager.h",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAADIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-01T01:42:09.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SceneTitle.h",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneTitle.h",
+              "RelativeDocumentMoniker": "Source\\SceneTitle.h",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneTitle.h",
+              "RelativeToolTip": "Source\\SceneTitle.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvxkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-01T05:10:08.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Army.h",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Army.h",
+              "RelativeDocumentMoniker": "Source\\Army.h",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Army.h",
+              "RelativeToolTip": "Source\\Army.h",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAIwJsAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-01T03:00:27.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Army.cpp",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Army.cpp",
+              "RelativeDocumentMoniker": "Source\\Army.cpp",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\Army.cpp",
+              "RelativeToolTip": "Source\\Army.cpp",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAAAHIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-01T03:01:02.672Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "SceneManager.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneManager.h",
-              "RelativeDocumentMoniker": "Source\\SceneManager.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneManager.h",
-              "RelativeToolTip": "Source\\SceneManager.h",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwDIAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-01T01:42:09.456Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 147,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d3750d8a-574b-4fb3-b7e2-aa8af40e8231}"
+              "Title": "SceneGame.cpp",
+              "DocumentMoniker": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneGame.cpp",
+              "RelativeDocumentMoniker": "Source\\SceneGame.cpp",
+              "ToolTip": "C:\\Users\\2240162\\Desktop\\2Months\\Source\\SceneGame.cpp",
+              "RelativeToolTip": "Source\\SceneGame.cpp",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAB8AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-01T04:37:29.632Z"
             }
           ]
         }
