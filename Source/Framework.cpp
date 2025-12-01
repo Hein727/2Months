@@ -3,11 +3,12 @@
 
 #include "Graphics/Graphics.h"
 #include "Input/Input.h"
-#include "SceneGame.h"
+#include "SceneManager.h"
 #include "Framework.h"
 #include "CameraControl.h"
+#include "SceneTitle.h"
+#include "SceneGame.h"
 
-static SceneGame sceneGame;
 
 // 垂直同期間隔設定
 static const int syncInterval = 1;
@@ -18,13 +19,13 @@ Framework::Framework(HWND hWnd)
 	, input(hWnd)
 	, graphics(hWnd)
 {
-	sceneGame.Initialize();
+	SceneManager::Instance().ChangeScene(new SceneTitle);
 }
 
 // デストラクタ
 Framework::~Framework()
 {
-	sceneGame.Finalize();
+	SceneManager::Instance().Clear();
 }
 
 // 更新処理
@@ -37,7 +38,7 @@ void Framework::Update(float elapsedTime/*Elapsed seconds from last frame*/)
 	camera_controls::instance().Update(hWnd, elapsedTime);
 
 	// シーン更新処理
-	sceneGame.Update(elapsedTime);
+	SceneManager::Instance().Update(elapsedTime);
 }
 
 // 描画処理
@@ -49,7 +50,7 @@ void Framework::Render(float elapsedTime/*Elapsed seconds from last frame*/)
 	graphics.GetImGuiRenderer()->NewFrame();
 
 	// シーン描画処理
-	sceneGame.Render();
+	SceneManager::Instance().Render();
 
 	// IMGUIデモウインドウ描画（IMGUI機能テスト用）
 	//ImGui::ShowDemoWindow();

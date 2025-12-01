@@ -1,27 +1,28 @@
 #pragma once
 #include "Stage.h"
+#include "Scene.h"
 #include "Army.h"
 #include <memory>
 #include <vector>
 
 // ゲームシーン
-class SceneGame
+class SceneGame : public Scene
 {
 public:
 	SceneGame() {}
-	~SceneGame() {}
+	~SceneGame() override {}
 
 	// 初期化
-	void Initialize();
+	void Initialize() override;
 
 	// 終了化
-	void Finalize();
+	void Finalize() override;
 
 	// 更新処理
-	void Update(float elapsedTime);
+	void Update(float elapsedTime) override;
 
 	// 描画処理
-	void Render();
+	void Render() override;
 	
 	void EnemyDefeated()
 	{
