@@ -6,7 +6,7 @@
 #include "SceneManager.h"
 #include "Framework.h"
 #include "CameraControl.h"
-#include "SceneTitle.h"
+#include "SceneTitle.h"	
 #include "SceneGame.h"
 
 
@@ -33,7 +33,6 @@ void Framework::Update(float elapsedTime/*Elapsed seconds from last frame*/)
 {
 	// “ü—ÍXVˆ—
 	input.Update();
-
 
 	camera_controls::instance().Update(hWnd, elapsedTime);
 

@@ -57,6 +57,7 @@ public:
 		}
 	}
 
+
 protected:
 
 	std::unique_ptr<Stage> stage;
@@ -64,4 +65,18 @@ protected:
 	Army* enemy;
 	std::vector<Army*> enemies;
 	int enemyLimit = 5;
+
+	//struct UIIcon
+	//{
+	//	std::unique_ptr<Sprite> sprite; // the visual
+	//	DirectX::XMFLOAT2 position;     // screen position
+	//	DirectX::XMFLOAT2 size;         // width/height
+	//	bool isDragging = false;        // for drag handling
+
+	//	bool ContainsPoint(float x, float y)
+	//	{
+	//		return x >= position.x && x <= position.x + size.x &&
+	//			y >= position.y && y <= position.y + size.y;
+	//	}
+	//};
 };

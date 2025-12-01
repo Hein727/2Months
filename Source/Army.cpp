@@ -101,15 +101,8 @@ void Army::FindCenter()
 
 void Army::Update(float elapsedTime)
 {
-	//Debug
-#if 1
-	if (GetAsyncKeyState('R') & 0x0001)
-	{
-		RemoveUnit();
-	}
-
-#endif
-
+	if (targetArmy != nullptr)
+		armyState = army_state::ATTACK;
 	static float sign = 0.0f;
 	/////Player army logic/////
 	if (!EnemyType)

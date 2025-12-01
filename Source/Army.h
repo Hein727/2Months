@@ -78,12 +78,6 @@ public :
 	void Update(float deltaTime);
 	void SortFormation(bool initial = false);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
-	void RemoveUnit()
-	{
-		int rand = std::rand() % units.size();
-		units.erase(units.begin() + rand);
-		SortFormation();
-	}
 
 	void GetTarget();
 
@@ -159,9 +153,8 @@ protected :
 	float formationWidth = 0.0f; // amount of units in a row 
 	float formationLength = 1.0f; // amount of rows 
 	float turnSpeed = 3.0f; // will be used to get smooth turning with slerp 
-	float armyDetectionRange = 10.0f; // range at which the army will detect enemies
+	float armyDetectionRange = 5.0f; // range at which the army will detect enemies
 	DirectX::XMFLOAT3 spawnPosition = { 0,0,0 };
-
 	DirectX::XMFLOAT4 orientation ={};
 	float distance = 0.0f;
 
