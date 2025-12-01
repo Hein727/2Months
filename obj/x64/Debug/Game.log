@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugPS.cod
   compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugPS.cso
   compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugVS.cod
@@ -47,3 +48,7 @@
   LINK : 前回のインクリメンタル リンクで bin\x64\Debug\Game.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
      ライブラリ bin\x64\Debug\Game.lib とオブジェクト bin\x64\Debug\Game.exp を作成中
   Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Debug\Game.exe
+=======
+﻿  AttributeSystem.cpp
+  Game.vcxproj -> C:\Users\2240178\Desktop\2Months\bin\x64\Debug\Game.exe
+>>>>>>> Stashed changes

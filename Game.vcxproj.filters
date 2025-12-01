@@ -123,6 +123,31 @@
     <ClInclude Include="Source\CameraControl.h">
       <Filter>Source</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="Source\Units.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Army.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Miscellaneous.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Source\AttributeSystem.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Attribute.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemDrop.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemGenerator.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -203,6 +228,24 @@
     <ClCompile Include="Source\CameraControl.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="Source\Units.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Army.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AttributeSystem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemDrop.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemGenerator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <None Include="HLSL\Debug.hlsli">

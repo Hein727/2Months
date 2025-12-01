@@ -114,6 +114,14 @@
     <ClInclude Include="External\imgui\imstb_rectpack.h" />
     <ClInclude Include="External\imgui\imstb_textedit.h" />
     <ClInclude Include="External\imgui\imstb_truetype.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="Miscellaneous.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Source\Army.h" />
+    <ClInclude Include="Source\Attribute.h" />
+    <ClInclude Include="Source\AttributeSystem.h" />
+>>>>>>> Stashed changes
     <ClInclude Include="Source\Audio\Audio.h" />
     <ClInclude Include="Source\Audio\AudioResource.h" />
     <ClInclude Include="Source\Audio\AudioSource.h" />
@@ -134,6 +142,8 @@
     <ClInclude Include="Source\Input\GamePad.h" />
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
+    <ClInclude Include="Source\ItemDrop.h" />
+    <ClInclude Include="Source\ItemGenerator.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\Misc.h" />
     <ClInclude Include="Source\SceneGame.h" />
@@ -145,6 +155,11 @@
     <ClCompile Include="External\imgui\imgui_demo.cpp" />
     <ClCompile Include="External\imgui\imgui_draw.cpp" />
     <ClCompile Include="External\imgui\imgui_widgets.cpp" />
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="Source\Army.cpp" />
+    <ClCompile Include="Source\AttributeSystem.cpp" />
+>>>>>>> Stashed changes
     <ClCompile Include="Source\Audio\Audio.cpp" />
     <ClCompile Include="Source\Audio\AudioResource.cpp" />
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
@@ -162,6 +177,8 @@
     <ClCompile Include="Source\Input\GamePad.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\ItemDrop.cpp" />
+    <ClCompile Include="Source\ItemGenerator.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\SceneGame.cpp" />
