@@ -141,6 +141,9 @@
     <ClInclude Include="Source\Scene.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Text.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -228,6 +231,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneTitle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Text.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
