@@ -19,7 +19,7 @@ Framework::Framework(HWND hWnd)
 	, input(hWnd)
 	, graphics(hWnd)
 {
-	SceneManager::Instance().ChangeScene(new SceneTitle);
+	SceneManager::Instance().ChangeScene(std::make_unique<SceneTitle>());
 }
 
 // デストラクタ

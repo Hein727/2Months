@@ -256,6 +256,17 @@ void Sprite::Render(ID3D11DeviceContext *immediate_context,
 		float screen_width = viewport.Width;
 		float screen_height = viewport.Height;
 
+		float BaseW = 1280.0f; //the resolution you design your game for
+		float BaseH = 720.0f;
+
+		float scaleX = screen_width / BaseW;
+		float scaleY = screen_height / BaseH;
+
+		dx *= scaleX;
+		dy *= scaleY;
+		dw *= scaleX;
+		dh *= scaleY;
+
 		// スプライトを構成する４頂点のスクリーン座標を計算する
 		DirectX::XMFLOAT2 positions[] = {
 			DirectX::XMFLOAT2(dx,      dy),			// 左上

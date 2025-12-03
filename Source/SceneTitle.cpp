@@ -2,41 +2,47 @@
 #include "SceneGame.h"
 #include "Graphics/Graphics.h"
 #include "SceneManager.h"
-<<<<<<< Updated upstream
-#include <imgui.h>
-=======
-#include "Text.h"
->>>>>>> Stashed changes
+#include "CameraControl.h"
+
 
 void SceneTitle::Initialize()
 {
 	sprite = std::make_unique<Sprite>("Data/Sprite/title_sprite.png");
 	start = std::make_unique<Sprite>("Data/Sprite/start.png");
 	tutorial = std::make_unique<Sprite>("Data/Sprite/tutorial.png");
+	buttoninfos[0].position = DirectX::XMFLOAT2(177, 350);
+	buttoninfos[0].size = DirectX::XMFLOAT2(start->GetTextureWidth() * 0.35, start->GetTextureHeight() * 0.35);
+	buttoninfos[1].position = DirectX::XMFLOAT2(630, 350);
+	buttoninfos[1].size = DirectX::XMFLOAT2(start->GetTextureWidth() * 0.35, start->GetTextureHeight() * 0.35);
 }
 
 void SceneTitle::Update(float elapsedTime)
 {
-	::GetCursorPos(&cursorPos);
-	HWND hwnd = GetForegroundWindow();
-	ScreenToClient(hwnd, &cursorPos);
+	cursorPos = camera_controls::instance().get_cursor_position();
+
+	float scaleX = 1280.0f / 1920.0f;
+	float scaleY = 720.0f / 1080.0f;
+
+	DirectX::XMFLOAT2 cursor720;
+	cursor720.x = cursorPos.x * scaleX;
+	cursor720.y = cursorPos.y * scaleY;
 
 	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
-	{
+	{	
 		//START
-		if (cursorPos.x >= 230 && cursorPos.x <= 600)
+		if (cursor720.x >= buttoninfos[0].position.x && cursor720.x <= buttoninfos[0].position.x + buttoninfos[0].size.x )
 		{
-			if (cursorPos.y >= 520 && cursorPos.y <= 680)
+			if (cursor720.y >= buttoninfos[0].position.y && cursor720.y <= buttoninfos[0].position.y + buttoninfos[0].size.y )
 			{
-				SceneManager::Instance().ChangeScene(new SceneGame);
+				SceneManager::Instance().ChangeScene(std::make_unique<SceneGame>());
 			}
 		}
 		//TUTORIAL
-		if (cursorPos.x >= 690 && cursorPos.x <= 1150)
+		if (cursor720.x >= buttoninfos[1].position.x && cursor720.x <= buttoninfos[1].position.x + buttoninfos[1].size.x)
 		{
-			if (cursorPos.y >= 520 && cursorPos.y <= 680)
+			if (cursor720.y >= buttoninfos[1].position.y && cursor720.y <= buttoninfos[1].position.y + buttoninfos[1].size.y)
 			{
-				SceneManager::Instance().ChangeScene(new SceneGame);
+				SceneManager::Instance().ChangeScene(std::make_unique<SceneGame>());
 			}
 		}
 
@@ -55,41 +61,35 @@ void SceneTitle::Render()
 	dc->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	dc->OMSetRenderTargets(1, &rtv, dsv);
 	
+
 	//2d sprites here 
 	{
 		sprite->Render(
 			dc,
-			0, 0, graphics.GetScreenWidth(), graphics.GetScreenHeight(),
+			0, 0, sprite->GetTextureWidth(), sprite->GetTextureHeight(),
 			0, 0, sprite->GetTextureWidth(), sprite->GetTextureHeight(),
 			0, 
 			1, 1, 1, 1);
-<<<<<<< Updated upstream
 		tutorial->Render(
 			dc,
-			590, 350, 750, 500,
+			buttoninfos[1].position.x, buttoninfos[1].position.y,
+			buttoninfos[1].size.x, buttoninfos[1].size.y,
 			0, 0, tutorial->GetTextureWidth(), tutorial->GetTextureHeight(),
 			0,
 			1, 1, 1, 1);
 		start->Render(
 			dc,
-			50, 350, 750, 500,
-			0, 0, start->GetTextureWidth(), start->GetTextureHeight(),
+			buttoninfos[0].position.x, buttoninfos[0].position.y,
+			buttoninfos[0].size.x, buttoninfos[0].size.y,
+			0, 0, tutorial->GetTextureWidth(), tutorial->GetTextureHeight(),
 			0,
 			1, 1, 1, 1);
-		
 	}
 
-	
-
-	
-=======
-	Text::Instance().Render("enter", { graphics.GetScreenWidth() / 2, graphics.GetScreenHeight() / 2 }, { 1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, Text::Instance().CENTER);
-	}
-
-
-	if(::GetAsyncKeyState(VK_RETURN) & 0x0001)
-	SceneManager::Instance().ChangeScene(new SceneGame);
->>>>>>> Stashed changes
+	ImGui::Begin("CursorPos");
+	ImGui::SliderFloat2("start", &buttoninfos[0].size.x, 0.0f, 1280.0f);
+	ImGui::SliderFloat2("tutorial", &buttoninfos[1].size.x, 0.0f, 1280.0f);
+	ImGui::End();
 }
 
 void SceneTitle::Finalize()

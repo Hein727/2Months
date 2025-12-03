@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Scene.h"
+#include <memory>
 
 class SceneManager
 {
@@ -21,7 +22,7 @@ public:
 		{
 			currentScene->Finalize();
 
-			currentScene = nextScene;
+			currentScene = std::move(nextScene);
 			nextScene = nullptr;
 
 			currentScene->Initialize();
@@ -43,24 +44,31 @@ public:
 
 	void Clear()
 	{
-		if (currentScene != nullptr)
+		/*if (currentScene != nullptr)
 		{
 			currentScene->Finalize();
-			delete currentScene;
 			currentScene = nullptr;
-		}
+		}*/
 	}
 
-	void ChangeScene(Scene* newScene)
-	{
-		nextScene = newScene;
-		if(currentScene == nullptr)
+    void ChangeScene(std::unique_ptr<Scene> newScene)
+    {
+		// First scene ever
+		if (!currentScene)
 		{
-			currentScene = nextScene;
+			currentScene = std::move(newScene);
+			currentScene->Initialize();
+			return;
 		}
-	}
+
+		// Otherwise queue for change
+		nextScene = std::move(newScene);
+    }
 
 private:
-	Scene* currentScene = nullptr;
-	Scene* nextScene = nullptr;
+	//Scene* currentScene = nullptr;
+	//Scene* nextScene = nullptr;
+
+	std::unique_ptr<Scene> currentScene;
+	std::unique_ptr<Scene> nextScene;
 };

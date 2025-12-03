@@ -1,22 +1,14 @@
-﻿  SceneTitle.cpp
-<<<<<<< Updated upstream
-C:\Users\2240162\Desktop\2Months\Source\SceneTitle.cpp(59,61): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240162\Desktop\2Months\Source\SceneTitle.cpp(59,33): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240162\Desktop\2Months\Source\SceneTitle.cpp(65,65): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240162\Desktop\2Months\Source\SceneTitle.cpp(65,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240162\Desktop\2Months\Source\SceneTitle.cpp(71,59): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240162\Desktop\2Months\Source\SceneTitle.cpp(71,32): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  SceneGame.cpp
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(72,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
+  
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(72,28): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
+  
      ライブラリ bin\x64\Release\Game.lib とオブジェクト bin\x64\Release\Game.exp を作成中
   コード生成しています。
-  1 of 4396 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-=======
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(34,61): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(34,33): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-     ライブラリ bin\x64\Release\Game.lib とオブジェクト bin\x64\Release\Game.exp を作成中
-  コード生成しています。
-  5 of 4404 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
->>>>>>> Stashed changes
+  1 of 4475 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    29 functions had inline decision re-evaluated but remain unchanged
+    30 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
-  Game.vcxproj -> C:\Users\2240162\Desktop\2Months\bin\x64\Release\Game.exe
+  Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Release\Game.exe

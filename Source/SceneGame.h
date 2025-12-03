@@ -4,6 +4,7 @@
 #include "Army.h"
 #include <memory>
 #include <vector>
+#include "UI.h"
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame : public Scene
@@ -66,17 +67,7 @@ protected:
 	std::vector<Army*> enemies;
 	int enemyLimit = 5;
 
-	//struct UIIcon
-	//{
-	//	std::unique_ptr<Sprite> sprite; // the visual
-	//	DirectX::XMFLOAT2 position;     // screen position
-	//	DirectX::XMFLOAT2 size;         // width/height
-	//	bool isDragging = false;        // for drag handling
-
-	//	bool ContainsPoint(float x, float y)
-	//	{
-	//		return x >= position.x && x <= position.x + size.x &&
-	//			y >= position.y && y <= position.y + size.y;
-	//	}
-	//};
+	std::vector<std::unique_ptr<UI> > playerHp;
+	std::vector<std::unique_ptr<UI> > powerUps;
+	std::vector<std::unique_ptr<UI> > element;
 };

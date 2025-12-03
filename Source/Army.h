@@ -261,6 +261,20 @@ public :
 
 	bool targetSet = false;
 
+	int GetElementType() const
+	{
+		return elementType;
+	}
+
+	int setElementType(const int type)
+	{
+		if (type >= EARTH && type <= WOOD)
+		{
+			elementType = type;
+		}
+		return elementType;
+	}
+
 private :
 
 	void UnitTargetting()
@@ -311,5 +325,15 @@ protected:
 	bool defeated = false;
 
 	bool regroupped = false;
+
+	int elementType = EARTH;
+
+	enum ElementType
+	{
+		EARTH,
+		FIRE,
+		WIND,
+		WOOD
+	};
 };
 

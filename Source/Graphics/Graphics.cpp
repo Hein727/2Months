@@ -48,13 +48,12 @@ Graphics::Graphics(HWND hWnd)
 			swapchainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// 1ピクセルあたりの各色(RGBA)を8bit(0～255)のテクスチャ(バックバッファ)を作成する。
 			swapchainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 			swapchainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-
 			swapchainDesc.SampleDesc.Count = 1;
 			swapchainDesc.SampleDesc.Quality = 0;
 			swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 			swapchainDesc.BufferCount = 1;		// バックバッファの数
 			swapchainDesc.OutputWindow = hWnd;	// DirectXで描いた画を表示するウインドウ
-			swapchainDesc.Windowed = TRUE;		// ウインドウモードか、フルスクリーンにするか。
+			swapchainDesc.Windowed = FALSE;		// ウインドウモードか、フルスクリーンにするか。
 			swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 			swapchainDesc.Flags = 0; // DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH
 		}

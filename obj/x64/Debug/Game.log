@@ -1,4 +1,8 @@
-﻿  SceneTitle.cpp
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(34,61): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(34,33): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  SceneGame.cpp
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(82,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
+  
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(82,28): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
+  
   Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Debug\Game.exe
