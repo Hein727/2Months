@@ -1,57 +1,7 @@
-<<<<<<< Updated upstream
-﻿  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugPS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugPS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugVS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\DebugVS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\ImGuiPS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\ImGuiPS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\ImGuiVS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\ImGuiVS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LambertPS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LambertPS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LambertVS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LambertVS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LinePS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LinePS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LineVS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\LineVS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\SpritePS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\SpritePS.cso
-  compilation code save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\SpriteVS.cod
-  compilation object save succeeded; see C:\Users\2240705\Desktop\2 Months Project\2Months\Shader\SpriteVS.cso
-  WICTextureLoader.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_widgets.cpp
-  Audio.cpp
-  AudioResource.cpp
-  AudioSource.cpp
-  CameraControl.cpp
-  Character.cpp
-  Framework.cpp
-  DebugRenderer.cpp
-  Graphics.cpp
-  ImGuiRenderer.cpp
-  LambertShader.cpp
-  LineRenderer.cpp
-  Model.cpp
-  ModelResource.cpp
-  Sprite.cpp
-  GamePad.cpp
-  Input.cpp
-  Mouse.cpp
-  Logger.cpp
-  Main.cpp
-  SceneGame.cpp
-  Stage.cpp
-  LINK : 前回のインクリメンタル リンクで bin\x64\Debug\Game.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
-     ライブラリ bin\x64\Debug\Game.lib とオブジェクト bin\x64\Debug\Game.exp を作成中
-=======
 ﻿  Framework.cpp
   SceneGame.cpp
   SceneTitle.cpp
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(360,20): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(345,20): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   (ソース ファイル 'Source/SceneTitle.cpp' をコンパイルしています)
   
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
@@ -66,7 +16,7 @@ C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,57): warning C
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Source/SceneTitle.cpp' をコンパイルしています)
   
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(360,20): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(345,20): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
   
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
@@ -93,7 +43,7 @@ C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(69,65): 
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(69,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(76,65): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\SceneTitle.cpp(76,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(360,20): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(345,20): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   (ソース ファイル 'Source/Framework.cpp' をコンパイルしています)
   
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
@@ -108,5 +58,10 @@ C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,57): warning C
 C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Source/Framework.cpp' をコンパイルしています)
   
->>>>>>> Stashed changes
-  Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Debug\Game.exe
+     ライブラリ bin\x64\Release\Game.lib とオブジェクト bin\x64\Release\Game.exp を作成中
+  コード生成しています。
+  2 of 4378 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    25 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+  Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Release\Game.exe

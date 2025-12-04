@@ -1,11 +1,20 @@
 #include "Graphics/Graphics.h"
 #include "SceneGame.h"
+#include "SceneManager.h"
+#include "SceneTitle.h"
 #include "CameraControl.h"
 
 // 初期化
 void SceneGame::Initialize()
 {
 	stage = std::make_unique<Stage>();
+<<<<<<< Updated upstream
+=======
+
+	player = new Army(5, false); // 味方軍
+
+	InitUI();
+>>>>>>> Stashed changes
 }
 
 // 終了化
@@ -17,6 +26,39 @@ void SceneGame::Finalize()
 void SceneGame::Update(float elapsedTime)
 {
 	stage->Update(elapsedTime);
+<<<<<<< Updated upstream
+=======
+
+	if (player->getInitialArmySize() > 0)
+	{
+		player->Update(elapsedTime);
+
+		SpawnEnemy(elapsedTime);
+#if !_DEBUG
+		camera_controls::instance().SetFocus(player->centerPosition);
+#endif
+		if (enemies.size() > 0)
+		{
+			for (auto& enemy : enemies)
+			{
+				enemy->EnemyFindPlayerArmy(player->centerPosition);
+				enemy->EnemyFindTargetArmy(player);
+				enemy->Update(elapsedTime);
+			}
+		}
+
+		player->PlayerFindTargetArmy(enemies);
+
+		EnemyDefeated();
+	}
+
+	if (player->getDeafeated())
+	{
+		SceneManager::Instance().ChangeScene(std::make_unique<SceneTitle>());
+	}
+
+	UpdateUI(elapsedTime);
+>>>>>>> Stashed changes
 }
 
 // 描画処理
@@ -60,11 +102,19 @@ void SceneGame::Render()
 
 	// 2Dスプライト描画
 	{
+<<<<<<< Updated upstream
 
+=======
+		RenderUI(dc);
+>>>>>>> Stashed changes
 	}
 
 	// 2DデバッグGUI描画
 	{
+<<<<<<< Updated upstream
 
+=======
+		
+>>>>>>> Stashed changes
 	}
 }
