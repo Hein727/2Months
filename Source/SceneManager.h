@@ -5,7 +5,7 @@
 
 class SceneManager
 {
-private :
+private:
 	SceneManager() {};
 public:
 	~SceneManager() {};
@@ -15,7 +15,7 @@ public:
 		static SceneManager Instance;
 		return Instance;
 	}
-	
+
 	void Update(float elapsedTime)
 	{
 		if (nextScene != nullptr)
@@ -36,7 +36,7 @@ public:
 
 	void Render()
 	{
-		if(currentScene != nullptr)
+		if (currentScene != nullptr)
 		{
 			currentScene->Render();
 		}
@@ -44,15 +44,15 @@ public:
 
 	void Clear()
 	{
-		/*if (currentScene != nullptr)
+		if (currentScene != nullptr)
 		{
 			currentScene->Finalize();
 			currentScene = nullptr;
-		}*/
+		}
 	}
 
-    void ChangeScene(std::unique_ptr<Scene> newScene)
-    {
+	void ChangeScene(std::unique_ptr<Scene> newScene)
+	{
 		// First scene ever
 		if (!currentScene)
 		{
@@ -63,7 +63,7 @@ public:
 
 		// Otherwise queue for change
 		nextScene = std::move(newScene);
-    }
+	}
 
 private:
 	//Scene* currentScene = nullptr;

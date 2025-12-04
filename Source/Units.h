@@ -13,44 +13,48 @@ private:
 	std::unique_ptr<Model> model;
 	bool in_formation = false;
 	void Initialize();
-	
+
 	float pawnRadius = 50.4f * 0.01f;
 
 public:
-enum state
-{
-	IDLE,
-	MAIN_LOGIC,
-	REGROUP,
-	ATTACK,
-	MAIN_LOGIC_REGROUPING
-};
+	enum state
+	{
+		IDLE,
+		MAIN_LOGIC,
+		REGROUP,
+		ATTACK,
+		MAIN_LOGIC_REGROUPING
+	};
 	Unit();
 	virtual ~Unit() {};
-	
+
 	void Update(float elapsedTime);
 
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
-	
+
 	//基本的なゲッターとセッター
 	int GetAttack() const { return attack; }
 
 	bool IsAlive() const { return alive; }
 
-	uint16_t GetID() const { return id; }	
+	uint16_t GetID() const { return id; }
 
 	void SetID(int newID) { this->id = newID; }
 
-	void SetPositionInFormation(const DirectX::XMFLOAT3& pos) 
-	{ 
-		this->position_in_formation = pos; 
-	}	
+	void SetPositionInFormation(const DirectX::XMFLOAT3& pos)
+	{
+		this->position_in_formation = pos;
+	}
+
+	void SetAttack(int attack) { this->attack = attack; }
+
+	void SetHp(int hp) { this->hp = hp; }
 
 	DirectX::XMFLOAT3 GetPositionInFormation() const { return position_in_formation; }
 
 	DirectX::XMFLOAT3 GetPosition() const { return position; }
 
-	void TakeDamage(int damage) 
+	void TakeDamage(int damage)
 	{
 		hp -= damage;
 		if (hp <= 0) {
@@ -73,12 +77,14 @@ enum state
 		up = DirectX::XMFLOAT4(oteint4x4._21, oteint4x4._22, oteint4x4._23, 0.0f);
 	}
 
-	void SetCenterPosition(const DirectX::XMFLOAT3& centerPos) 
-	{ 
-		this->centerPosition = centerPos; 
+	void SetCenterPosition(const DirectX::XMFLOAT3& centerPos)
+	{
+		this->centerPosition = centerPos;
 	}
 
 	void SetTargetUnit(Unit* target) { this->TargetUnit = target; }
+
+	Unit* GetTargetUnit() const { return TargetUnit; }
 
 	bool IsInFormation() const { return in_formation; }
 

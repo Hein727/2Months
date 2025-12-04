@@ -14,6 +14,8 @@ public:
 		bool display_textBox;
 		DirectX::XMFLOAT4 color; // RGBA
 		DirectX::XMFLOAT2 hitbox_size;
+		bool edit_texture_size = false;
+		DirectX::XMFLOAT2 edited_texture_size;
 	} option;
 
 	UI(DirectX::XMFLOAT2 position, bool visible = true, bool textBox = false)
@@ -30,6 +32,7 @@ public:
 	// all the setters
 	void loadSprite(const char* filePath) {
 		sprite = std::make_unique<Sprite>(filePath);
+		option.edited_texture_size = DirectX::XMFLOAT2(sprite->GetTextureWidth() * option.scale.x, sprite->GetTextureHeight() * option.scale.y);
 	}
 
 	void setPosition(const DirectX::XMFLOAT2 position) {
@@ -46,6 +49,14 @@ public:
 
 	void setDisplayTextBox(bool display) {
 		option.display_textBox = display;
+	}
+
+	void setEditTextureSize(bool edit) {
+		option.edit_texture_size = edit;
+	}
+
+	void setEditedTextureSize(const DirectX::XMFLOAT2 size) {
+		option.edited_texture_size = size;
 	}
 
 	// all the getters
@@ -66,6 +77,17 @@ public:
 		return option.display_textBox;
 	}
 
+	DirectX::XMFLOAT2 getEditedTextureSize() const {
+		return option.edited_texture_size;
+	}
+
+	DirectX::XMFLOAT2 getOriginalTextureSize() const {
+		if (sprite != nullptr) {
+			return DirectX::XMFLOAT2(static_cast<float>(sprite->GetTextureWidth()), static_cast<float>(sprite->GetTextureHeight()));
+		}
+		return DirectX::XMFLOAT2(0.0f, 0.0f);
+	}
+
 	void Update(float elapsedTime)
 	{
 		// Update logic can be added here if needed
@@ -75,14 +97,28 @@ public:
 	{
 		if (option.visible && sprite != nullptr)
 		{
-			sprite->Render(dc,
-				option.position.x, option.position.y,
-				sprite->GetTextureWidth() * option.scale.x, sprite->GetTextureHeight() * option.scale.y,
-				0, 0,
-				sprite->GetTextureWidth(), sprite->GetTextureHeight(),
-				0,
-				option.color.x, option.color.y, option.color.z, option.color.w
-			);
+			if (option.edit_texture_size)
+			{
+				sprite->Render(dc,
+					option.position.x, option.position.y,
+					option.edited_texture_size.x, option.edited_texture_size.y,
+					0, 0,
+					sprite->GetTextureWidth(), sprite->GetTextureHeight(),
+					0,
+					option.color.x, option.color.y, option.color.z, option.color.w
+				);
+			}
+			else
+			{
+				sprite->Render(dc,
+					option.position.x, option.position.y,
+					sprite->GetTextureWidth() * option.scale.x, sprite->GetTextureHeight() * option.scale.y,
+					0, 0,
+					sprite->GetTextureWidth(), sprite->GetTextureHeight(),
+					0,
+					option.color.x, option.color.y, option.color.z, option.color.w
+				);
+			}
 		}
 	}
 

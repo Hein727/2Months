@@ -8,7 +8,7 @@
 
 class Army
 {
-public : 
+public:
 
 	void SetEnemyArmyMoveSpeed(const float speed)
 	{
@@ -16,7 +16,7 @@ public :
 	}
 
 
-	Army(const int size = 5, const bool enemy = false, const DirectX::XMFLOAT3 position = { 0, 0, 0})
+	Army(const int size = 5, const bool enemy = false, const DirectX::XMFLOAT3 position = { 0, 0, 0 })
 	{
 		srand((unsigned int)time(NULL));
 
@@ -29,7 +29,7 @@ public :
 		EnemyType = enemy;
 		if (!enemy)
 		{
-			this->size = size;
+			this->initial_size = size;
 			units.reserve(size);
 			spawnPosition = position;
 		}
@@ -49,13 +49,18 @@ public :
 			float dirX = (rand() % 2 == 0) ? -1.0f : 1.0f;
 			float dirZ = (rand() % 2 == 0) ? -1.0f : 1.0f;
 
-			float distance = static_cast<float>((rand() % 20) + 20);
+			float distance = static_cast<float>((rand() % 30) + 30);
 			spawnPosition = position;
 			spawnPosition.x += dirX * distance;
 			spawnPosition.z += dirZ * distance;
 			spawnPosition.y = 0.0f;
 
-			this->size = randomSize;
+			this->initial_size = randomSize;
+
+			for (auto& unit : units)
+			{
+				unit->SetHp(75);
+			}
 
 		}
 
@@ -70,7 +75,7 @@ public :
 		};
 
 	};
-	virtual ~Army() 
+	virtual ~Army()
 	{
 		enemyUnits.clear();
 	};
@@ -92,11 +97,6 @@ public :
 	void SetDetectionRange(const float range) // might be useful for different army types
 	{
 		armyDetectionRange = range;
-	}
-
-	int getArmySize() const
-	{
-		return size;
 	}
 
 private:
@@ -145,8 +145,8 @@ private:
 		WAIT,
 	}armyState;
 
-protected :
-	int size = 0;
+protected:
+	int initial_size = 0;
 
 	float moveSpeed = 3.0f;
 	const float spacing = 1.0f;
@@ -155,20 +155,19 @@ protected :
 	float turnSpeed = 3.0f; // will be used to get smooth turning with slerp 
 	float armyDetectionRange = 5.0f; // range at which the army will detect enemies
 	DirectX::XMFLOAT3 spawnPosition = { 0,0,0 };
-	DirectX::XMFLOAT4 orientation ={};
+	DirectX::XMFLOAT4 orientation = {};
 	float distance = 0.0f;
 
 	bool EnemyType = false; // This will change the whole army behavior 
 
 	int Id = 0;
 
-	// ユニットの配列
 	std::vector<std::unique_ptr<Unit>> units;
 
 	friend class Unit;
 
 
-public :
+public:
 	///////Enemy army functions///////
 
 	void EnemyFindPlayerArmy(DirectX::XMFLOAT3& playerPos)
@@ -179,19 +178,15 @@ public :
 		DirectX::XMVECTOR dirVec = DirectX::XMVectorSubtract(PlayerPosVec, CenterPosVec);
 		DirectX::XMStoreFloat3(&playerArmyDir, DirectX::XMVector3Normalize(dirVec));
 	}
-	//bool GetEnemyArmyMove()
-	//{
-	//	return move;
-	//}
-	
-	
+
+
 	DirectX::XMFLOAT3 playerArmyPos = { 0,0,0 };
 	DirectX::XMFLOAT3 playerArmyDir = { 0,0,0 };
 protected:
 
 	//bool move = false;
 
-public :
+public:
 	///////Targeting functions///////
 	void EnemyFindTargetArmy(const Army* army)
 	{
@@ -275,7 +270,7 @@ public :
 		return elementType;
 	}
 
-private :
+private:
 
 	void UnitTargetting()
 	{
@@ -292,13 +287,26 @@ private :
 
 		int numEnemyUnits = static_cast<int>(enemyUnits.size());
 
+		if (numEnemyUnits == 0) return;
+
 		for (auto& unit : units)
 		{
 			unit->SetTargetUnit(enemyUnits[targetIndex]);
 			targetIndex++;
-			if(targetIndex >= numEnemyUnits)
+			if (targetIndex >= numEnemyUnits)
 				targetIndex = 0;
 		}
+	}
+
+	void UnitRetargetting(Unit* unit)
+	{
+		if (enemyUnits.empty())
+		{
+			unit->SetTargetUnit(nullptr);
+			return;
+		}
+
+		unit->SetTargetUnit(enemyUnits[rand() % enemyUnits.size()]);
 	}
 
 	void RemoveDeadUnits()
@@ -309,11 +317,9 @@ private :
 			units.end()
 		);
 
-		size = static_cast<int>(units.size());
-
-		if(size <= 0)
-			defeated = true;	
+		moralCalculation();
 	}
+
 
 protected:
 	Army* targetArmy = nullptr;
@@ -335,5 +341,43 @@ protected:
 		WIND,
 		WOOD
 	};
-};
 
+	////////Real hp of the army////////
+public:
+	float getMoral() const
+	{
+		return moral;
+	}
+
+	int getInitialArmySize() const
+	{
+		return initial_size;
+	}
+
+	int getArmySize() const
+	{
+		return units.size();
+	}
+
+private:
+
+	void moralCalculation()
+	{
+		if (units.size() <= 0)
+		{
+			defeated = true;
+			return;
+		}
+
+		moral = (static_cast<float>(units.size()) / static_cast<float>(initial_size)) * 100.0f;
+
+		if (moral <= 25.0f)
+		{
+			defeated = true;
+		}
+	}
+
+
+protected:
+	float moral;
+};

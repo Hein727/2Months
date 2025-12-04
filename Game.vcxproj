@@ -114,7 +114,6 @@
     <ClInclude Include="External\imgui\imstb_rectpack.h" />
     <ClInclude Include="External\imgui\imstb_textedit.h" />
     <ClInclude Include="External\imgui\imstb_truetype.h" />
-    <ClInclude Include="Miscellaneous.h" />
     <ClInclude Include="Source\Army.h" />
     <ClInclude Include="Source\Audio\Audio.h" />
     <ClInclude Include="Source\Audio\AudioResource.h" />

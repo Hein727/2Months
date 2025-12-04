@@ -2,14 +2,14 @@
 #include "CameraControl.h"
 #include "Army.h"
 
-Unit::Unit() 
-{ 
+Unit::Unit()
+{
 	model = std::make_unique<Model>("Data/Model/WhitePawn.mdl");
 
-    hp = 100;
-    attack = 50;
-    id = 0;
-    alive = true;
+	hp = 100;
+	attack = 25;
+	id = 0;
+	alive = true;
 	unitState = IDLE;
 
 	Character::scale = { 0.01f, 0.01f, 0.01f };
@@ -17,7 +17,7 @@ Unit::Unit()
 
 void Unit::Update(float elapsedTime)
 {
-	if(hp <= 0)
+	if (hp <= 0)
 	{
 		alive = false;
 	}
@@ -42,7 +42,13 @@ void Unit::Update(float elapsedTime)
 		break;
 	}
 	case ATTACK:
-	{	
+	{
+		if (TargetUnit == nullptr || !TargetUnit->IsAlive())
+		{
+			TargetUnit = nullptr;
+			unitState = REGROUP;
+			return;
+		}
 		DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
 		DirectX::XMVECTOR targetPos = DirectX::XMLoadFloat3(&TargetUnit->position);
 		DirectX::XMVECTOR direction = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(targetPos, pos));
@@ -50,7 +56,20 @@ void Unit::Update(float elapsedTime)
 		float sqRadius = pawnRadius * pawnRadius;
 		if (distance < sqRadius)
 		{
-			TargetUnit->TakeDamage(attack);
+			static float attackCooldown = 0.5f;
+
+			if (attackCooldown < 0.0f)
+			{
+				TargetUnit->TakeDamage(attack);
+
+				if (!TargetUnit->IsAlive())
+				{
+					TargetUnit = nullptr;
+					unitState = REGROUP;
+				}
+				attackCooldown = 0.5f;
+			}
+			attackCooldown -= elapsedTime;
 		}
 		else
 		{
@@ -71,7 +90,6 @@ void Unit::Update(float elapsedTime)
 		if (distance < FLT_EPSILON)
 		{
 			unitState = IDLE;
-			in_formation = true;
 		}
 		else
 		{
@@ -81,14 +99,14 @@ void Unit::Update(float elapsedTime)
 			DirectX::XMStoreFloat3(&position, newPos);
 		}
 	}
-		break;
+	break;
 	}
 
 	if (hp <= 0)
 	{
 		alive = false;
 	}
-	
+
 	DirectX::XMVECTOR centerVec = DirectX::XMLoadFloat3(&centerPosition);
 	DirectX::XMVECTOR rightVec = DirectX::XMLoadFloat4(&right);
 	DirectX::XMVECTOR upVec = DirectX::XMLoadFloat4(&up);
@@ -106,7 +124,7 @@ void Unit::Update(float elapsedTime)
 		worldPos = centerVec + worldOffset;
 	}
 	DirectX::XMStoreFloat3(&position_in_formation, worldPos);
-	
+
 	//ƒ‚ƒfƒ‹‚ÌXV
 	UpdateTransform();
 	model->UpdateTransform(transform);
