@@ -23,7 +23,7 @@ private:
 	std::unique_ptr<Sprite> sprite;
 	std::unique_ptr<Sprite> start;
 	std::unique_ptr<Sprite> tutorial;
-	POINT cursorPos;
+	DirectX::XMFLOAT2 cursorPos;
 	struct buttonInfo
 	{
 		DirectX::XMFLOAT2 position;

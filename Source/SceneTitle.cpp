@@ -18,34 +18,26 @@ void SceneTitle::Initialize()
 
 void SceneTitle::Update(float elapsedTime)
 {
-	cursorPos = camera_controls::instance().get_cursor_position();
-
-	float scaleX = 1280.0f / 1920.0f;
-	float scaleY = 720.0f / 1080.0f;
-
-	DirectX::XMFLOAT2 cursor720;
-	cursor720.x = cursorPos.x * scaleX;
-	cursor720.y = cursorPos.y * scaleY;
+	cursorPos = camera_controls::instance().get_cursor_position_hbuse();
 
 	if (::GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 	{	
 		//START
-		if (cursor720.x >= buttoninfos[0].position.x && cursor720.x <= buttoninfos[0].position.x + buttoninfos[0].size.x )
+		if (cursorPos.x >= buttoninfos[0].position.x && cursorPos.x <= buttoninfos[0].position.x + buttoninfos[0].size.x )
 		{
-			if (cursor720.y >= buttoninfos[0].position.y && cursor720.y <= buttoninfos[0].position.y + buttoninfos[0].size.y )
+			if (cursorPos.y >= buttoninfos[0].position.y && cursorPos.y <= buttoninfos[0].position.y + buttoninfos[0].size.y )
 			{
 				SceneManager::Instance().ChangeScene(std::make_unique<SceneGame>());
 			}
 		}
 		//TUTORIAL
-		if (cursor720.x >= buttoninfos[1].position.x && cursor720.x <= buttoninfos[1].position.x + buttoninfos[1].size.x)
+		if (cursorPos.x >= buttoninfos[1].position.x && cursorPos.x <= buttoninfos[1].position.x + buttoninfos[1].size.x)
 		{
-			if (cursor720.y >= buttoninfos[1].position.y && cursor720.y <= buttoninfos[1].position.y + buttoninfos[1].size.y)
+			if (cursorPos.y >= buttoninfos[1].position.y && cursorPos.y <= buttoninfos[1].position.y + buttoninfos[1].size.y)
 			{
 				SceneManager::Instance().ChangeScene(std::make_unique<SceneGame>());
 			}
 		}
-
 	}
 }
 
