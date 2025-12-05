@@ -2,31 +2,36 @@
 #include "Graphics/Sprite.h"
 #include "Scene.h"
 #include <memory>
+#include "Audio/Audio.h"
 
 class SceneTitle : public Scene
 {
 public:
-	SceneTitle() {};
-	~SceneTitle() override {};
-	// 初期化
-	void Initialize() override;
+    SceneTitle() {};
+    ~SceneTitle() override {};
+    // 初期化
+    void Initialize() override;
 
-	// 終了化
-	void Finalize() override;
+    // 終了化
+    void Finalize() override;
 
-	// 更新処理
-	void Update(float elapsedTime) override;
+    // 更新処理
+    void Update(float elapsedTime) override;
 
-	// 描画処理
-	void Render() override;
+    // 描画処理
+    void Render() override;
 private:
-	std::unique_ptr<Sprite> sprite;
-	std::unique_ptr<Sprite> start;
-	std::unique_ptr<Sprite> tutorial;
-	DirectX::XMFLOAT2 cursorPos;
-	struct buttonInfo
-	{
-		DirectX::XMFLOAT2 position;
-		DirectX::XMFLOAT2 size;
-	}buttoninfos[2];
+    std::unique_ptr<Sprite> sprite;
+    std::unique_ptr<Sprite> start;
+    std::unique_ptr<Sprite> tutorial;
+    std::unique_ptr<AudioSource> titlebgm;
+    std::unique_ptr<AudioSource> decisionSe;
+    DirectX::XMFLOAT2 cursorPos;
+    struct buttonInfo
+    {
+        DirectX::XMFLOAT2 position;
+        DirectX::XMFLOAT2 size;
+    }buttoninfos[2];
+
+
 };

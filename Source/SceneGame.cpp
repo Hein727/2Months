@@ -7,6 +7,9 @@ void SceneGame::Initialize()
 {
 	stage = std::make_unique<Stage>();
 
+	gamebgm = Audio::Instance().LoadAudioSource("Data/Audio/ƒV[ƒ“ƒQ[ƒ€‰¹Šy‚Q.wav");
+	gamebgm->Play(true);
+
 	player = new Army(20, false); // –¡•ûŒR
 
 	enemy = new Army(player->getArmySize(), true, player->centerPosition); // “GŒR
@@ -78,6 +81,11 @@ void SceneGame::Initialize()
 // I—¹‰»
 void SceneGame::Finalize()
 {
+	if (gamebgm)
+	{
+		gamebgm->Stop();
+		//gamebgm.reset();
+	}
 }
 
 // XVˆ—

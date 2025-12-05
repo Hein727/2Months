@@ -147,6 +147,12 @@
     <ClInclude Include="Source\UI.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameOver.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameClear.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -237,6 +243,12 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Text.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameOver.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameClear.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

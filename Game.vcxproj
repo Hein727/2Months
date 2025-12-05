@@ -122,6 +122,8 @@
     <ClInclude Include="Source\CameraControl.h" />
     <ClInclude Include="Source\Character.h" />
     <ClInclude Include="Source\Framework.h" />
+    <ClInclude Include="Source\GameClear.h" />
+    <ClInclude Include="Source\GameOver.h" />
     <ClInclude Include="Source\Graphics\DebugRenderer.h" />
     <ClInclude Include="Source\Graphics\Graphics.h" />
     <ClInclude Include="Source\Graphics\ImGuiRenderer.h" />
@@ -160,6 +162,8 @@
     <ClCompile Include="Source\CameraControl.cpp" />
     <ClCompile Include="Source\Character.cpp" />
     <ClCompile Include="Source\Framework.cpp" />
+    <ClCompile Include="Source\GameClear.cpp" />
+    <ClCompile Include="Source\GameOver.cpp" />
     <ClCompile Include="Source\Graphics\DebugRenderer.cpp" />
     <ClCompile Include="Source\Graphics\Graphics.cpp" />
     <ClCompile Include="Source\Graphics\ImGuiRenderer.cpp" />

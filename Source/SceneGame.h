@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include "UI.h"
+#include "Audio/Audio.h"
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame : public Scene
@@ -70,4 +71,5 @@ protected:
 	std::vector<std::unique_ptr<UI> > playerHp;
 	std::vector<std::unique_ptr<UI> > powerUps;
 	std::vector<std::unique_ptr<UI> > element;
+	std::unique_ptr<AudioSource> gamebgm;
 };

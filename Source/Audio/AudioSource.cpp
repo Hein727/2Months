@@ -13,6 +13,7 @@ AudioSource::AudioSource(IXAudio2* xaudio, std::shared_ptr<AudioResource>& resou
 }
 
 // デストラクタ
+ //再生
 AudioSource::~AudioSource()
 {
 	if (sourceVoice != nullptr)
@@ -22,7 +23,7 @@ AudioSource::~AudioSource()
 	}
 }
 
-// 再生
+
 void AudioSource::Play(bool loop)
 {
 	Stop();
