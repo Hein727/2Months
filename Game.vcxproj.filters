@@ -129,9 +129,6 @@
     <ClInclude Include="Source\Army.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Miscellaneous.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SceneManager.h">
       <Filter>Source</Filter>
     </ClInclude>

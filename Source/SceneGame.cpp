@@ -1,6 +1,8 @@
 #include "Graphics/Graphics.h"
 #include "SceneGame.h"
 #include "CameraControl.h"
+#include <SceneManager.h>
+#include <SceneTitle.h>
 
 // ‰Šú‰»  
 void SceneGame::Initialize()
@@ -11,71 +13,8 @@ void SceneGame::Initialize()
 	gamebgm->Play(true);
 
 	player = new Army(20, false); // –¡•ûŒR
-
-	enemy = new Army(player->getArmySize(), true, player->centerPosition); // “GŒR
-
-	playerHp.resize(2);
-	for(int i = 0; i < 2; i++)
-	{
-		playerHp[i] = std::make_unique<UI>(DirectX::XMFLOAT2(0, 0));
-
-		switch (i)
-		{
-		case 0:
-			playerHp[i]->loadSprite("Data/Sprite/playerHPbarframe.png");
-			break;
-		case 1:
-			playerHp[i]->loadSprite("Data/Sprite/playerHPbar.png");
-			break;
-		}
-	}
-
-	powerUps.resize(4);
-	for(int i = 0; i < 4; i++)
-	{
-		powerUps[i] = std::make_unique<UI>(DirectX::XMFLOAT2(0, 0));
-
-		switch (i)
-		{
-		case 0:
-			powerUps[i]->loadSprite("Data/Sprite/icons_skills_beast.png");
-			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 338.0f));
-			break;
-		case 1:
-			powerUps[i]->loadSprite("Data/Sprite/icons_skills_fist.png");
-			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 248.0f));
-			break;
-		case 2:
-			powerUps[i]->loadSprite("Data/Sprite/icons_skills_reload.png");
-			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 158.0f));
-			break;
-		case 3:
-			powerUps[i]->loadSprite("Data/Sprite/icons_skills_runner.png");
-			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 429));
-			break;
-		}
-	}
-
-	element.resize(4);
-	for(int i = 0; i < 4; i++)
-	{
-		element[i] = std::make_unique<UI>(DirectX::XMFLOAT2(0, 610));
-		switch (i)
-		{
-		case 0:
-			element[i]->loadSprite("Data/Sprite/earthicon.png");
-			break;
-		case 1:
-			element[i]->loadSprite("Data/Sprite/fireicon.png");	
-			break;
-		case 2:
-			element[i]->loadSprite("Data/Sprite/windicon.png");	
-			break;
-		case 3:
-			element[i]->loadSprite("Data/Sprite/woodicon.png");	
-			break;
-		}
-	}
+	
+	InitUI();
 }
 
 // I—¹‰»
@@ -93,7 +32,7 @@ void SceneGame::Update(float elapsedTime)
 {
 	stage->Update(elapsedTime);
 
-	if (player->getArmySize() > 0)
+	if (player->getInitialArmySize() > 0)
 	{
 		player->Update(elapsedTime);
 
@@ -114,39 +53,14 @@ void SceneGame::Update(float elapsedTime)
 		player->PlayerFindTargetArmy(enemies);
 
 		EnemyDefeated();
-
-		switch (player->GetElementType())
-		{
-			//Earth element
-		case 0:
-			element[0]->setVisibility(true);	
-			element[1]->setVisibility(false);
-			element[2]->setVisibility(false);
-			element[3]->setVisibility(false);
-			break;
-			//Fire element
-		case 1:
-			element[0]->setVisibility(false);
-			element[1]->setVisibility(true);
-			element[2]->setVisibility(false);
-			element[3]->setVisibility(false);
-			break;
-			//Wind element
-		case 2:
-			element[0]->setVisibility(false);
-			element[1]->setVisibility(false);
-			element[2]->setVisibility(true);
-			element[3]->setVisibility(false);
-			break;
-			//Wood element
-		case 3:
-			element[0]->setVisibility(false);
-			element[1]->setVisibility(false);
-			element[2]->setVisibility(false);
-			element[3]->setVisibility(true);
-			break;
-		}
 	}
+
+	if (player->getDeafeated())
+	{
+		SceneManager::Instance().ChangeScene(std::make_unique<SceneTitle>());
+	}
+
+	UpdateUI(elapsedTime);
 }
 
 // •`‰æˆ—
@@ -195,18 +109,7 @@ void SceneGame::Render()
 
 	// 2DƒXƒvƒ‰ƒCƒg•`‰æ
 	{
-		/*for (auto& i : playerHp)
-		{
-			i->render(dc);
-		}*/
-		for (auto& i : powerUps)
-		{
-			i->render(dc);
-		}
-		for (auto& i : element)
-		{
-			i->render(dc);
-		}
+		RenderUI(dc);
 	}
 
 	// 2DƒfƒoƒbƒOGUI•`‰æ
