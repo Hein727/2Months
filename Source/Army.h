@@ -10,6 +10,44 @@ class Army
 {
 private :
 
+	int howManyUnits = 0;
+
+	bool AddNewUnits = false;
+
+	int initRNG = 0;
+
+	void AddUnitsPlayer()
+	{
+		if(targetArmy != nullptr)
+		{
+			initRNG = targetArmy->initial_size;
+	
+			float randomPercent = (rand() % 26 + 5) / 100.0f;
+
+			howManyUnits = static_cast<int>(initRNG * randomPercent);
+		}
+
+		if (AddNewUnits)
+		{
+			howManyUnits <= 0 ? howManyUnits = 1 : howManyUnits;
+
+			for (int i = 0; i < howManyUnits; ++i)
+			{
+				auto unit = std::make_unique<Unit>();
+				unit->SetID(Id++);
+				units.push_back(std::move(unit));
+			}
+
+			//OrientationRevaluation();
+			SortFormation(false);
+
+			initial_size += howManyUnits;
+			initRNG = 0;
+			howManyUnits = 0;
+			AddNewUnits = false;
+		}
+	}
+
 	/// <summary>
 	/// // hard boolean states for the army behavior
 	/// </summary>

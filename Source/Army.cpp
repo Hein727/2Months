@@ -283,11 +283,7 @@ void Army::Update(float elapsedTime)
 			{
 				units_not_in_formation = units.size();
 				regroupped = true;
-				if (useTargetPositionAsCenter)
-				{
-					OrientationRevaluation();
-					SortFormation(false);
-				}
+				AddNewUnits = true;
 				for (auto& unit : units)
 				{
 					unit->SetState(Unit::state::MAIN_LOGIC);
@@ -295,6 +291,8 @@ void Army::Update(float elapsedTime)
 				locked = false;
 			}
 		}
+
+		AddUnitsPlayer();
 	}
 
 
