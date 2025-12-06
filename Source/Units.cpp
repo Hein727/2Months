@@ -17,6 +17,8 @@ Unit::Unit()
 
 void Unit::Update(float elapsedTime)
 {
+	
+
 	if (hp <= 0)
 	{
 		alive = false;
@@ -39,13 +41,18 @@ void Unit::Update(float elapsedTime)
 			)
 		);
 		DirectX::XMStoreFloat3(&position, worldPos);
+		position.y = 0.0f;
 		break;
 	}
 	case ATTACK:
 	{
-		if (TargetUnit == nullptr || !TargetUnit->IsAlive())
+		if (TargetUnit == nullptr)
 		{
-			TargetUnit = nullptr;
+			unitState = REGROUP;
+			return;
+		}
+		else if(!TargetUnit->alive)
+		{
 			unitState = REGROUP;
 			return;
 		}
@@ -56,17 +63,9 @@ void Unit::Update(float elapsedTime)
 		float sqRadius = pawnRadius * pawnRadius;
 		if (distance < sqRadius)
 		{
-			static float attackCooldown = 0.5f;
-
 			if (attackCooldown < 0.0f)
 			{
 				TargetUnit->TakeDamage(attack);
-
-				if (!TargetUnit->IsAlive())
-				{
-					TargetUnit = nullptr;
-					unitState = REGROUP;
-				}
 				attackCooldown = 0.5f;
 			}
 			attackCooldown -= elapsedTime;
@@ -76,6 +75,7 @@ void Unit::Update(float elapsedTime)
 			DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
 			DirectX::XMVECTOR newPos = DirectX::XMVectorAdd(pos, DirectX::XMVectorScale(direction, 4.0f * elapsedTime));
 			DirectX::XMStoreFloat3(&position, newPos);
+			position.y = 0.0f;
 		}
 		in_formation = false;
 		break;
@@ -83,20 +83,26 @@ void Unit::Update(float elapsedTime)
 	case REGROUP:
 	{
 		DirectX::XMVECTOR dir = DirectX::XMVectorSubtract(
-			DirectX::XMLoadFloat3(&position_in_formation),
+			DirectX::XMLoadFloat3(&regroupTarget),
 			DirectX::XMLoadFloat3(&position)
 		);
-		float distance = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(dir));
-		if (distance < FLT_EPSILON)
+
+		float distanceSq = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(dir));
+
+		if (distanceSq < 0.05f)
 		{
 			unitState = IDLE;
+			in_formation = true;
 		}
 		else
 		{
 			dir = DirectX::XMVector3Normalize(dir);
 			DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-			DirectX::XMVECTOR newPos = DirectX::XMVectorAdd(pos, DirectX::XMVectorScale(dir, 4.0f * elapsedTime));
+			DirectX::XMVECTOR newPos = DirectX::XMVectorAdd(
+				pos, DirectX::XMVectorScale(dir, 4.0f * elapsedTime)
+			);
 			DirectX::XMStoreFloat3(&position, newPos);
+			position.y = 0.0f;
 		}
 	}
 	break;
@@ -107,23 +113,27 @@ void Unit::Update(float elapsedTime)
 		alive = false;
 	}
 
-	DirectX::XMVECTOR centerVec = DirectX::XMLoadFloat3(&centerPosition);
-	DirectX::XMVECTOR rightVec = DirectX::XMLoadFloat4(&right);
-	DirectX::XMVECTOR upVec = DirectX::XMLoadFloat4(&up);
-	DirectX::XMVECTOR forwardVec = DirectX::XMLoadFloat4(&forward);
-	DirectX::XMVECTOR worldPos;
-	float localX = offsetFromCenter.x;
-	float localY = offsetFromCenter.y;
-	float localZ = offsetFromCenter.z;
+	if (unitState != REGROUP)
 	{
-		using namespace DirectX;
-		XMVECTOR worldOffset = XMVectorScale(rightVec, localX) +
-			XMVectorScale(upVec, localY) +
-			XMVectorScale(forwardVec, localZ);
+		DirectX::XMVECTOR centerVec = DirectX::XMLoadFloat3(&centerPosition);
+		DirectX::XMVECTOR rightVec = DirectX::XMLoadFloat4(&right);
+		DirectX::XMVECTOR upVec = DirectX::XMLoadFloat4(&up);
+		DirectX::XMVECTOR forwardVec = DirectX::XMLoadFloat4(&forward);
+		DirectX::XMVECTOR worldPos;
+		float localX = offsetFromCenter.x;
+		float localY = offsetFromCenter.y;
+		float localZ = offsetFromCenter.z;
+		{
+			using namespace DirectX;
+			XMVECTOR worldOffset = XMVectorScale(rightVec, localX) +
+				XMVectorScale(upVec, localY) +
+				XMVectorScale(forwardVec, localZ);
 
-		worldPos = centerVec + worldOffset;
+			worldPos = centerVec + worldOffset;
+		}
+		DirectX::XMStoreFloat3(&position_in_formation, worldPos);
+		position_in_formation.y = 0.0f;
 	}
-	DirectX::XMStoreFloat3(&position_in_formation, worldPos);
 
 	//ƒ‚ƒfƒ‹‚ÌXV
 	UpdateTransform();

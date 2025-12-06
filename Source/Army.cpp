@@ -23,29 +23,8 @@ void Army::FindOffsetFromCenter()
 	}
 }
 
-void Army::AddUnit(const int amount)
-{
-	bool isSeeded = units.empty() ? true : false;
-
-	int adjustedAmount = (amount <= 0) ? initial_size : amount;
-
-	for (int i = 0; i < adjustedAmount; ++i)
-	{
-		auto unit = std::make_unique<Unit>();
-		unit->SetID(Id++);
-		units.push_back(std::move(unit));
-	}
-
-	SortFormation(isSeeded);
-}
 void Army::SortFormation(bool initial)
 {
-	std::sort(units.begin(), units.end(),
-		[](const std::unique_ptr<Unit>& a, const std::unique_ptr<Unit>& b)
-		{
-			return a->GetID() < b->GetID();
-		});
-
 	formationWidth = units.size() > 10 ? 10 : units.size();                    // max 10 units per row
 	formationLength = units.size() > 10 ? units.size() / 10 : 1;
 
@@ -68,17 +47,20 @@ void Army::SortFormation(bool initial)
 		offsets.push_back(offset);
 	}
 
-	FindCenter();
+	if (initial)
+		centerPosition = spawnPosition;
+	else 
+		FindCenter();
 
-	XMMATRIX rotation = XMMatrixRotationQuaternion(XMLoadFloat4(&orientation));
+	XMMATRIX rotation = XMMatrixRotationQuaternion(DirectX::XMLoadFloat4(&orientation));
 
 	for (int i = 0; i < units.size(); ++i)
 	{
-		XMVECTOR offsetVec = XMLoadFloat3(&offsets[i]);
+		XMVECTOR offsetVec = DirectX::XMLoadFloat3(&offsets[i]);
 		XMVECTOR rotatedOffset = XMVector3TransformCoord(offsetVec, rotation);
 
 		XMFLOAT3 finalOffset;
-		XMStoreFloat3(&finalOffset, rotatedOffset);
+		DirectX::XMStoreFloat3(&finalOffset, rotatedOffset);
 
 		units[i]->SetPositionInFormation({
 			centerPosition.x + finalOffset.x,
@@ -90,30 +72,83 @@ void Army::SortFormation(bool initial)
 	FindOffsetFromCenter();
 }
 
+void Army::OrientationRevaluation()
+{
+	XMVECTOR AvgDirVec = XMVectorZero();
+
+	for (auto& unit : units)
+	{
+		AvgDirVec = DirectX::XMVectorAdd(AvgDirVec, DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&centerPosition), XMLoadFloat3(&unit->GetPosition())));
+	}
+	
+	AvgDirVec = XMVector3Normalize(XMVectorScale(AvgDirVec, 1.0f / units.size()));
+
+	forward = AvgDirVec;
+	
+	XMVECTOR RightVec = XMVector3Normalize(XMVector3Cross(up, forward));
+
+	right = RightVec;
+
+	XMVECTOR OrientationVec = XMQuaternionRotationMatrix(
+		XMMatrixSet(
+			XMVectorGetX(RightVec), XMVectorGetY(RightVec), XMVectorGetZ(RightVec), 0,
+			XMVectorGetX(up), XMVectorGetY(up), XMVectorGetZ(up), 0,
+			XMVectorGetX(AvgDirVec), XMVectorGetY(AvgDirVec), XMVectorGetZ(AvgDirVec), 0,
+			0, 0, 0, 1
+		));
+
+	XMStoreFloat4(&orientation, OrientationVec);
+}
+
 void Army::FindCenter()
 {
-	XMFLOAT3 centering = units.empty() ? spawnPosition : units[0]->GetPosition();
-
-	centerPosition.x = centering.x + (formationWidth / 2.0f) * spacing;
-	centerPosition.y = centering.y;
-	centerPosition.z = centering.z - (formationLength / 2.0f) * spacing;
+	if (useTargetPositionAsCenter)
+		centerPosition = targetPos;
+	else
+		centerPosition = units[0]->GetCenterPosition();
 }
 
 void Army::Update(float elapsedTime)
 {
-	if (targetArmy != nullptr)
-		armyState = army_state::ATTACK;
-	static float sign = 0.0f;
 	/////Player army logic/////
+
 	if (!EnemyType)
 	{
+		///hard state machine for player army behavior///
+		if (idle)
+		{
+			armyState = army_state::IDLE;
+			idle = false;
+		}
+		else if (moving)
+		{
+			armyState = army_state::MOVE;
+			moving = false;
+		}
+		else if (attacking)
+		{
+			armyState = army_state::ATTACK;
+			attacking = false;
+		}
+		else if (wait)
+		{
+			armyState = army_state::WAIT;
+			wait = false;
+		}
+		else if (rotating)
+		{
+			armyState = army_state::ROTATE;
+			rotating = false;
+		}
+
 		switch (armyState)
 		{
 		case START:
-			AddUnit();
+		{
 			moralCalculation();
 			armyState = army_state::IDLE;
 			regroupped = true;
+		}
 			break;
 
 		case IDLE:
@@ -121,7 +156,7 @@ void Army::Update(float elapsedTime)
 
 		case MOVE:
 		{
-			XMVECTOR orientationVec = XMLoadFloat4(&orientation);
+			XMVECTOR orientationVec = DirectX::XMLoadFloat4(&orientation);
 			XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
 			XMFLOAT4X4 m4x4 = {};
 			DirectX::XMStoreFloat4x4(&m4x4, m);
@@ -129,7 +164,7 @@ void Army::Update(float elapsedTime)
 			up = { m4x4._21, m4x4._22, m4x4._23 };
 			forward = { m4x4._31, m4x4._32, m4x4._33 };
 
-			XMVECTOR dir = XMLoadFloat3(&targetDir);
+			XMVECTOR dir = DirectX::XMLoadFloat3(&targetDir);
 
 			float angle;
 			angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
@@ -143,9 +178,9 @@ void Army::Update(float elapsedTime)
 
 				q = XMQuaternionMultiply(orientationVec, q);
 				orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
-				XMStoreFloat4(&orientation, orientationVec);
+				DirectX::XMStoreFloat4(&orientation, orientationVec);
 			}
-			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition))));
+			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&targetPos), DirectX::XMLoadFloat3(&centerPosition))));
 			distance -= moveSpeed * elapsedTime;
 
 			if (distance > 0.0f)
@@ -156,53 +191,110 @@ void Army::Update(float elapsedTime)
 			else
 			{
 				if (targetArmy != nullptr)
-					armyState = army_state::ATTACK;
+				{
+					attacking = true;
+					break;
+				}
 				else
-					armyState = army_state::IDLE;
+				{
+					idle = true;
+					break;
+				}
 			}
 		}
 		break;
 
 		case ATTACK:
-			if (!inCombat)
+		{
+			if (!inCombat && targetArmy != nullptr)
 			{
 				UnitTargetting();
-				inCombat = !enemyUnits.empty();
+				inCombat = !targetArmy->GetUnits().empty();
+				if (inCombat)
+				{
+					for (auto& unit : units)
+					{
+						unit->SetState(Unit::state::ATTACK);
+					}
+				}
+				regroupped = false;
 			}
-
-			if (inCombat)
-			{
-				for (auto& unit : units)
-					unit->SetState(Unit::state::ATTACK);
-
-				armyState = army_state::WAIT;
-			}
+			wait = true;
+		}
 			break;
 		case WAIT:
 		{
-			if (targetArmy == nullptr)
+			if(targetArmy != nullptr)
 			{
-				inCombat = false;
-				for (auto& unit : units)
+				if (!targetArmy->defeated)
 				{
-					unit->SetState(Unit::state::REGROUP);
+					for (auto& unit : units)
+					{
+						if (unit->GetTargetUnit() == nullptr)
+							UnitRetargetting(unit.get());
+					}
 				}
-				armyState = army_state::IDLE;
-			}
-			else
-			{
-				for (auto& unit : units)
+				else
 				{
-					if (unit->GetTargetUnit() == nullptr)
-						UnitRetargetting(unit.get());
+					idle = true;
 				}
 			}
-			regroupped = false;
 		}
 		break;
 		}
 
 		ArmyMove();
+
+		for (auto& unit : units)
+		{
+			unit->SetCenterPosition(centerPosition);
+			unit->SetDirections(orientation);
+			unit->Update(elapsedTime);
+		}
+
+		if (targetArmy == nullptr || targetArmy->defeated)
+		{
+			targetArmy = nullptr;
+			targetSet = false;
+			inCombat = false;
+			for (auto& unit : units)
+			{
+				unit->clearTargetUnit();
+			}
+		}
+
+		if (!regroupped)
+		{
+			int units_not_in_formation = units.size();
+			if (!locked)
+			{
+				for (auto& unit : units)
+					unit->LockPositionInFormation();
+
+				locked = true;
+			}
+
+			for (auto& unit : units)
+			{
+				units_not_in_formation = unit->IsInFormation() ? units_not_in_formation - 1 : units_not_in_formation;
+			}
+
+			if (units_not_in_formation <= 0)
+			{
+				units_not_in_formation = units.size();
+				regroupped = true;
+				if (useTargetPositionAsCenter)
+				{
+					OrientationRevaluation();
+					SortFormation(false);
+				}
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::MAIN_LOGIC);
+				}
+				locked = false;
+			}
+		}
 	}
 
 
@@ -212,7 +304,6 @@ void Army::Update(float elapsedTime)
 		switch (armyState)
 		{
 		case START:
-			AddUnit();
 			moralCalculation();
 			regroupped = true;
 			armyState = army_state::IDLE;
@@ -228,7 +319,7 @@ void Army::Update(float elapsedTime)
 			}
 			break;
 		case ROTATE:
-			XMVECTOR orientationVec = XMLoadFloat4(&orientation);
+			XMVECTOR orientationVec = DirectX::XMLoadFloat4(&orientation);
 			XMMATRIX m = XMMatrixRotationQuaternion(orientationVec);
 			XMFLOAT4X4 m4x4 = {};
 			DirectX::XMStoreFloat4x4(&m4x4, m);
@@ -236,7 +327,7 @@ void Army::Update(float elapsedTime)
 			up = { m4x4._21, m4x4._22, m4x4._23 };
 			forward = { m4x4._31, m4x4._32, m4x4._33 };
 
-			XMVECTOR dir = XMLoadFloat3(&playerArmyDir);
+			XMVECTOR dir = DirectX::XMLoadFloat3(&playerArmyDir);
 
 			float angle;
 			angle = XMVectorGetX(XMVector3AngleBetweenVectors(forward, dir));
@@ -250,9 +341,9 @@ void Army::Update(float elapsedTime)
 
 				q = XMQuaternionMultiply(orientationVec, q);
 				orientationVec = XMQuaternionSlerp(orientationVec, q, turnSpeed * elapsedTime);
-				XMStoreFloat4(&orientation, orientationVec);
+				DirectX::XMStoreFloat4(&orientation, orientationVec);
 			}
-			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition))));
+			distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&targetPos), DirectX::XMLoadFloat3(&centerPosition))));
 			distance -= moveSpeed * elapsedTime;
 
 			if (distance > 0.0f)
@@ -271,69 +362,93 @@ void Army::Update(float elapsedTime)
 				}
 			}
 		case ATTACK:
-			if (!inCombat)
+		{
+			if (!inCombat && targetArmy != nullptr)
 			{
 				UnitTargetting();
-				inCombat = !enemyUnits.empty();
+				inCombat = !targetArmy->GetUnits().empty();
+				if (inCombat)
+				{
+					for (auto& unit : units)
+					{
+						unit->SetState(Unit::state::ATTACK);
+					}
+				}
+				regroupped = false;
 			}
-
-			if (inCombat)
-			{
-				for (auto& unit : units)
-					unit->SetState(Unit::state::ATTACK);
-
-				armyState = army_state::WAIT;
-			}
+			wait = true;
+		}	
 			break;
 		case WAIT:
 		{
-			if (targetArmy == nullptr)
+			if (targetArmy != nullptr)
 			{
-				inCombat = false;
-				for (auto& unit : units)
+				if (!targetArmy->defeated)
 				{
-					unit->SetState(Unit::state::REGROUP);
+					for (auto& unit : units)
+					{
+						if (unit->GetTargetUnit() == nullptr)
+							UnitRetargetting(unit.get());
+					}
 				}
-				armyState = army_state::IDLE;
 			}
-			regroupped = false;
 		}
 		break;
 		}
-	}
 
-
-	if (!regroupped)
-	{
-		static int units_not_in_formation = units.size();
 		for (auto& unit : units)
 		{
-			units_not_in_formation = unit->IsInFormation() ? units_not_in_formation - 1 : units_not_in_formation;
+			unit->SetCenterPosition(centerPosition);
+			unit->SetDirections(orientation);
+			unit->Update(elapsedTime);
 		}
 
-		if (units_not_in_formation == 0)
+		if (targetArmy == nullptr || targetArmy->defeated)
 		{
-			units_not_in_formation = units.size();
-			armyState = army_state::IDLE;
-			regroupped = true;
+			targetArmy = nullptr;
+			targetSet = false;
+			inCombat = false;
+			for (auto& unit : units)
+			{
+				unit->clearTargetUnit();
+			}
 		}
-	}
 
+		if (!regroupped)
+		{
+			int units_not_in_formation = units.size();
+			if (!locked)
+			{
+				for (auto& unit : units)
+					unit->LockPositionInFormation();
 
-	/////check for enemy army/////
-	if (targetArmy != nullptr && targetArmy->defeated)
-	{
-		targetArmy = nullptr;
-	}
+				locked = true;
 
-	for (auto& unit : units)
-	{
-		unit->SetCenterPosition(centerPosition);
-		unit->SetDirections(orientation);
-		unit->Update(elapsedTime);
+			}
+
+			for (auto& unit : units)
+			{
+				units_not_in_formation = unit->IsInFormation() ? units_not_in_formation - 1 : units_not_in_formation;
+			}
+
+			if (units_not_in_formation == 0)
+			{
+				units_not_in_formation = units.size();
+				regroupped = true;
+				OrientationRevaluation();
+				SortFormation(false);
+				for (auto& unit : units)
+				{
+					unit->SetState(Unit::state::MAIN_LOGIC);
+				}
+				locked = false;
+			}
+		}
 	}
 
 	RemoveDeadUnits();
+
+	moralCalculation();
 }
 
 void Army::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -382,8 +497,8 @@ void Army::GetTarget()
 	DirectX::XMFLOAT3 rayEnd;
 	DirectX::XMStoreFloat3(&rayEnd, worldPos);
 
-	DirectX::XMVECTOR rayOrigin = XMLoadFloat3(&rayStart);
-	DirectX::XMVECTOR rayEndVec = XMLoadFloat3(&rayEnd);
+	DirectX::XMVECTOR rayOrigin = DirectX::XMLoadFloat3(&rayStart);
+	DirectX::XMVECTOR rayEndVec = DirectX::XMLoadFloat3(&rayEnd);
 	DirectX::XMVECTOR rayDir = DirectX::XMVector3Normalize(
 		DirectX::XMVectorSubtract(rayEndVec, rayOrigin)
 	);
@@ -412,6 +527,6 @@ void Army::GetTarget()
 
 	DirectX::XMStoreFloat3(
 		&targetDir,
-		DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&centerPosition)))
+		DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&targetPos), DirectX::XMLoadFloat3(&centerPosition)))
 	);
 }

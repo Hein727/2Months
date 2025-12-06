@@ -19,11 +19,11 @@ private:
 public:
 	enum state
 	{
-		IDLE,
+		IDLE = 0,
 		MAIN_LOGIC,
 		REGROUP,
+		LOCK_FORMATION,
 		ATTACK,
-		MAIN_LOGIC_REGROUPING
 	};
 	Unit();
 	virtual ~Unit() {};
@@ -82,11 +82,20 @@ public:
 		this->centerPosition = centerPos;
 	}
 
+	void LockPositionInFormation()
+	{
+		regroupTarget = position_in_formation;
+	}
+
+	void clearTargetUnit() { this->TargetUnit = nullptr; }
+
 	void SetTargetUnit(Unit* target) { this->TargetUnit = target; }
 
 	Unit* GetTargetUnit() const { return TargetUnit; }
 
 	bool IsInFormation() const { return in_formation; }
+
+	DirectX::XMFLOAT3 GetCenterPosition() const { return centerPosition; }	
 
 	int unitState;
 
@@ -106,4 +115,8 @@ protected:
 	Unit* TargetUnit = nullptr;
 
 	bool in_formation_check = false;
+
+	DirectX::XMFLOAT3 regroupTarget;
+
+	float attackCooldown = 0.5f;
 };

@@ -32,6 +32,8 @@ public:
 	}
 	void SetFocus(const DirectX::XMFLOAT3 new_focus) { focus = new_focus; }	
 
+	DirectX::XMFLOAT3 getPosition() const { return position; }
+
 private :
 	camera_controls();
 	~camera_controls() {};

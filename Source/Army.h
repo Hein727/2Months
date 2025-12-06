@@ -8,6 +8,17 @@
 
 class Army
 {
+private :
+
+	/// <summary>
+	/// // hard boolean states for the army behavior
+	/// </summary>
+	bool idle = false;
+	bool moving = false;
+	bool attacking = false;
+	bool wait = false;
+	bool rotating = false;
+
 public:
 
 	void SetEnemyArmyMoveSpeed(const float speed)
@@ -30,8 +41,15 @@ public:
 		if (!enemy)
 		{
 			this->initial_size = size;
-			units.reserve(size);
 			spawnPosition = position;
+			moveSpeed = 10.0f;
+			units.clear();
+			for (int i = 0; i < size; ++i)
+			{
+				auto unit = std::make_unique<Unit>();
+				unit->SetID(Id++);
+				units.push_back(std::move(unit));
+			}
 		}
 
 		else
@@ -57,9 +75,13 @@ public:
 
 			this->initial_size = randomSize;
 
-			for (auto& unit : units)
+			units.clear();
+			for (int i = 0; i < randomSize; ++i)
 			{
+				auto unit = std::make_unique<Unit>();
 				unit->SetHp(75);
+				unit->SetID(Id++);
+				units.push_back(std::move(unit));
 			}
 
 		}
@@ -74,16 +96,18 @@ public:
 			cosf(angle / 2)
 		};
 
+		SortFormation(true);
 	};
+
 	virtual ~Army()
 	{
-		enemyUnits.clear();
+
 	};
+
 	void FindCenter();
 	void Update(float deltaTime);
 	void SortFormation(bool initial = false);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
-
 	void GetTarget();
 
 	DirectX::XMFLOAT3 targetPos = { 0, 0, 0 }; // this will get the position of the mouse click in world space
@@ -100,7 +124,6 @@ public:
 	}
 
 private:
-	void AddUnit(const int amount = 0);
 
 	void FindOffsetFromCenter();
 
@@ -114,16 +137,10 @@ private:
 		{
 			GetTarget();
 
-			armyState = army_state::MOVE;
-			if (!regroupped)
+			if(regroupped)
 			{
-				for (auto& unit : units)
-				{
-					unit->SetState(Unit::state::REGROUP);
-				}
-			}
-			else
-			{
+				moving = true;
+
 				for (auto& unit : units)
 				{
 					unit->SetState(Unit::state::MAIN_LOGIC);
@@ -231,22 +248,15 @@ public:
 			{
 				targetArmy = const_cast<Army*>(enemy);
 				targetSet = true;
+				attacking = true;
+				break;
 			}
 		}
 	}
 
-	std::vector<Unit*> GetUnits() const
+	std::vector<std::unique_ptr<Unit>>& GetUnits()
 	{
-		if (units.size() > 0)
-		{
-			std::vector<Unit*> unitPtrs;
-			unitPtrs.clear();
-			for (const auto& unit : units)
-			{
-				unitPtrs.push_back(unit.get());
-			}
-			return unitPtrs;
-		}
+		return units;
 	}
 
 	bool getDeafeated() const
@@ -274,24 +284,26 @@ private:
 
 	void UnitTargetting()
 	{
-		if (targetArmy == nullptr) return;
+		if (targetArmy == nullptr)
+			return;
 
-		enemyUnits = targetArmy->GetUnits();
-
-		if (enemyUnits.empty())
+		if (targetArmy->GetUnits().empty())
 		{
 			targetArmy = nullptr;
+			return;
 		}
 
 		int targetIndex = 0;
 
-		int numEnemyUnits = static_cast<int>(enemyUnits.size());
+		int numEnemyUnits = static_cast<int>(targetArmy->GetUnits().size());
+
+		auto& enemyUnit = targetArmy->GetUnits();
 
 		if (numEnemyUnits == 0) return;
 
 		for (auto& unit : units)
 		{
-			unit->SetTargetUnit(enemyUnits[targetIndex]);
+			unit->SetTargetUnit(enemyUnit[targetIndex].get());
 			targetIndex++;
 			if (targetIndex >= numEnemyUnits)
 				targetIndex = 0;
@@ -300,13 +312,21 @@ private:
 
 	void UnitRetargetting(Unit* unit)
 	{
-		if (enemyUnits.empty())
+		if (targetArmy == nullptr)
+			return;
+
+		if (targetArmy->GetUnits().empty())
 		{
 			unit->SetTargetUnit(nullptr);
 			return;
 		}
+		auto& enemyUnits = targetArmy->GetUnits();
+		int idx = rand() % enemyUnits.size();
 
-		unit->SetTargetUnit(enemyUnits[rand() % enemyUnits.size()]);
+		Unit* candidate = enemyUnits[idx].get();
+		if (candidate->IsAlive())
+			unit->SetTargetUnit(candidate);
+
 	}
 
 	void RemoveDeadUnits()
@@ -316,15 +336,11 @@ private:
 				[](const std::unique_ptr<Unit>& unit) { return !unit->IsAlive(); }),
 			units.end()
 		);
-
-		moralCalculation();
 	}
 
 
 protected:
 	Army* targetArmy = nullptr;
-
-	std::vector<Unit*> enemyUnits;
 
 	bool inCombat = false;
 
@@ -356,7 +372,7 @@ public:
 
 	int getArmySize() const
 	{
-		return units.size();
+		return static_cast<int>(units.size());
 	}
 
 private:
@@ -369,15 +385,25 @@ private:
 			return;
 		}
 
-		moral = (static_cast<float>(units.size()) / static_cast<float>(initial_size)) * 100.0f;
+		moral = (static_cast<float>(units.size()) / static_cast<float>(initial_size <= 0 ? units.size() : initial_size)) * 100.0f;
 
-		if (moral <= 25.0f)
+		if (moral <= 25.0f || units.size() <= 1)
 		{
 			defeated = true;
 		}
 	}
 
+	void OrientationRevaluation();
+
 
 protected:
 	float moral;
+
+	float sign = 0.0f;
+
+	int units_not_in_formation = 0;
+
+	bool locked = false;
+
+	bool useTargetPositionAsCenter = false;
 };

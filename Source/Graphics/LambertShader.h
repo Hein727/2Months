@@ -21,6 +21,7 @@ private:
 	{
 		DirectX::XMFLOAT4X4	viewProjection;
 		DirectX::XMFLOAT4	lightDirection;
+		DirectX::XMFLOAT4   cameraPosition;
 	};
 
 	struct CbMesh
