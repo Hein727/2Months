@@ -21,7 +21,7 @@ Framework::Framework(HWND hWnd)
 	, input(hWnd)
 	, graphics(hWnd)
 {
-	SceneManager::Instance().ChangeScene(std::make_unique<GameOver>());
+	SceneManager::Instance().ChangeScene(std::make_unique<SceneTitle>());
 }
 
 // デストラクタ
