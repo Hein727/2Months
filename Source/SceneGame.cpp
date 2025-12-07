@@ -36,6 +36,8 @@ void SceneGame::Update(float elapsedTime)
 	uiManager->UpdateUI(elapsedTime);
 
 	stage->Update(elapsedTime);
+
+
 }
 
 // •`‰æˆ—

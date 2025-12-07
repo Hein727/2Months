@@ -1,4 +1,6 @@
 #include "EnemyManager.h"
+#include "SceneManager.h"]
+#include "GameClear.h"
 #include "Player.h"
 
 void EnemyManager::EnemyDefeated()
@@ -62,6 +64,11 @@ void EnemyManager::Update(float elapsedTime)
 		}
 	}
 	EnemyDefeated();
+
+	if (totalEnemysDefeated >= 30)
+	{
+		SceneManager::Instance().ChangeScene(std::make_unique<GameClear>());
+	}
 }
 
 

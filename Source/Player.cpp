@@ -4,7 +4,7 @@
 #include "CameraControl.h"
 #include "ItemGenerator.h"
 #include "EnemyManager.h"
-#include "GameClear.h"
+#include "GameOver.h"
 
 void Player::Update(float elapsedTime) 
 {
@@ -31,7 +31,7 @@ void Player::Update(float elapsedTime)
 
 	if (army->getDeafeated())
 	{
-		SceneManager::Instance().ChangeScene(std::make_unique<GameClear>());
+		SceneManager::Instance().ChangeScene(std::make_unique<GameOver>());
 	}
 }
 

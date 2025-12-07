@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\EnemyManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\EnemyManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Framework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -27,18 +39,6 @@
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneTitle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\SceneGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\EnemyManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\EnemyManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\EnemyManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\EnemyManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -50,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "GameOver.h",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\GameOver.h",
               "RelativeDocumentMoniker": "Source\\GameOver.h",
@@ -66,12 +66,11 @@
               "RelativeToolTip": "Source\\GameOver.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-07T14:33:29.122Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-07T14:33:29.122Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "GameOver.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\GameOver.cpp",
               "RelativeDocumentMoniker": "Source\\GameOver.cpp",
@@ -79,12 +78,11 @@
               "RelativeToolTip": "Source\\GameOver.cpp",
               "ViewState": "AgIAABoAAAAAAAAAAAAMwCoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-07T14:33:08.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-07T14:33:08.988Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Framework.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Framework.cpp",
               "RelativeDocumentMoniker": "Source\\Framework.cpp",
@@ -97,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "GameClear.h",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\GameClear.h",
               "RelativeDocumentMoniker": "Source\\GameClear.h",
@@ -109,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "GameClear.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\GameClear.cpp",
               "RelativeDocumentMoniker": "Source\\GameClear.cpp",
@@ -121,31 +119,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Player.cpp",
               "RelativeDocumentMoniker": "Source\\Player.cpp",
               "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Player.cpp",
               "RelativeToolTip": "Source\\Player.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-07T14:18:57.661Z"
+              "WhenOpened": "2025-12-07T14:18:57.661Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "SceneGame.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp",
               "RelativeDocumentMoniker": "Source\\SceneGame.cpp",
               "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneGame.cpp",
               "RelativeToolTip": "Source\\SceneGame.cpp",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAACUAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-07T14:12:10.164Z"
+              "WhenOpened": "2025-12-07T14:12:10.164Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "SceneTitle.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\SceneTitle.cpp",
               "RelativeDocumentMoniker": "Source\\SceneTitle.cpp",
@@ -157,15 +157,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "EnemyManager.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\EnemyManager.cpp",
               "RelativeDocumentMoniker": "Source\\EnemyManager.cpp",
               "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\EnemyManager.cpp",
               "RelativeToolTip": "Source\\EnemyManager.cpp",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAAAEAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADUAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-07T14:06:45.46Z"
+              "WhenOpened": "2025-12-07T14:06:45.46Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
