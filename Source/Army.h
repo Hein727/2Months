@@ -105,7 +105,7 @@ public:
 			float dirX = (rand() % 2 == 0) ? -1.0f : 1.0f;
 			float dirZ = (rand() % 2 == 0) ? -1.0f : 1.0f;
 
-			float distance = static_cast<float>((rand() % 30) + 30);
+			float distance = static_cast<float>((rand() % 20) + 20);
 			spawnPosition = position;
 			spawnPosition.x += dirX * distance;
 			spawnPosition.z += dirZ * distance;

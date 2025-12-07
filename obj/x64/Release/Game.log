@@ -1,56 +1,15 @@
 ﻿  Army.cpp
-  EnemyManager.cpp
-  Player.cpp
-  SceneGame.cpp
-  UIManager.cpp
-  Units.cpp
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(28,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/EnemyManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(28,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/Player.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(28,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(28,37): warning C4244: '=': 'unsigned __int64' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(29,38): warning C4244: '=': 'unsigned __int64' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(28,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(38,11): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(268,31): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(284,40): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(417,31): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(434,40): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(28,39): warning C4244: '=': 'unsigned __int64' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(29,40): warning C4244: '=': 'unsigned __int64' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(40,11): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(272,31): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(288,40): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(421,31): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.cpp(438,40): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
      ライブラリ bin\x64\Release\Game.lib とオブジェクト bin\x64\Release\Game.exp を作成中
   コード生成しています。
-  3 of 4618 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    33 functions had inline decision re-evaluated but remain unchanged
+  51 of 4620 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    72 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Release\Game.exe

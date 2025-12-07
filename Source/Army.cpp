@@ -25,51 +25,55 @@ void Army::FindOffsetFromCenter()
 
 void Army::SortFormation(bool initial)
 {
-	formationWidth = units.size() > 10 ? 10 : units.size();                    // max 10 units per row
-	formationLength = units.size() > 10 ? units.size() / 10 : 1;
+	formationWidth = (units.size() > 10) ? 10 : units.size();
+	formationLength = (units.size() > 10) ? (units.size() + 9) / 10 : 1;
 
-	float halfWidth = formationWidth * spacing * 0.5f;
-	float halfLength = formationLength * spacing * 0.5f;
+	// Correct half extents (spacing between units)
+	float halfWidth = (formationWidth - 1) * spacing * 0.5f;
+	float halfLength = (formationLength - 1) * spacing * 0.5f;
 
-	std::vector<XMFLOAT3> offsets;
+	std::vector<XMFLOAT3> localOffsets;
+	localOffsets.reserve(units.size());
 
 	for (int i = 0; i < units.size(); ++i)
 	{
 		int row = i / formationWidth;
-		int col = i % static_cast<int>(formationWidth);
+        int col = static_cast<int>(i) % static_cast<int>(formationWidth);
 
 		XMFLOAT3 offset;
-
-		offset.x = (col * spacing) - halfWidth;   // left/right from center
+		offset.x = (col * spacing) - halfWidth;
 		offset.y = 0.0f;
-		offset.z = (row * spacing) - halfLength;  // forward/back from center
+		offset.z = (row * spacing) - halfLength;
 
-		offsets.push_back(offset);
+		localOffsets.push_back(offset);
 	}
 
 	if (initial)
 		centerPosition = spawnPosition;
-	else 
+	else
 		FindCenter();
 
-	XMMATRIX rotation = XMMatrixRotationQuaternion(DirectX::XMLoadFloat4(&orientation));
+	XMMATRIX rot = XMMatrixRotationQuaternion(XMLoadFloat4(&orientation));
 
 	for (int i = 0; i < units.size(); ++i)
 	{
-		XMVECTOR offsetVec = DirectX::XMLoadFloat3(&offsets[i]);
-		XMVECTOR rotatedOffset = XMVector3TransformCoord(offsetVec, rotation);
+		XMVECTOR local = XMLoadFloat3(&localOffsets[i]);
 
-		XMFLOAT3 finalOffset;
-		DirectX::XMStoreFloat3(&finalOffset, rotatedOffset);
+		// Rotate offset, no translation!
+		XMVECTOR worldOffset = XMVector3TransformNormal(local, rot);
+
+		XMFLOAT3 finalPos;
+		XMStoreFloat3(&finalPos, worldOffset);
 
 		units[i]->SetPositionInFormation({
-			centerPosition.x + finalOffset.x,
-			centerPosition.y + finalOffset.y,
-			centerPosition.z + finalOffset.z
+			centerPosition.x + finalPos.x,
+			centerPosition.y + finalPos.y,
+			centerPosition.z + finalPos.z
 			});
-	}
 
-	FindOffsetFromCenter();
+		// Save PURE LOCAL offset for regrouping later
+		units[i]->offsetFromCenter = localOffsets[i];
+	}
 }
 
 void Army::OrientationRevaluation()
