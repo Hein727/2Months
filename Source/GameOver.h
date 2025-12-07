@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Graphics/Sprite.h"
 #include "Audio/Audio.h"
 
 class GameOver : public Scene
@@ -21,5 +22,7 @@ public:
 
 private:
     std::unique_ptr<AudioSource> gameoverbgm;
+
+	std::unique_ptr<Sprite> sprite;
 
 };

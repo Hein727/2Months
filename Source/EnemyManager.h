@@ -20,6 +20,15 @@ public:
 		}
 		enemies.clear();
 	};
+
+	void clear()
+	{
+		for (Army* enemy : enemies) {
+			delete enemy;
+		}
+		enemies.clear();
+	}
+
 	void Update(float deltaTime);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
 
@@ -33,8 +42,11 @@ public:
 			a.min.z <= b.max.z && a.max.z >= b.min.z;
 	}
 
+	int totalEnemysDefeated = 0;
+
 private:
 	std::vector<Army*> enemies;
 	int enemyLimit = 5;
 	float spawnInterval = 10.0f;
+
 };

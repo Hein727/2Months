@@ -7,7 +7,6 @@ void EnemyManager::EnemyDefeated()
 
 	std::vector<Army*> toDelete;
 
-	// First collect defeated armies
 	enemies.erase(
 		std::remove_if(enemies.begin(), enemies.end(),
 			[&](Army* enemy)
@@ -15,14 +14,14 @@ void EnemyManager::EnemyDefeated()
 				if (enemy->getDeafeated())
 				{
 					toDelete.push_back(enemy);
-					return true;    // remove from vector only
+					totalEnemysDefeated++;
+					return true;    
 				}
 				return false;
 			}),
 		enemies.end()
 	);
 
-	// Delete after vector erase (SAFE)
 	for (Army* e : toDelete)
 	{
 		delete e;
@@ -50,10 +49,15 @@ void EnemyManager::Update(float elapsedTime)
 	SpawnEnemy(elapsedTime);
 	if (enemies.size() > 0)
 	{
+		float ReductionAmount = player.reductionAmount();
+		bool isBeasting = player.isBeasting();
+
 		for (auto& enemy : enemies)
 		{
 			enemy->EnemyFindPlayerArmy(player.GetPosition());
 			enemy->EnemyFindTargetArmy(player.GetArmy());
+			enemy->setReductionAmount(ReductionAmount);
+			enemy->setBeasting(isBeasting);
 			enemy->Update(elapsedTime);
 		}
 	}
@@ -63,6 +67,7 @@ void EnemyManager::Update(float elapsedTime)
 
 void EnemyManager::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
+
 	for(auto& enemy : enemies)
 	{
 		enemy->Render(dc, shader);

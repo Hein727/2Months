@@ -7,6 +7,8 @@
 #include "Framework.h"
 #include "CameraControl.h"
 #include "SceneTitle.h"	
+#include "GameClear.h"
+#include "GameOver.h"
 #include "SceneGame.h"
 
 
@@ -19,7 +21,7 @@ Framework::Framework(HWND hWnd)
 	, input(hWnd)
 	, graphics(hWnd)
 {
-	SceneManager::Instance().ChangeScene(std::make_unique<SceneTitle>());
+	SceneManager::Instance().ChangeScene(std::make_unique<GameOver>());
 }
 
 // デストラクタ

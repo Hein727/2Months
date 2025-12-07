@@ -5,6 +5,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <memory>
+#include "ItemGenerator.h"
 
 class Army
 {
@@ -18,7 +19,70 @@ public:
 	{
 		return armyHitBox;
 	}
+
+	void getPowerups(std::vector<std::unique_ptr<Powerup>>& outPowerups)
+	{
+		if (outPowerups.empty())
+			return;
+
+		if (totalPowerUpPickups < 3)
+		{
+			for (auto& powerup : outPowerups)
+			{
+				if (AABBvsPoint(armyHitBox, powerup->GetItemPosition()))
+				{
+					if (powerup->name == "beast" && !gotBeastPowerup)
+					{
+						gotBeastPowerup = true;
+						moralReduction = powerup->power;
+					}
+					else if (powerup->name == "fist" && !gotFistPowerup)
+					{
+						gotFistPowerup = true;
+						attackUpPercent = powerup->power;
+					}
+					else if (powerup->name == "runner" && !gotRunnerPowerup)
+					{
+						gotRunnerPowerup = true;
+						speedUp = powerup->power;
+					}
+					powerup->picked_up = true;
+					totalPowerUpPickups++;
+				}
+			}
+		}
+	}
+
+	bool gotBeastPowerup = false;
+	bool gotFistPowerup = false;
+	bool gotRunnerPowerup = false;
+	float moralReduction = 0.0f;
+	
+
 private :
+	bool powerupActive = false;
+	float activePowerupTime = 0.0f;
+
+	enum ActivePower {
+		NONE,
+		BEAST,
+		FIST,
+		RUNNER
+	} activePower = NONE;
+
+	int totalPowerUpPickups = 0;
+	bool powerupUsed = false;
+	float PowerupTimer = 20.0f;
+	float attackUpPercent = 0.0f;
+	float speedUp = 0.0f;
+
+
+	bool AABBvsPoint(const Army::HitBox& box, const DirectX::XMFLOAT3& point)
+	{
+		return
+			point.x >= box.min.x && point.x <= box.max.x &&
+			point.z >= box.min.z && point.z <= box.max.z;
+	}
 
 	HitBox Army::ComputeAABB() const
 	{
@@ -37,6 +101,64 @@ private :
 		}
 
 		return box;
+	}
+
+	void usePowerUps(float dt)
+	{
+		if (powerupActive)
+		{
+			activePowerupTime -= dt;
+
+			if (activePowerupTime <= 0.0f)
+			{
+				powerupActive = false;
+				activePower = NONE;
+				totalPowerUpPickups--;
+			}
+
+			return;
+		}
+		if (GetAsyncKeyState('1') & 0x8000)
+		{
+			if (gotBeastPowerup)
+			{
+				powerupActive = true;
+				activePower = BEAST;
+				activePowerupTime = PowerupTimer;
+				gotBeastPowerup = false;
+				return;
+			}
+		}
+
+		if (GetAsyncKeyState('2') & 0x8000)
+		{
+			if (gotFistPowerup)
+			{
+				powerupActive = true;
+				activePower = FIST;
+				activePowerupTime = PowerupTimer;
+
+				for (auto& unit : units)
+				{
+					unit->SetAttack(static_cast<int>(25 * attackUpPercent));
+				}
+				gotFistPowerup = false;
+				return;
+			}
+		}
+
+		if (GetAsyncKeyState('3') & 0x8000)
+		{
+			if (gotRunnerPowerup)
+			{
+				powerupActive = true;
+				activePower = RUNNER;
+				activePowerupTime = PowerupTimer;
+				moveSpeed += moveSpeed * speedUp;
+				gotRunnerPowerup = false;
+				return;
+			}
+		}
 	}
 
 	int howManyUnits = 0;
@@ -465,7 +587,30 @@ public:
 		return static_cast<int>(units.size());
 	}
 
+	
+
+	
+
+	void setReductionAmount(const float reduction)
+	{
+		amountOfMoralReduction = reduction;
+	}
+
+	float getReductionAmount() const
+	{
+		return moralReduction;
+	}
+
+	void setBeasting(const bool state)
+	{
+		beasting = state;
+	}
+
 private:
+
+	float amountOfMoralReduction = 0.0f;
+
+	bool beasting = false;
 
 	void moralCalculation()
 	{
@@ -476,6 +621,9 @@ private:
 		}
 
 		moral = (static_cast<float>(units.size()) / static_cast<float>(initial_size <= 0 ? units.size() : initial_size)) * 100.0f;
+
+		if (beasting)
+			moral -= amountOfMoralReduction;
 
 		if (moral <= 25.0f || units.size() <= 1)
 		{
@@ -491,7 +639,6 @@ private:
 			a.min.x <= b.max.x && a.max.x >= b.min.x &&
 			a.min.z <= b.max.z && a.max.z >= b.min.z;
 	}
-
 
 protected:
 	float moral;

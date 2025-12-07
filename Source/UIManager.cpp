@@ -21,8 +21,8 @@ UIManager::UIManager()
 		playerHp[i]->setEditTextureSize(true);
 	}
 
-	powerUps.resize(4);
-	for (int i = 0; i < 4; i++)
+	powerUps.resize(3);
+	for (int i = 0; i < 3; i++)
 	{
 		powerUps[i] = std::make_unique<UI>(DirectX::XMFLOAT2(0, 0));
 		switch (i)
@@ -36,17 +36,14 @@ UIManager::UIManager()
 			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 248.0f));
 			break;
 		case 2:
-			powerUps[i]->loadSprite("Data/Sprite/icons_skills_reload.png");
-			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 158.0f));
-			break;
-		case 3:
 			powerUps[i]->loadSprite("Data/Sprite/icons_skills_runner.png");
 			powerUps[i]->setPosition(DirectX::XMFLOAT2(0.0f, 429));
 			break;
 		}
+		powerUps[i]->setVisibility(false);
 	}
 
-	element.resize(4);
+	/*element.resize(4);
 	for (int i = 0; i < 4; i++)
 	{
 		element[i] = std::make_unique<UI>(DirectX::XMFLOAT2(0, 610));
@@ -65,7 +62,7 @@ UIManager::UIManager()
 			element[i]->loadSprite("Data/Sprite/woodicon.png");
 			break;
 		}
-	}
+	}*/
 
 	hpbar_width = playerHp[1]->getOriginalTextureSize().x;
 }
@@ -74,37 +71,43 @@ void UIManager::UpdateUI(float elapsedTime)
 {
 	Player& player = Player::getInstance();
 
-	switch (player.GetElementType())
-	{
-		//Earth element
-	case 0:
-		element[0]->setVisibility(true);
-		element[1]->setVisibility(false);
-		element[2]->setVisibility(false);
-		element[3]->setVisibility(false);
-		break;
-		//Fire element
-	case 1:
-		element[0]->setVisibility(false);
-		element[1]->setVisibility(true);
-		element[2]->setVisibility(false);
-		element[3]->setVisibility(false);
-		break;
-		//Wind element
-	case 2:
-		element[0]->setVisibility(false);
-		element[1]->setVisibility(false);
-		element[2]->setVisibility(true);
-		element[3]->setVisibility(false);
-		break;
-		//Wood element
-	case 3:
-		element[0]->setVisibility(false);
-		element[1]->setVisibility(false);
-		element[2]->setVisibility(false);
-		element[3]->setVisibility(true);
-		break;
-	}
+	//switch (player.GetElementType())
+	//{
+	//	//Earth element
+	//case 0:
+	//	element[0]->setVisibility(true);
+	//	element[1]->setVisibility(false);
+	//	element[2]->setVisibility(false);
+	//	element[3]->setVisibility(false);
+	//	break;
+	//	//Fire element
+	//case 1:
+	//	element[0]->setVisibility(false);
+	//	element[1]->setVisibility(true);
+	//	element[2]->setVisibility(false);
+	//	element[3]->setVisibility(false);
+	//	break;
+	//	//Wind element
+	//case 2:
+	//	element[0]->setVisibility(false);
+	//	element[1]->setVisibility(false);
+	//	element[2]->setVisibility(true);
+	//	element[3]->setVisibility(false);
+	//	break;
+	//	//Wood element
+	//case 3:
+	//	element[0]->setVisibility(false);
+	//	element[1]->setVisibility(false);
+	//	element[2]->setVisibility(false);
+	//	element[3]->setVisibility(true);
+	//	break;
+	//}
+
+	Army* army = player.GetArmy();
+
+	powerUps[0]->setVisibility(army->gotBeastPowerup);
+	powerUps[1]->setVisibility(army->gotFistPowerup);
+	powerUps[2]->setVisibility(army->gotRunnerPowerup);
 
 	// Update player HP UI
 	static float currentHpBarWidth = 0;
@@ -124,8 +127,8 @@ void UIManager::RenderUI(ID3D11DeviceContext* dc)
 	{
 		i->render(dc);
 	}
-	for (auto& i : element)
+	/*for (auto& i : element)
 	{
 		i->render(dc);
-	}
+	}*/
 }

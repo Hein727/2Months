@@ -3,6 +3,7 @@
 #include "CameraControl.h"
 #include "Player.h"
 #include "EnemyManager.h"
+#include "Text.h"
 #include "UIManager.h"
 #include <SceneManager.h>
 #include <SceneTitle.h>
@@ -11,12 +12,14 @@
 void SceneGame::Initialize()
 {
 	stage = std::make_unique<Stage>();
-	
+	Player::getInstance().clear();
+	EnemyManager::GetInstance().clear();
 }
 
 // 終了化
 void SceneGame::Finalize()
 {
+	
 }
 
 // 更新処理
@@ -33,7 +36,6 @@ void SceneGame::Update(float elapsedTime)
 	uiManager->UpdateUI(elapsedTime);
 
 	stage->Update(elapsedTime);
-
 }
 
 // 描画処理
@@ -90,6 +92,8 @@ void SceneGame::Render()
 	// 2Dスプライト描画
 	{
 		uiManager->RenderUI(dc);
+
+		Text::Instance().Render("Enemies Defeated: " + std::to_string(enemyManager->totalEnemysDefeated), { 5, 5 }, { 0.5f, 0.5f }, { 1, 1, 1, 0 });
 	}
 
 	// 2DデバッグGUI描画

@@ -23,6 +23,14 @@ public:
 		delete army;
 	};
 
+	void clear()
+	{
+		delete army;
+		itemGenerator.release();
+		army = new Army(5);
+		itemGenerator = std::make_unique<ItemGenerator>();
+	}
+
 	void Update(float elapsedTime);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
 
@@ -31,14 +39,13 @@ public:
 	DirectX::XMFLOAT3 GetPosition() const { return army->centerPosition; }
 	Army* GetArmy() const { return army; }	
 	int GetArmySize() const { return army->getArmySize(); }
-	bool AABBvsPoint(const Army::HitBox& box, const DirectX::XMFLOAT3& point)
-	{
-		return
-			point.x >= box.min.x && point.x <= box.max.x &&
-			point.z >= box.min.z && point.z <= box.max.z;
-	}
+	float reductionAmount() const { return army->moralReduction; }
+	bool isBeasting() const { return army->gotBeastPowerup; }
+
 
 private:
 	Army* army;
 	std::unique_ptr<ItemGenerator> itemGenerator;
+
+	float timer = 1.0f;
 };

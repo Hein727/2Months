@@ -18,6 +18,13 @@ struct Powerup : public Character
 
     float lifetime = 30.0f;     // item exists for 30 seconds
 
+    DirectX::XMFLOAT3 GetItemPosition() const
+    {
+        return position;
+    }
+
+    bool picked_up = false;
+
     void Update(float elapsedTime)
     {
 		rotation = { 0.0f, rotationY, 0.0f };
@@ -49,6 +56,8 @@ public:
     void Update(float dt);
     void Render(ID3D11DeviceContext* dc, Shader* shader);
 
+	std::vector<std::unique_ptr<Powerup>>& GetPowerups() { return items; }
+
 private:
     std::mt19937 rng;
 
@@ -69,7 +78,11 @@ private:
     DirectX::XMFLOAT3 GeneratePosition();
 
     // ---- lifecycle ----
-    void RemoveExpiredItems();
+    void RemoveExpiredItems(float elapsedTime);
 
     static constexpr int MAX_ITEMS = 5;
+
+    bool generate_now = true;
+
+    float timer = 10.0f;
 };

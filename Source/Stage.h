@@ -15,10 +15,15 @@ public :
 	void Update(float elapsedTime);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
 
-	float stageBoundaryX[2] = { -46.5666f , 46.5666f };
-	float stageBoundaryZ[2] = { -46.5288f , 46.5288f };
+	float GetBoundaryXMin() { return stageBoundaryX[0]; }
+	float GetBoundaryXMax() { return stageBoundaryX[1]; }
+	float GetBoundaryZMin() { return stageBoundaryZ[0]; }
+	float GetBoundaryZMax() { return stageBoundaryZ[1]; }
 
 protected :
+
+	float stageBoundaryX[2] = { -46.5666f , 46.5666f };
+	float stageBoundaryZ[2] = { -46.5288f , 46.5288f };
 
 	std::unique_ptr<Model> model;
 

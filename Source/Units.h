@@ -8,6 +8,7 @@ class Unit : public Character
 {
 private:
 	int hp, attack;
+	int fullhp;
 	uint16_t id;
 	bool alive;
 	std::unique_ptr<Model> model;
@@ -50,7 +51,9 @@ public:
 
 	void SetAttack(int attack) { this->attack = attack; }
 
-	void SetHp(int hp) { this->hp = hp; }
+	void SetHp(int hp) { this->hp = hp; 
+	fullhp = hp;
+	}
 
 	DirectX::XMFLOAT3 GetPositionInFormation() const { return position_in_formation; }
 

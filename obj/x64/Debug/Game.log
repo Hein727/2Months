@@ -1,57 +1,6 @@
-﻿  EnemyManager.cpp
-  ItemGenerator.cpp
-  Player.cpp
-  SceneGame.cpp
-  UIManager.cpp
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(76,29): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  (ソース ファイル 'Source/EnemyManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(76,29): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  (ソース ファイル 'Source/Player.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(76,29): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Army.h(76,29): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(30,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/EnemyManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(30,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/Player.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(30,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/UIManager.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\ItemGenerator.cpp(56,61): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\ItemGenerator.cpp(56,54): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\ItemGenerator.cpp(56,47): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\Player.h(30,47): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(106,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,57): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
-C:\Users\2240705\Desktop\2 Months Project\2Months\Source\UI.h(117,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Source/SceneGame.cpp' をコンパイルしています)
-  
+﻿  Framework.cpp
+  GameOver.cpp
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\GameOver.cpp(43,66): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2240705\Desktop\2 Months Project\2Months\Source\GameOver.cpp(43,38): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+     ライブラリ bin\x64\Debug\Game.lib とオブジェクト bin\x64\Debug\Game.exp を作成中
   Game.vcxproj -> C:\Users\2240705\Desktop\2 Months Project\2Months\bin\x64\Debug\Game.exe

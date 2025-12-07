@@ -7,6 +7,7 @@ Unit::Unit()
 	model = std::make_unique<Model>("Data/Model/WhitePawn.mdl");
 
 	hp = 100;
+	fullhp = 100;
 	attack = 25;
 	id = 0;
 	alive = true;
@@ -29,6 +30,7 @@ void Unit::Update(float elapsedTime)
 	{
 	case IDLE:
 		position = position_in_formation;
+		hp = fullhp;
 		in_formation = true;
 		break;
 	case MAIN_LOGIC:

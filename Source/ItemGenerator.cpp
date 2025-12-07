@@ -15,7 +15,7 @@ ItemGenerator::ItemGenerator()
     bookNames = { "book of earth", "book of fire", "book of wind", "book of wood" };
 
     // Spawn one item and one book to start
-	for (int i = 0; i < 5; ++i)
+	//for (int i = 0; i < 5; ++i)
     GeneratePowerUp();
 }
 
@@ -40,14 +40,12 @@ void ItemGenerator::Update(float dt)
         item->rotationY += spinSpeed * dt;
         item->lifetime -= dt;
 
-		item->pos.y = bobOffset;
-
 		item->rotationY += spinSpeed * dt;
 
         item->Update(dt);
     }
 
-    RemoveExpiredItems();
+    RemoveExpiredItems(dt);
 }
 
 void ItemGenerator::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -97,19 +95,34 @@ DirectX::XMFLOAT3 ItemGenerator::GeneratePosition()
     return { distX(rng), 0.0f, distZ(rng) };
 }
 
-void ItemGenerator::RemoveExpiredItems()
+void ItemGenerator::RemoveExpiredItems(float elapsedTime)
 {
     for (int i = (int)items.size() - 1; i >= 0; --i)
     {
-        if (items[i]->lifetime <= 0.0f)
+        if (items[i]->lifetime <= 0.0f || items[i]->picked_up)
         {
             items.erase(items.begin() + i);
         }
     }
 
-    while (items.size() < MAX_ITEMS)
+    if(items.size() < MAX_ITEMS)
     {
-        GeneratePowerUp();
+        if (generate_now)
+        {
+            GeneratePowerUp();
+            generate_now = false;
+        }
     }
+    
+    static float count = 0.0f;
 
+    if(items.empty())
+        count += elapsedTime;
+
+    if (count >= timer)
+    {
+        generate_now = true;
+
+        count = 0;
+    }
 }

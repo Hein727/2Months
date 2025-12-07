@@ -2,7 +2,9 @@
 #include "SceneTitle.h"
 #include "SceneManager.h"
 #include "CameraControl.h"
+#include "ItemGenerator.h"
 #include "EnemyManager.h"
+#include "GameClear.h"
 
 void Player::Update(float elapsedTime) 
 {
@@ -20,9 +22,16 @@ void Player::Update(float elapsedTime)
 
 	itemGenerator->Update(elapsedTime);
 
+	static float count = 0.0f;
+
+	count += elapsedTime;
+
+	if (count >= timer)
+		army->getPowerups(itemGenerator->GetPowerups());
+
 	if (army->getDeafeated())
 	{
-		SceneManager::Instance().ChangeScene(std::make_unique<SceneTitle>());
+		SceneManager::Instance().ChangeScene(std::make_unique<GameClear>());
 	}
 }
 

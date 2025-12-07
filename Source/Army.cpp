@@ -448,6 +448,23 @@ void Army::Update(float elapsedTime)
 		}
 	}
 
+	if (centerPosition.x < -46.5666f)
+	{
+		centerPosition.x = -46.5666f;
+	}
+	if (centerPosition.x > 46.5666f)
+	{
+		centerPosition.x = 46.5666f;
+	}
+	if (centerPosition.z < -46.5666f)
+	{
+		centerPosition.z = -46.5666f;
+	}
+	if (centerPosition.z > 46.5666f)
+	{
+		centerPosition.z = 46.5666f;
+	}
+
 	RemoveDeadUnits();
 
 	armyHitBox = ComputeAABB();

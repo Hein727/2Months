@@ -83,11 +83,6 @@ void SceneTitle::Render()
             0,
             1, 1, 1, 1);
     }
-
-    ImGui::Begin("CursorPos");
-    ImGui::SliderFloat2("start", &buttoninfos[0].size.x, 0.0f, 1280.0f);
-    ImGui::SliderFloat2("tutorial", &buttoninfos[1].size.x, 0.0f, 1280.0f);
-    ImGui::End();
 }
 
 void SceneTitle::Finalize()
