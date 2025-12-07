@@ -8,13 +8,44 @@
 
 class Army
 {
+public:
+	struct HitBox {
+		DirectX::XMFLOAT3 min;  // bottom-left-back
+		DirectX::XMFLOAT3 max;  // top-right-front
+	};
+
+	HitBox getAABB() const
+	{
+		return armyHitBox;
+	}
 private :
+
+	HitBox Army::ComputeAABB() const
+	{
+		HitBox box;
+		box.min = { FLT_MAX, 0, FLT_MAX };
+		box.max = { -FLT_MAX, 0, -FLT_MAX };
+
+		for (const auto& unit : units)
+		{
+			const auto& pos = unit->GetPosition();
+
+			if (pos.x < box.min.x) box.min.x = pos.x;
+			if (pos.z < box.min.z) box.min.z = pos.z;
+			if (pos.x > box.max.x) box.max.x = pos.x;
+			if (pos.z > box.max.z) box.max.z = pos.z;
+		}
+
+		return box;
+	}
 
 	int howManyUnits = 0;
 
 	bool AddNewUnits = false;
 
 	int initRNG = 0;
+
+	HitBox armyHitBox;
 
 	void AddUnitsPlayer()
 	{
@@ -35,13 +66,14 @@ private :
 			{
 				auto unit = std::make_unique<Unit>();
 				unit->SetID(Id++);
+				unit->color = material_color;
 				units.push_back(std::move(unit));
 			}
 
 			//OrientationRevaluation();
 			SortFormation(false);
 
-			initial_size += howManyUnits;
+			initial_size = units.size();
 			initRNG = 0;
 			howManyUnits = 0;
 			AddNewUnits = false;
@@ -58,6 +90,9 @@ private :
 	bool rotating = false;
 
 public:
+
+	DirectX::XMFLOAT4 material_color = { -1, -1, -1, -1 };
+
 
 	void SetEnemyArmyMoveSpeed(const float speed)
 	{
@@ -81,11 +116,13 @@ public:
 			this->initial_size = size;
 			spawnPosition = position;
 			moveSpeed = 10.0f;
+			material_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 			units.clear();
 			for (int i = 0; i < size; ++i)
 			{
 				auto unit = std::make_unique<Unit>();
 				unit->SetID(Id++);
+				unit->color = material_color;
 				units.push_back(std::move(unit));
 			}
 		}
@@ -112,6 +149,7 @@ public:
 			spawnPosition.y = 0.0f;
 
 			this->initial_size = randomSize;
+			material_color = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 			units.clear();
 			for (int i = 0; i < randomSize; ++i)
@@ -119,9 +157,9 @@ public:
 				auto unit = std::make_unique<Unit>();
 				unit->SetHp(75);
 				unit->SetID(Id++);
+				unit->color = material_color;
 				units.push_back(std::move(unit));
 			}
-
 		}
 
 		DirectX::XMFLOAT3 n(0, 1, 0);
@@ -248,13 +286,19 @@ public:
 		targetArmy = nullptr;
 		targetSet = false;
 
-		float distBetweenArmies = 0.0f;
+		/*float distBetweenArmies = 0.0f;
 		DirectX::XMVECTOR Enemy = DirectX::XMLoadFloat3(&army->centerPosition);
 		DirectX::XMVECTOR Player = DirectX::XMLoadFloat3(&centerPosition);
 
 		distBetweenArmies = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(DirectX::XMVectorSubtract(Enemy, Player)));
 		float detectionRangeSq = armyDetectionRange * armyDetectionRange;
 		if (distBetweenArmies < detectionRangeSq)
+		{
+			targetArmy = const_cast<Army*>(army);
+			targetSet = true;
+		}*/
+
+		if (AABBvsAABB(this->getAABB(), army->getAABB()))
 		{
 			targetArmy = const_cast<Army*>(army);
 			targetSet = true;
@@ -276,13 +320,21 @@ public:
 		for (auto& enemy : enemies)
 		{
 			if (enemy->defeated) continue;
-			float distBetweenArmies = 0.0f;
+			/*float distBetweenArmies = 0.0f;
 			DirectX::XMVECTOR Enemy = DirectX::XMLoadFloat3(&enemy->centerPosition);
 			DirectX::XMVECTOR Player = DirectX::XMLoadFloat3(&centerPosition);
 
 			distBetweenArmies = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(DirectX::XMVectorSubtract(Enemy, Player)));
 			float detectionRangeSq = armyDetectionRange * armyDetectionRange;
 			if (distBetweenArmies < detectionRangeSq)
+			{
+				targetArmy = const_cast<Army*>(enemy);
+				targetSet = true;
+				attacking = true;
+				break;
+			}*/
+
+			if( AABBvsAABB(this->getAABB(), enemy->getAABB()) )
 			{
 				targetArmy = const_cast<Army*>(enemy);
 				targetSet = true;
@@ -432,6 +484,13 @@ private:
 	}
 
 	void OrientationRevaluation();
+
+	bool AABBvsAABB(const Army::HitBox& a, const Army::HitBox& b)
+	{
+		return
+			a.min.x <= b.max.x && a.max.x >= b.min.x &&
+			a.min.z <= b.max.z && a.max.z >= b.min.z;
+	}
 
 
 protected:

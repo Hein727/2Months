@@ -159,6 +159,15 @@
     <ClInclude Include="Source\UIManager.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ItemDrop.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemGenerator.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AttributeSystem.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -264,6 +273,15 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\UIManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemDrop.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemGenerator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AttributeSystem.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

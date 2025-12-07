@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemGenerator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\ItemGenerator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemGenerator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\ItemGenerator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Army.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Units.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\Units.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemDrop.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D22095F2-0FC3-424B-97D6-074B973AB293}|Game.vcxproj|solutionrelative:Source\\ItemDrop.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,28 +46,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Army.h",
-              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
-              "RelativeDocumentMoniker": "Source\\Army.h",
-              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
-              "RelativeToolTip": "Source\\Army.h",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGsAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Units.h",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h",
+              "RelativeDocumentMoniker": "Source\\Units.h",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.h",
+              "RelativeToolTip": "Source\\Units.h",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAkwBoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-06T22:06:16.401Z",
+              "WhenOpened": "2025-12-07T12:01:30.852Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "Units.cpp",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp",
+              "RelativeDocumentMoniker": "Source\\Units.cpp",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Units.cpp",
+              "RelativeToolTip": "Source\\Units.cpp",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAIwIEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-07T11:52:33.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Army.cpp",
               "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
               "RelativeDocumentMoniker": "Source\\Army.cpp",
               "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.cpp",
               "RelativeToolTip": "Source\\Army.cpp",
-              "ViewState": "AgIAABMAAAAAAAAAAAAkwCkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAAABUBAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-06T16:10:51.793Z",
+              "WhenOpened": "2025-12-07T11:04:53.895Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Army.h",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
+              "RelativeDocumentMoniker": "Source\\Army.h",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\Army.h",
+              "RelativeToolTip": "Source\\Army.h",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAEsAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-07T11:04:06.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ItemDrop.h",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemDrop.h",
+              "RelativeDocumentMoniker": "Source\\ItemDrop.h",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemDrop.h",
+              "RelativeToolTip": "Source\\ItemDrop.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-07T10:58:41.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ItemGenerator.h",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemGenerator.h",
+              "RelativeDocumentMoniker": "Source\\ItemGenerator.h",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemGenerator.h",
+              "RelativeToolTip": "Source\\ItemGenerator.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-07T10:47:20.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ItemGenerator.cpp",
+              "DocumentMoniker": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemGenerator.cpp",
+              "RelativeDocumentMoniker": "Source\\ItemGenerator.cpp",
+              "ToolTip": "C:\\Users\\2240705\\Desktop\\2 Months Project\\2Months\\Source\\ItemGenerator.cpp",
+              "RelativeToolTip": "Source\\ItemGenerator.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-07T10:47:20.134Z",
               "EditorCaption": ""
             }
           ]

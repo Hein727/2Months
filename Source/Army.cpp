@@ -450,6 +450,8 @@ void Army::Update(float elapsedTime)
 
 	RemoveDeadUnits();
 
+	armyHitBox = ComputeAABB();
+
 	moralCalculation();
 }
 

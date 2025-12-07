@@ -144,6 +144,6 @@ void Unit::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
 	if (model)
 	{
-		shader->Draw(dc, model.get());
+		shader->Draw(dc, model.get(), color);
 	}
 }

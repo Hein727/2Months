@@ -2,108 +2,114 @@
 #include <chrono>
 #include <cmath>
 #include <algorithm>
-#include "AttributeSystem.h"
 
 ItemGenerator::ItemGenerator()
 {
-    const auto now = std::chrono::high_resolution_clock::now();
-    const auto seed = static_cast<uint32_t>(now.time_since_epoch().count());
+    uint32_t seed =
+        (uint32_t)std::chrono::high_resolution_clock::now()
+        .time_since_epoch().count();
+
     rng.seed(seed);
 
     powerupNames = { "beast", "fist", "reload", "runner" };
     bookNames = { "book of earth", "book of fire", "book of wind", "book of wood" };
+
+    // Spawn one item and one book to start
+	for (int i = 0; i < 5; ++i)
+    GeneratePowerUp();
 }
 
 ItemGenerator::ItemGenerator(uint32_t seed)
 {
     rng.seed(seed);
-    
+
     powerupNames = { "beast", "fist", "reload", "runner" };
     bookNames = { "book of earth", "book of fire", "book of wind", "book of wood" };
+
+    GeneratePowerUp();
 }
 
-void ItemGenerator::GeneratePowerUps()
+void ItemGenerator::Update(float dt)
 {
-	std::unique_ptr<Powerup> item = std::make_unique<Powerup>();
+    bobbingTime += dt;
+    float bobOffset = std::sin(bobbingTime * 2.0f) * bobHeight;
+
+    // POWERUPS
+    for (auto& item : items)
+    {
+        item->rotationY += spinSpeed * dt;
+        item->lifetime -= dt;
+
+		item->pos.y = bobOffset;
+
+		item->rotationY += spinSpeed * dt;
+
+        item->Update(dt);
+    }
+
+    RemoveExpiredItems();
+}
+
+void ItemGenerator::Render(ID3D11DeviceContext* dc, Shader* shader)
+{
+    for (auto& item : items)
+        shader->Draw(dc, item->model.get(), { 0.824, 0.412, 0.118, 1.0f });
+
+}
+
+void ItemGenerator::GeneratePowerUp()
+{
+    auto item = std::make_unique<Powerup>();
 
     item->name = SelectName(powerupNames);
     item->power = GeneratePower(item->name);
+    item->pos = GeneratePosition();
+    item->lifetime = 30.0f;
 
-	items.push_back(std::move(item));
-
-    //item.rarity = SelectRarity();
-    //item.isCursed = GenerateCurseFlag(item.rarity);
+    items.push_back(std::move(item));
 }
 
-void ItemGenerator::GenerateBooks()
+std::string ItemGenerator::SelectName(const std::vector<std::string>& list)
 {
-    std::unique_ptr<Books> book = std::make_unique<Books>();
-
-	book->name = SelectName(bookNames);
-
-	books.push_back(std::move(book));
+    std::uniform_int_distribution<size_t> dist(0, list.size() - 1);
+    return list[dist(rng)];
 }
 
-
-std::string ItemGenerator::SelectName(const std::vector<std::string>& candidates)
+float ItemGenerator::GeneratePower(const std::string& name)
 {
-    std::uniform_int_distribution<size_t> dist(0, candidates.size() - 1);
-    return candidates[dist(rng)];
+    if (name == "beast")
+        return std::uniform_real_distribution<float>(10, 25)(rng);
+    if (name == "fist")
+        return std::uniform_real_distribution<float>(5, 15)(rng);
+    if (name == "reload")
+        return std::uniform_real_distribution<float>(5, 10)(rng);
+    if (name == "runner")
+        return std::uniform_real_distribution<float>(10, 25)(rng);
+
+    return 0.0f;
 }
 
-float ItemGenerator::GeneratePower(const std::string name)
+DirectX::XMFLOAT3 ItemGenerator::GeneratePosition()
 {
-    // レア度に比例して威力を強化しつつ揺らぎを持たせる really cool 
-    //std::normal_distribution<float> variance(1.0f * 0.2f, 0.1f);
-    //const float base = 50.0f * 25.0f;
-    //return base * std::max(0.7f, variance(rng));
-    
-    if (name == powerupNames[0])
-    {
-        std::uniform_real_distribution<float> powerDist(10.0f , 25.0f);
-        return powerDist(rng);
-    }
-    else if (name == powerupNames[1])
-    {
-        std::uniform_real_distribution<float> powerDist(5.0f, 15.0f);
-        return powerDist(rng);
-    }
-    else if(name == powerupNames[2])
-    {
-        std::uniform_real_distribution<float> powerDist(5.0f, 10.0f);
-        return powerDist(rng);
-    }
-    else if (name == powerupNames[3])
-    {
-        std::uniform_real_distribution<float> powerDist(10.0f, 25.0f);
-        return powerDist(rng);
-    }
-    else
-    {
-        return 0.0f;
-    }
+    std::uniform_real_distribution<float> distX(-40.0f, 40.0f);
+    std::uniform_real_distribution<float> distZ(-40.0f, 40.0f);
+
+    return { distX(rng), 0.0f, distZ(rng) };
 }
 
+void ItemGenerator::RemoveExpiredItems()
+{
+    for (int i = (int)items.size() - 1; i >= 0; --i)
+    {
+        if (items[i]->lifetime <= 0.0f)
+        {
+            items.erase(items.begin() + i);
+        }
+    }
 
-//bool ItemGenerator::IsValuable(const GeneratedItem& item) const
-//{
-//    // レア度と性能が高く、呪われていなければ「価値あり」とみなす
-//    const bool rarityGood = item.rarity >= 3; // Epic 以上
-//    const bool powerGood = item.power >= 120.0f;
-//    const bool curseSafe = !item.isCursed;
-//    return (rarityGood || powerGood) && curseSafe;
-//}
+    while (items.size() < MAX_ITEMS)
+    {
+        GeneratePowerUp();
+    }
 
-//int ItemGenerator::SelectRarity()
-//{
-//    // 重み付き乱数: ノーマルからレジェンダリーまで
-//    std::discrete_distribution<int> rarityDist{ 50, 30, 15, 4, 1 };
-//    return rarityDist(rng);
-//}
-
-//bool ItemGenerator::GenerateCurseFlag(int rarity)
-//{
-//    // レア度が高いほど呪いの確率は低くする
-//    std::bernoulli_distribution curseDist(std::max(0.05, 0.25 - rarity * 0.05));
-//    return curseDist(rng);
-//}
+}

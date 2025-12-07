@@ -26,6 +26,12 @@ public:
 	void EnemyDefeated();
 	void SpawnEnemy(float elapsedTime);
 	std::vector<Army*> GetEnemyVector() { return enemies; }
+	bool AABBvsAABB(const Army::HitBox& a, const Army::HitBox& b)
+	{
+		return
+			a.min.x <= b.max.x && a.max.x >= b.min.x &&
+			a.min.z <= b.max.z && a.max.z >= b.min.z;
+	}
 
 private:
 	std::vector<Army*> enemies;

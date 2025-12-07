@@ -17,6 +17,8 @@ private:
 	float pawnRadius = 50.4f * 0.01f;
 
 public:
+	DirectX::XMFLOAT4 color = { -1, 0, 0, 0 };
+
 	enum state
 	{
 		IDLE = 0,
